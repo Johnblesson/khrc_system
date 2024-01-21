@@ -1,0 +1,105 @@
+<!-- Section for Adding Health Records -->
+<div class="container pt-5 mt-5 my-3">
+    <br>
+    <p class="text-center" id="subHead1"><b>CSS LS1 LS2</b></p>
+    <hr>
+
+    <form action="update" method="post" id="MedicalForm" >
+      <!-- ... (Your existing form fields) ... -->
+  
+      <!-- Blood Sample Collection Fields -->
+      <div class="form-group">
+        <label for="gender" class="text-light">Type</label>
+        <div class="radio inline">
+            <input type="radio" id="radio-2" name="type" value="CSS" <% storage.type == 'CSS' ? 'checked' : '' %> >
+            <input type="hidden" name="id" value="<%= storage._id %>">
+            <label for="radio-2" class="radio-label">CSS</label>
+        </div>
+        <div class="radio inline">
+            <input type="radio" id="radio-3" name="type" value="LS1" <% storage.type == 'LS1' ? 'checked' : '' %> >
+            <label for="radio-3" class="radio-label">LS1</label>
+        </div>
+        <div class="radio inline">
+          <input type="radio" id="radio-3" name="type" value="LS2" <% storage.type == 'LS2' ? 'checked' : '' %>>
+          <label for="radio-4" class="radio-label">LS2</label>
+      </div>
+    </div>
+
+      <div class="form-group row">
+          <label for="studyNameInput" class="col-sm-2 col-form-label">Study Name:</label>
+          <div class="col-sm-10 position-relative">
+              <input type="text" name="studyName" class="form-control" id="studyNameInput" value="<%= storage.studyName %>" placeholder="Study Name">
+          </div>
+      </div>
+      <div class="form-group row">
+          <label for="subjectInput" class="col-sm-2 col-form-label">Subject:</label>
+          <div class="col-sm-10 position-relative">
+              <input type="text" name="subject"  class="form-control" id="subjectInput" value="<%= storage.subject %>" placeholder="Subject">
+          </div>
+      </div>
+      <div class="form-group row">
+          <label for="visitNameInput" class="col-sm-2 col-form-label">Visit Name:</label>
+          <div class="col-sm-10 position-relative">
+              <input type="text" name="visitName" class="form-control" id="visitNameInput" value="<%= storage.visitName %>" placeholder="Visit Name">
+          </div>
+      </div>
+      <div class="form-group row">
+          <label for="visitDateInput" class="col-sm-2 col-form-label">Visit Date:</label>
+          <div class="col-sm-10 position-relative">
+              <input type="date" name="visitDate" class="form-control" value="<%= storage.visitDate %>" id="visitDateInput">
+          </div>
+      </div>
+      <div class="form-group row">
+          <label for="ageAtVisitInput" class="col-sm-2 col-form-label">Age at Visit:</label>
+          <div class="col-sm-10 position-relative">
+              <input type="text" name="ageAtVisit" class="form-control" id="ageAtVisitInput" value="<%= storage.ageAtVisit %>" placeholder="Age at Visit">
+          </div>
+      </div>
+      <div class="form-group row">
+          <label for="dateSampleCollectionInput" class="col-sm-2 col-form-label">Date of Sample Collection:</label>
+          <div class="col-sm-10 position-relative">
+              <input type="date" name="dateSampleCollection" class="form-control" value="<%= storage.dateSampleCollection %>" id="dateSampleCollectionInput">
+          </div>
+      </div>
+      <div class="form-group row">
+          <label for="timeOfSampleCollectionInput" class="col-sm-2 col-form-label">Time of Sample Collection:</label>
+          <div class="col-sm-10 position-relative">
+              <input type="text" name="timeOfSampleCollection" class="form-control" id="timeOfSampleCollectionInput" value="<%= storage.timeOfSampleCollection %>" placeholder="Time of Sample Collection">
+          </div>
+      </div>
+      <div class="form-group row">
+          <label for="dateOfSampleReceiptInput" class="col-sm-2 col-form-label">Date of Sample Receipt:</label>
+          <div class="col-sm-10 position-relative">
+              <input type="date" name="dateOfSampleReceipt" class="form-control" value="<%= storage.dateOfSampleReceipt %>" id="dateOfSampleReceiptInput">
+          </div>
+      </div>
+      <div class="form-group row">
+          <label for="timeOfSampleReceiptInput" class="col-sm-2 col-form-label">Time of Sample Receipt:</label>
+          <div class="col-sm-10 position-relative">
+              <input type="text" name="timeOfSampleReceipt" class="form-control" id="timeOfSampleReceiptInput" value="<%= storage.timeOfSampleReceipt %>" placeholder="Time of Sample Receipt">
+          </div>
+      </div>
+      <div class="form-group row">
+          <label for="commentsInput" class="col-sm-2 col-form-label">Comments:</label>
+          <div class="col-sm-10 position-relative">
+              <textarea name="comments"  class="form-control" id="commentsInput" rows="4" value="<%= storage.comments %>" placeholder="Comments"></textarea>
+          </div>
+      </div>
+      <div class="form-group row">
+          <label for="dateOfEntryInput" class="col-sm-2 col-form-label">Date of Entry:</label>
+          <div class="col-sm-10 position-relative">
+              <input type="date" name="dateOfEntry" class="form-control" value="<%= storage.dateOfEntry %>" id="dateOfEntryInput" readonly>
+          </div>
+      </div>
+      <div class="form-group row">
+          <label for="entryDoneByInput" class="col-sm-2 col-form-label">Entry Done By:</label>
+          <div class="col-sm-10 position-relative">
+              <input type="text" name="entryDoneBy" class="form-control" id="entryDoneByInput" value="<%= storage.entryDoneBy %>" placeholder="Entry Done By" readonly>
+          </div>
+      </div>
+  
+      <!-- Button -->
+      <button type="submit" class="btn text-light btn-large btn-block" style="background-color: #b40c57;" id="add-record-btn">Add Your Record</button>
+  </form>
+  </div>
+  

@@ -1,0 +1,36 @@
+body {
+  scrollbar-width: thin;
+  scrollbar-color: #b40c57 #bf3370;
+  overflow-x: hidden;
+}
+
+body::-webkit-scrollbar {
+  width: 10px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  border-radius: 6px;
+  opacity: 0.7;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(-45deg, #f68a69, #f576a7, #7bd4f5, #70f6d7);
+  opacity: 1;
+}
+
+/* Style for the logout button container */
+.logout-container {
+  text-align: right;
+}
+
+/* Style for the logout button */
+.logout-button {
+  background-color: #b40c57;
+  color: #ffffff;
+  padding: 5px 10px;
+  margin-top: -4.5px;
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+}

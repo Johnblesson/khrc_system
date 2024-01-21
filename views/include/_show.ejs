@@ -1,0 +1,19 @@
+<% for(let i = 0; i < storage.length; i++) { %>
+    <tr>
+        <td><%= i + 1 %></td>
+        <td><%= storage[i].type %></td>
+        <td><%= storage[i].studyName %></td>
+        <td><%= storage[i].subject %></td>
+        <td><%= storage[i].visitName %></td>
+        <td><%= storage[i].visitDate %></td>
+        <td><%= storage[i].ageAtVisit %></td>
+        <td>
+            <a href="/update?id=<%= storage[i]._id%>" class="btn border-shadow update">
+                <span class="text-gradient"><i class="fas fa-pencil-alt"></i></span>
+            </a>
+            <a class="btn border-shadow delete" data-id=<%= storage[i]._id%> >
+                <span class="text-gradient"><i class="fas fa-times"></i></span>
+            </a>
+        </td>
+    </tr>
+    <% } %>
