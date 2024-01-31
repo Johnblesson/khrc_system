@@ -2,7 +2,7 @@ import { Router } from "express";
 const router = Router();
 import { signUp, logIn } from "../controllers/auth.js";
 import { homeRoute, update } from "../services/render.js";
-//import ensureAuthenticated from '../middleware/auth.js';
+import ensureAuthenticated from '../middleware/auth.js';
 
 router.post('/register', signUp);
 router.post('/login', logIn);
@@ -32,7 +32,7 @@ router.get('/contact', (req, res) => {
     res.render('contactUs');
 })
 
-router.get('/about', (req, res) => {
+router.get('/about', ensureAuthenticated, (req, res) => {
     res.render('About');
 })
 

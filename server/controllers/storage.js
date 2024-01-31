@@ -40,12 +40,12 @@ export const createStorage = async (req, res) => {
 export const getStorage = async (req, res) => {
   try {
    const storage = await CSS.find();
-   res.status(200).json({
-    status: 'success',
+   res.status(200).json({ storage
+    // status: 'success',
     // results: newsletters.length,
-    data: {
-        storage
-    }
+    // data: {
+    //     storage
+    // }
 })
   } catch (error) {
     return res.status(500).json({

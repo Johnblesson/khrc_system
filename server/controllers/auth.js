@@ -21,9 +21,8 @@ import jwt from 'jsonwebtoken';
     // };
   
     try {
-      password = req.body.password;
       const saltRounds = 10;
-      const hashedPassword = await bcrypt.hash(password, saltRounds);
+      const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
   
       const userData = new User({
         email: req.body.email,
