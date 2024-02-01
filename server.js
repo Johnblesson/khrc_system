@@ -6,7 +6,9 @@ import session from 'express-session';
 import bodyParser from 'body-parser';
 import connectDB from './server/database/connection.js';
 import views from './server/routes/viewRoute.js';
-import storage from './server/routes/storage.js';
+import css_Storage from './server/routes/css.js';
+import ls1_Storage from './server/routes/ls1.js';
+import ls2_Storage from './server/routes/ls2.js';
 import contact from './server/routes/contactRoute.js';
 import cors from 'cors';
 import { fileURLToPath } from 'url';
@@ -38,7 +40,9 @@ app.use(session({
 
 // Add the router
 app.use(views)
-app.use(storage)
+app.use(css_Storage)
+app.use(ls1_Storage)
+app.use(ls2_Storage)
 app.use(contact)
 
 // Start the Server  

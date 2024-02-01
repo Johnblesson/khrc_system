@@ -33,6 +33,80 @@
     href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap"
     rel="stylesheet">
 
+    <style>
+      /* Resetting some default styles for consistency */
+      /* body, ul {
+          margin: 0;
+          padding: 0;
+          list-style: none;
+      } */
+
+      /* Basic styling for the navigation bar */
+      nav {
+          /* background-color: #333; */
+          color: #fff;
+          padding: 10px 20px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+      }
+
+      /* Styling for the logo */
+      /* .logo {
+          font-size: 28px;
+          font-weight: bold;
+          text-decoration: none;
+          color: #fff;
+      } */
+
+      /* Styling for the navigation links */
+      ul {
+          display: flex;
+      }
+
+      li {
+          margin: 0 10px;
+          position: relative;
+      }
+
+      a {
+          text-decoration: none;
+          color: #fff;
+          font-weight: bold;
+      }
+
+
+      /* Styling for the dropdown */
+      .dropdown {
+          position: absolute;
+          top: 100%;
+          left: 0;
+          display: none;
+          background-color: #b40c57;
+          padding: 10px;
+          border-radius: 0 0 5px 5px;
+          z-index: 1;
+      }
+
+      /* Show the dropdown when hovering over the Storage link */
+      li:hover .dropdown {
+          display: block;
+      }
+
+      /* Style for the dropdown items */
+      .dropdown a {
+          color: #fff;
+          display: block;
+          padding: 8px 10px;
+          text-decoration: none;
+      }
+
+      /* Hover effect for the dropdown items */
+      .dropdown a:hover {
+          background-color: #ec5c9c;
+      }
+  </style>
+
 </head>
 
 <body>
@@ -46,7 +120,15 @@
     </a>
     <ul>
       <li><a href="/index">Home</a></li>
-      <li><a href="/form"> Storage </a></li>
+      <!-- <li><a href="#"> Storage </a></li> -->
+      <li>
+        <a href="#">Storage</a>
+        <div class="dropdown">
+          <a href="css-storage">CSS</a>
+          <a href="ls1-storage">LS1</a>
+          <a href="ls2-storage">LS2</a>
+        </div>
+      </li>
       <li><a href="About"> About </a></li>
       <li><a href="contact">Contact Us</a></li>
       <div class="logout-container">

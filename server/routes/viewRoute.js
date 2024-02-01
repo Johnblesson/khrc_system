@@ -24,8 +24,15 @@ router.get('/register', (req, res) => {
 router.get('/index', homeRoute)
 router.get('/update', update)
 
-router.get('/form', (req, res) => {  
-    res.render('css-ls1-ls2');
+router.get('/css-storage', (req, res) => {  
+    res.render('css');
+})
+
+router.get('/ls1-storage', (req, res) => {  
+    res.render('ls1');
+})
+router.get('/ls2-storage', (req, res) => {  
+    res.render('ls2');
 })
 
 router.get('/contact', (req, res) => {  

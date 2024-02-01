@@ -7,7 +7,7 @@ import {
     findStorage,
     updateStorage,
     deleteStorage
-    } from "../controllers/storage.js";
+    } from "../controllers/css.js";
 
 router.post('/storage', createStorage);
 router.get('/api/storages', getStorage);

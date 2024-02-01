@@ -1,4 +1,4 @@
-import CSS from '../models/storage.js'; // 
+import CSS from '../models/css.js';
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -6,11 +6,15 @@ dotenv.config();
 export const createStorage = async (req, res) => {
   try {
     const newStorage = new CSS({
-        type: req.body.type,
         studyName: req.body.studyName,
         subject: req.body.subject,
         visitName: req.body.visitName,
         visitDate: req.body.visitDate,
+        sampleType: req.body.sampleType,
+        roomNumber: req.body.roomNumber,
+        boxNumber: req.body.boxNumber,
+        row: req.body.row,
+        column: req.body.column,
         ageAtVisit: req.body.ageAtVisit,
         dateSampleCollection: req.body.dateSampleCollection,
         timeOfSampleCollection: req.body.timeOfSampleCollection,

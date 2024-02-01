@@ -102,13 +102,7 @@ h2 {
 
 section {
   margin-bottom: 2rem;
-}
 
-/* Applied text shadow to beautify the website */
-#subHead1 {
-  color: var(--darkPurple);
-  font: bold;
-  font-size: 30px;
 }
 
 /* Applied text shadow */

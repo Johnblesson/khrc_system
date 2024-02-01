@@ -1,0 +1,181 @@
+<!-- include header -->
+<%- include('include/_header') %>
+<!-- /include header -->
+
+<!-- include style -->
+<%- include('include/_indexCss') %>
+<!-- /include style -->
+
+<!-- Section for Adding Health Records -->
+<div class="container pt-5 mt-5 my-3">
+
+ <!-- Storage Form -->
+ <div class="storage-container">
+
+    <button class="storage-button" onclick="toggleForm()">
+        <i class="fas fa-database icon"></i> LS1 STORAGE
+    </button>
+</div>
+
+
+<div class="storage-container">
+    <!-- Reception Form -->
+    <form action="ls1-storage" method="POST" id="receptionForm">
+
+        <div class="form-group row">
+            <label for="studyNameInput" class="col-sm-2 col-form-label">Study Name:</label>
+            <div class="col-sm-4 position-relative">
+                <input type="text" name="studyName" class="form-control" id="studyNameInput" placeholder="Study Name">
+            </div>
+
+            <label for="subjectInput" class="col-sm-2 col-form-label">Subject:</label>
+            <div class="col-sm-4 position-relative">
+                <input type="text" name="subject" class="form-control" id="subjectInput" placeholder="Subject">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="visitNameInput" class="col-sm-2 col-form-label">Visit Name:</label>
+            <div class="col-sm-4 position-relative">
+                <select id="sampleType" class="form-control" name="visitName">
+                    <option value="m0">M0</option>
+                    <option value="m6">M6</option>
+                    <option value="m12">M12</option>
+                    <option value="m18">M18</option>
+                    <option value="m24">M24</option>
+                </select>
+            </div>
+
+            <label for="visitDateInput" class="col-sm-2 col-form-label">Visit Date:</label>
+            <div class="col-sm-4 position-relative">
+                <input type="date" name="visitDate" class="form-control" id="visitDateInput">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="sampleType" class="col-sm-2 col-form-label">Sample Type:</label>
+            <div class="col-sm-4 position-relative">
+                <select id="sampleType" class="form-control" name="sampleType">
+                    <option value="dna">DNA from Urine</option>
+                    <option value="dnaFromSCVS">DNA from SCVS</option>
+                    <option value="urine_pellets_aliquots">Urine Pellets Aliquots</option>
+                    <option value="vaginal_swab_sample_aliquots">Vaginal Swab Sample Aliquots </option>
+                </select>
+            </div>
+        </div>
+
+         <!-- Add -->
+      <div class="form-group row">
+        <label for="roomNumber" class="col-sm-2 col-form-label">Room Number:</label>
+        <div class="col-sm-4 position-relative">
+            <input type="text" name="roomNumber" class="form-control" id="roomNumber" placeholder="Room Number">
+        </div>
+
+        <label for="boxNumber" class="col-sm-2 col-form-label">Box Number:</label>
+        <div class="col-sm-4 position-relative">
+            <input type="text" name="boxNumber" class="form-control" id="boxNumber" required>
+        </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="row" class="col-sm-2 col-form-label">Row:</label>
+      <div class="col-sm-4 position-relative">
+          <input type="text" name="row" class="form-control" id="row" placeholder="Row" required>
+      </div>
+
+      <label for="column" class="col-sm-2 col-form-label">Column:</label>
+      <div class="col-sm-4 position-relative">
+          <input type="text" name="column" class="form-control" id="column">
+      </div>
+  </div>
+
+    <!-- Add  -->
+
+        <div class="form-group row">
+            <label for="ageAtVisitInput" class="col-sm-2 col-form-label">Age at Visit:</label>
+            <div class="col-sm-4 position-relative">
+                <input type="text" name="ageAtVisit" class="form-control" id="ageAtVisitInput" placeholder="Age at Visit">
+            </div>
+
+            <label for="dateSampleCollectionInput" class="col-sm-2 col-form-label">Date of Sample Collection:</label>
+            <div class="col-sm-4 position-relative">
+                <input type="date" name="dateSampleCollection" class="form-control" id="dateSampleCollectionInput">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="timeOfSampleCollectionInput" class="col-sm-2 col-form-label">Time of Sample Collection:</label>
+            <div class="col-sm-4 position-relative">
+                <input type="text" name="timeOfSampleCollection" class="form-control" id="timeOfSampleCollectionInput" placeholder="Time of Sample Collection">
+            </div>
+
+            <label for="dateOfSampleReceiptInput" class="col-sm-2 col-form-label">Date of Sample Receipt:</label>
+            <div class="col-sm-4 position-relative">
+                <input type="date" name="dateOfSampleReceipt" class="form-control" id="dateOfSampleReceiptInput">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="timeOfSampleReceiptInput" class="col-sm-2 col-form-label">Time of Sample Receipt:</label>
+            <div class="col-sm-4 position-relative">
+                <input type="text" name="timeOfSampleReceipt" class="form-control" id="timeOfSampleReceiptInput" placeholder="Time of Sample Receipt">
+            </div>
+
+            <label for="commentsInput" class="col-sm-2 col-form-label">Comments:</label>
+            <div class="col-sm-4 position-relative">
+                <textarea name="comments" class="form-control" id="commentsInput" rows="4" placeholder="Comments"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="dateOfEntryInput" class="col-sm-2 col-form-label">Date of Entry:</label>
+            <div class="col-sm-4 position-relative">
+                <input type="date" name="dateOfEntry" class="form-control" id="dateOfEntryInput">
+            </div>
+
+            <label for="entryDoneByInput" class="col-sm-2 col-form-label">Entry Done By:</label>
+            <div class="col-sm-4 position-relative">
+                <input type="text" name="entryDoneBy" class="form-control" id="entryDoneByInput" placeholder="Entry Done By">
+            </div>
+        </div>
+
+        <!-- Button -->
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <button type="submit" class="btn text-light btn-large btn-block" style="background-color: #b40c57;" id="add-record-btn">Add Your Record</button>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+<!-- <script>
+    function toggleForm() {
+        var storageButton = document.querySelector(".storage-button");
+        var storageForm = document.getElementById("storageForm");
+
+        storageButton.style.display = "none";
+        storageForm.style.display = "block";
+    }
+</script> -->
+  <script>
+    function toggleForm() {
+        var form = document.getElementById("storageForm");
+        form.style.display = (form.style.display === "none" || form.style.display === "") ? "block" : "none";
+    }
+
+
+      // Function to format the current date and time
+      function getCurrentDateTime() {
+        const now = new Date();
+        const formattedDateTime = now.toISOString().slice(0, 16); // Format: "YYYY-MM-DDTHH:mm"
+        return formattedDateTime;
+    }
+
+    // Set the default values on page load
+    document.getElementById("dateOfEntryInput").value = getCurrentDateTime();
+</script>
+
+<!-- include footer -->
+<%- include('include/_footer') %>
+<!-- /include footer -->

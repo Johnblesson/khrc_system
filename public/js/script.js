@@ -5,8 +5,8 @@ document.addEventListener("DOMContentLoaded", function () {
   let allData; // Variable to store all fetched data
 
   // Fetch data from the server
-  // fetch("http://localhost:3000/storage") 
-  fetch("http://localhost:5000/api/storages")
+  fetch("http://localhost:3000/storage") 
+  // fetch("http://localhost:5000/api/storages")
       .then(res => res.json())
       .then(json => {
           allData = json;

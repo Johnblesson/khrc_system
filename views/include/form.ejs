@@ -1,0 +1,164 @@
+  <style>
+
+    </style>
+
+
+<!-- Section for Adding Health Records -->
+<div class="container pt-5 mt-5 my-3">
+    <!-- <br>
+    <p class="text-center" id="subHead1"><b>CSS LS1 LS2</b></p>
+    <hr> -->
+
+<!-- <div class="storage-container">
+        <form action="#" method="get">
+           <button type="submit" class="storage-button">
+            <i class="fa-solid fa-database"></i> STORAGE
+       </button>
+     </form>
+ </div> -->
+
+ <!-- Storage Form -->
+ <div class="storage-container">
+    <form action="storage" method="post" id="storageForm" class="main-form">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" rows="4" required></textarea>
+<!-- 
+        <button type="submit" class="storage-button">
+            <i class="fas fa-database icon"></i>Submit
+        </button> -->
+    </form>
+
+    <button class="storage-button" onclick="toggleForm()">
+        <i class="fas fa-database icon"></i> STORAGE
+    </button>
+</div>
+
+
+<div class="storage-container">
+    <!-- Reception Form -->
+    <form action="storage" method="POST" id="MedicalForm">
+
+        <div class="form-group row">
+            <label for="studyNameInput" class="col-sm-2 col-form-label">Study Name:</label>
+            <div class="col-sm-4 position-relative">
+                <input type="text" name="studyName" class="form-control" id="studyNameInput" placeholder="Study Name">
+            </div>
+
+            <label for="subjectInput" class="col-sm-2 col-form-label">Subject:</label>
+            <div class="col-sm-4 position-relative">
+                <input type="text" name="subject" class="form-control" id="subjectInput" placeholder="Subject">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="visitNameInput" class="col-sm-2 col-form-label">Visit Name:</label>
+            <div class="col-sm-4 position-relative">
+                <input type="text" name="visitName" value="M0" class="form-control" id="visitNameInput" placeholder="" readonly>
+            </div>
+
+            <label for="visitDateInput" class="col-sm-2 col-form-label">Visit Date:</label>
+            <div class="col-sm-4 position-relative">
+                <input type="date" name="visitDate" class="form-control" id="visitDateInput">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="sampleType" class="col-sm-2 col-form-label">Sample Type:</label>
+            <div class="col-sm-4 position-relative">
+                <select id="sampleType" class="form-control" name="sampleType">
+                    <option value="dna">DNA</option>
+                    <option value="urine_pellets">Urine Pellets</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="ageAtVisitInput" class="col-sm-2 col-form-label">Age at Visit:</label>
+            <div class="col-sm-4 position-relative">
+                <input type="text" name="ageAtVisit" class="form-control" id="ageAtVisitInput" placeholder="Age at Visit">
+            </div>
+
+            <label for="dateSampleCollectionInput" class="col-sm-2 col-form-label">Date of Sample Collection:</label>
+            <div class="col-sm-4 position-relative">
+                <input type="date" name="dateSampleCollection" class="form-control" id="dateSampleCollectionInput">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="timeOfSampleCollectionInput" class="col-sm-2 col-form-label">Time of Sample Collection:</label>
+            <div class="col-sm-4 position-relative">
+                <input type="text" name="timeOfSampleCollection" class="form-control" id="timeOfSampleCollectionInput" placeholder="Time of Sample Collection">
+            </div>
+
+            <label for="dateOfSampleReceiptInput" class="col-sm-2 col-form-label">Date of Sample Receipt:</label>
+            <div class="col-sm-4 position-relative">
+                <input type="date" name="dateOfSampleReceipt" class="form-control" id="dateOfSampleReceiptInput">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="timeOfSampleReceiptInput" class="col-sm-2 col-form-label">Time of Sample Receipt:</label>
+            <div class="col-sm-4 position-relative">
+                <input type="text" name="timeOfSampleReceipt" class="form-control" id="timeOfSampleReceiptInput" placeholder="Time of Sample Receipt">
+            </div>
+
+            <label for="commentsInput" class="col-sm-2 col-form-label">Comments:</label>
+            <div class="col-sm-4 position-relative">
+                <textarea name="comments" class="form-control" id="commentsInput" rows="4" placeholder="Comments"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="dateOfEntryInput" class="col-sm-2 col-form-label">Date of Entry:</label>
+            <div class="col-sm-4 position-relative">
+                <input type="date" name="dateOfEntry" class="form-control" id="dateOfEntryInput">
+            </div>
+
+            <label for="entryDoneByInput" class="col-sm-2 col-form-label">Entry Done By:</label>
+            <div class="col-sm-4 position-relative">
+                <input type="text" name="entryDoneBy" class="form-control" id="entryDoneByInput" placeholder="Entry Done By">
+            </div>
+        </div>
+
+        <!-- Button -->
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <button type="submit" class="btn text-light btn-large btn-block" style="background-color: #b40c57;" id="add-record-btn">Add Your Record</button>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+<!-- <script>
+    function toggleForm() {
+        var storageButton = document.querySelector(".storage-button");
+        var storageForm = document.getElementById("storageForm");
+
+        storageButton.style.display = "none";
+        storageForm.style.display = "block";
+    }
+</script> -->
+  <script>
+    function toggleForm() {
+        var form = document.getElementById("storageForm");
+        form.style.display = (form.style.display === "none" || form.style.display === "") ? "block" : "none";
+    }
+
+
+      // Function to format the current date and time
+      function getCurrentDateTime() {
+        const now = new Date();
+        const formattedDateTime = now.toISOString().slice(0, 16); // Format: "YYYY-MM-DDTHH:mm"
+        return formattedDateTime;
+    }
+
+    // Set the default values on page load
+    document.getElementById("dateOfEntryInput").value = getCurrentDateTime();
+</script>
