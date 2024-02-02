@@ -20,95 +20,16 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 
-
   <link rel="stylesheet" href="./css/style.css"> <!-- Your custom CSS file -->
-
+  <link rel="stylesheet" href="./css/header.css">
   <link rel="stylesheet" href="./css/common.css">
-
   <link rel="stylesheet" href="./css/scrollTop.css">
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
     href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap"
     rel="stylesheet">
-
-    <style>
-      /* Resetting some default styles for consistency */
-      /* body, ul {
-          margin: 0;
-          padding: 0;
-          list-style: none;
-      } */
-
-      /* Basic styling for the navigation bar */
-      nav {
-          /* background-color: #333; */
-          color: #fff;
-          padding: 10px 20px;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-      }
-
-      /* Styling for the logo */
-      /* .logo {
-          font-size: 28px;
-          font-weight: bold;
-          text-decoration: none;
-          color: #fff;
-      } */
-
-      /* Styling for the navigation links */
-      ul {
-          display: flex;
-      }
-
-      li {
-          margin: 0 10px;
-          position: relative;
-      }
-
-      a {
-          text-decoration: none;
-          color: #fff;
-          font-weight: bold;
-      }
-
-
-      /* Styling for the dropdown */
-      .dropdown {
-          position: absolute;
-          top: 100%;
-          left: 0;
-          display: none;
-          background-color: #b40c57;
-          padding: 10px;
-          border-radius: 0 0 5px 5px;
-          z-index: 1;
-      }
-
-      /* Show the dropdown when hovering over the Storage link */
-      li:hover .dropdown {
-          display: block;
-      }
-
-      /* Style for the dropdown items */
-      .dropdown a {
-          color: #fff;
-          display: block;
-          padding: 8px 10px;
-          text-decoration: none;
-      }
-
-      /* Hover effect for the dropdown items */
-      .dropdown a:hover {
-          background-color: #ec5c9c;
-      }
-  </style>
-
 </head>
-
 <body>
 
   <!-- NavBar -->
@@ -119,8 +40,8 @@
       <img src="./images/khrc_logo.png" alt="logo" width="130px">
     </a>
     <ul>
-      <li><a href="/index">Home</a></li>
-      <!-- <li><a href="#"> Storage </a></li> -->
+      <li><a href="index-admin">Home</a></li>
+      <li><a href="reception-admin-form"> Reception </a></li>
       <li>
         <a href="#">Storage</a>
         <div class="dropdown">
@@ -129,8 +50,13 @@
           <a href="ls2-storage">LS2</a>
         </div>
       </li>
-      <li><a href="About"> About </a></li>
+      <!-- <li><a href="About"> About </a></li> -->
       <li><a href="contact">Contact Us</a></li>
+      <div>
+        <i class="fa-solid fa-user" id="userIcon"></i>
+        <div id="userDropdown">
+        </div>
+      </div>
       <div class="logout-container">
         <form action="/logout" method="get">
            <button type="submit" class="logout-button">

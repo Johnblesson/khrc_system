@@ -1,0 +1,54 @@
+<!-- include header -->
+<%- include('include/_header') %>
+<!-- /include header -->
+
+<!-- include style -->
+<%- include('include/_indexCss') %>
+<!-- /include style -->
+ 
+
+<!-- Add the following block to your existing HTML file where you want the search inputs -->
+<div style="padding-top: 5rem; margin-top: 5rem; margin-bottom: 3rem;" class="container">
+  <div style="margin-bottom: 4rem;" class="row my-4">
+      <div style="width: 100%; display: flex; justify-content: center;" class="col-md-8 offset-md-2">
+          <div style="display: flex; justify-content: flex-end; align-items: center;" class="input-group">
+              <input style="margin-right: 1rem;" type="text" id="search" class="form-control" placeholder="Search by Type, Subject, Visit Name, Visit Date">
+              <select class="form-select" id="storageSearch">
+                  <option value="">Select Type</option>
+              </select>
+          </div>
+      </div>
+  </div>
+</div>
+
+<div class="button-container">
+    <a href="reception-admin-form" class="button"><i class="fa-solid fa-database"></i>  RECEPTION</a>
+    <a href="css-storage" class="button"><i class="fa-solid fa-database"></i>  CSS STORAGE</a>
+    <a href="ls1-storage" class="button"><i class="fa-solid fa-database"></i>  LS1 STORAGE</a>
+    <a href="ls2-storage" class="button"><i class="fa-solid fa-database"></i>  LS2 STORAGE</a>
+    <button class="button">ADMIN PANEL</button>
+</div>
+
+<br>
+      <p class="text-center" id="subHead1"><b>Cross-sectional Survey-CSS</b></p>
+      <p class="text-center" id="subHead1"><b>LS1 & LS2 Storage</b></p>
+<hr></hr>
+
+<!-- include display -->
+<%- include('include/_display') %>
+<!-- /include display -->
+    
+<!-- include footer -->
+<%- include('include/_footer') %>
+<!-- /include footer -->
+
+<script>
+    function promptPassword() {
+      const password = prompt('Enter the password:');
+      if (password) {
+        window.location.href = `/reception-form?password=${password}`;
+      } else {
+        alert('Password is required.');
+      }
+    }
+  </script>

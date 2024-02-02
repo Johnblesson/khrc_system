@@ -1,0 +1,63 @@
+nav {
+    /* background-color: #333; */
+    color: #fff;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Styling for the logo */
+/* .logo {
+    font-size: 28px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #fff;
+} */
+
+/* Styling for the navigation links */
+ul {
+    display: flex;
+}
+
+li {
+    margin: 0 10px;
+    position: relative;
+}
+
+a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+}
+
+
+/* Styling for the dropdown */
+.dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    display: none;
+    background-color: #b40c57;
+    padding: 10px;
+    border-radius: 0 0 5px 5px;
+    z-index: 1;
+}
+
+/* Show the dropdown when hovering over the Storage link */
+li:hover .dropdown {
+    display: block;
+}
+
+/* Style for the dropdown items */
+.dropdown a {
+    color: #fff;
+    display: block;
+    padding: 8px 10px;
+    text-decoration: none;
+}
+
+/* Hover effect for the dropdown items */
+.dropdown a:hover {
+    background-color: #ec5c9c;
+}

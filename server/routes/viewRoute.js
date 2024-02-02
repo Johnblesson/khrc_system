@@ -1,8 +1,10 @@
 import { Router } from "express";
 const router = Router();
-import { signUp, logIn } from "../controllers/auth.js";
+import { getAllUsers, getUserById, signUp, logIn } from "../controllers/auth.js";
 import { homeRoute, update } from "../services/render.js";
-import ensureAuthenticated from '../middleware/auth.js';
+// import { isAdmin } from "../middleware/isAdmin.js";
+// import { isUser } from "../middleware/isUser.js";
+import { ensureAuthenticated } from "../middleware/isAuth.js";
 
 router.post('/register', signUp);
 router.post('/login', logIn);
@@ -17,25 +19,42 @@ router.get('/register', (req, res) => {
     res.render('sign up'); 
 })
 
+router.get('/api/users', getAllUsers)
+router.get('/api/users/:id', getUserById)
+
 // router.get('/index', (req, res) => {
 //     res.render('index');
 // })
 
-router.get('/index', homeRoute)
+router.get('/index', ensureAuthenticated, homeRoute)
 router.get('/update', update)
 
-router.get('/css-storage', (req, res) => {  
+router.get('/index-admin', ensureAuthenticated, (req, res) => {
+    res.render('index-admin');
+})
+
+router.get('/css-storage', ensureAuthenticated, (req, res) => {  
     res.render('css');
 })
 
-router.get('/ls1-storage', (req, res) => {  
+router.get('/ls1-storage', ensureAuthenticated, (req, res) => {  
     res.render('ls1');
 })
-router.get('/ls2-storage', (req, res) => {  
+router.get('/ls2-storage', ensureAuthenticated, (req, res) => {  
     res.render('ls2');
 })
 
-router.get('/contact', (req, res) => {  
+router.get('/reception-form', ensureAuthenticated, (req, res) => { 
+    res.render('reception');
+})
+
+router.get('/reception-admin-form', ensureAuthenticated, (req, res) => { 
+    res.render('reception-admin');
+})
+
+// reception-admin-form
+
+router.get('/contact', ensureAuthenticated, (req, res) => {  
     res.render('contactUs');
 })
 

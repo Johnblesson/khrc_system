@@ -9,6 +9,7 @@ import views from './server/routes/viewRoute.js';
 import css_Storage from './server/routes/css.js';
 import ls1_Storage from './server/routes/ls1.js';
 import ls2_Storage from './server/routes/ls2.js';
+import reception from './server/routes/reception.js';
 import contact from './server/routes/contactRoute.js';
 import cors from 'cors';
 import { fileURLToPath } from 'url';
@@ -20,7 +21,13 @@ connectDB();
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(express.urlencoded({ extended: false }));
-app.use(cors());
+// app.use(cors());
+// Middleware to allow CORS (for development purposes)
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  next();
+});
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -43,6 +50,7 @@ app.use(views)
 app.use(css_Storage)
 app.use(ls1_Storage)
 app.use(ls2_Storage)
+app.use(reception)
 app.use(contact)
 
 // Start the Server  
