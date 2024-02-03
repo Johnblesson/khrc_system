@@ -26,8 +26,12 @@ router.get('/api/users/:id', getUserById)
 //     res.render('index');
 // })
 
-router.get('/index', ensureAuthenticated, homeRoute)
+// router.get('/index', ensureAuthenticated, homeRoute)
 router.get('/update', update)
+
+router.get('/index', ensureAuthenticated, (req, res) => {
+    res.render('index');
+})
 
 router.get('/index-admin', ensureAuthenticated, (req, res) => {
     res.render('index-admin');
@@ -52,10 +56,12 @@ router.get('/reception-admin-form', ensureAuthenticated, (req, res) => {
     res.render('reception-admin');
 })
 
-// reception-admin-form
-
-router.get('/contact', ensureAuthenticated, (req, res) => {  
+router.get('/admin-contact', ensureAuthenticated, (req, res) => {  
     res.render('contactUs');
+})
+
+router.get('/user-contact', ensureAuthenticated, (req, res) => {  
+    res.render('userContact');
 })
 
 router.get('/about', ensureAuthenticated, (req, res) => {

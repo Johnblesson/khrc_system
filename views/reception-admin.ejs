@@ -20,7 +20,7 @@
 
 <div class="storage-container">
     <!-- Reception Form -->
-    <form action="reception" method="POST" id="receptionForm">
+    <form action="api/admin/reception" method="POST" id="receptionForm">
 
         <div class="form-group row">
             <label for="studyNameInput" class="col-sm-2 col-form-label">Study Name:</label>
@@ -67,33 +67,6 @@
             </div>
         </div>
 
-         <!-- Add -->
-      <!-- <div class="form-group row">
-        <label for="roomNumber" class="col-sm-2 col-form-label">Room Number:</label>
-        <div class="col-sm-4 position-relative">
-            <input type="text" name="roomNumber" class="form-control" id="roomNumber" placeholder="Room Number">
-        </div>
-
-        <label for="boxNumber" class="col-sm-2 col-form-label">Box Number:</label>
-        <div class="col-sm-4 position-relative">
-            <input type="text" name="boxNumber" class="form-control" id="boxNumber" required>
-        </div>
-    </div>
-
-    <div class="form-group row">
-      <label for="row" class="col-sm-2 col-form-label">Row:</label>
-      <div class="col-sm-4 position-relative">
-          <input type="text" name="row" class="form-control" id="row" placeholder="Row" required>
-      </div>
-
-      <label for="column" class="col-sm-2 col-form-label">Column:</label>
-      <div class="col-sm-4 position-relative">
-          <input type="text" name="column" class="form-control" id="column">
-      </div>
-  </div> -->
-
-    <!-- Add  -->
-
         <div class="form-group row">
             <label for="ageAtVisitInput" class="col-sm-2 col-form-label">Age at Visit:</label>
             <div class="col-sm-4 position-relative">
@@ -109,7 +82,7 @@
         <div class="form-group row">
             <label for="timeOfSampleCollectionInput" class="col-sm-2 col-form-label">Time of Sample Collection:</label>
             <div class="col-sm-4 position-relative">
-                <input type="text" name="timeOfSampleCollection" class="form-control" id="timeOfSampleCollectionInput" placeholder="Time of Sample Collection">
+                <input type="time" name="timeOfSampleCollection" class="form-control" id="timeOfSampleCollectionInput" placeholder="Time of Sample Collection">
             </div>
 
             <label for="dateOfSampleReceiptInput" class="col-sm-2 col-form-label">Date of Sample Receipt:</label>
@@ -121,7 +94,7 @@
         <div class="form-group row">
             <label for="timeOfSampleReceiptInput" class="col-sm-2 col-form-label">Time of Sample Receipt:</label>
             <div class="col-sm-4 position-relative">
-                <input type="text" name="timeOfSampleReceipt" class="form-control" id="timeOfSampleReceiptInput" placeholder="Time of Sample Receipt">
+                <input type="time" name="timeOfSampleReceipt" class="form-control" id="timeOfSampleReceiptInput" placeholder="Time of Sample Receipt">
             </div>
 
             <label for="commentsInput" class="col-sm-2 col-form-label">Comments:</label>
@@ -178,6 +151,19 @@
     // Set the default values on page load
     document.getElementById("dateOfEntryInput").value = getCurrentDateTime();
 </script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('receptionForm').addEventListener('submit', function(event) {
+        // No need to prevent default behavior, as we want the form to submit normally
+  
+        // Your form handling logic here
+  
+        // Show an alert after the form submission
+        alert('Reception created successfully');
+      });
+    });
+  </script>
 
 <!-- include footer -->
 <%- include('include/_footer') %>

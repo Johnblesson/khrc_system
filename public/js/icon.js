@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Example: Fetch user information from the server (replace with your actual implementation)
     const fetchUserData = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/'); // Replace with your actual API endpoint
+        const response = await fetch('http://localhost:5000/api/users'); // Replace with your actual API endpoint
         const usersData = await response.json();
         return usersData;
       } catch (error) {
