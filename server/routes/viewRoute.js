@@ -29,8 +29,16 @@ router.get('/api/users/:id', getUserById)
 // router.get('/index', ensureAuthenticated, homeRoute)
 router.get('/update', update)
 
-router.get('/index', ensureAuthenticated, (req, res) => {
-    res.render('index');
+router.get('/index', ensureAuthenticated, async(req, res) => {
+
+    const messages = await req.flash("info");
+
+    // const locals = {
+    //   title: "NodeJs",
+    //   description: "Free NodeJs User Management System",
+    // };
+
+    res.render('index', messages);
 })
 
 router.get('/index-admin', ensureAuthenticated, (req, res) => {
@@ -56,6 +64,10 @@ router.get('/reception-admin-form', ensureAuthenticated, (req, res) => {
     res.render('reception-admin');
 })
 
+router.get('/view-reception', ensureAuthenticated, (req, res) => {  
+    res.render('viewReception');
+})
+
 router.get('/admin-contact', ensureAuthenticated, (req, res) => {  
     res.render('contactUs');
 })
@@ -74,7 +86,7 @@ router.get('/forbidden', (req, res) => {
 
 router.get('/logout', (req, res) => {
     req.session.destroy();
-    res.redirect('/');
+    res.redirect('/'); 
 });
 
 // export the router

@@ -11,6 +11,8 @@ export const createStorage = async (req, res) => {
         visitName: req.body.visitName,
         visitDate: req.body.visitDate,
         sampleType: req.body.sampleType,
+        sampleQuality: req.body.sampleQuality,
+        rejectionReason: req.body.rejectionReason,
         ageAtVisit: req.body.ageAtVisit,
         dateSampleCollection: req.body.dateSampleCollection,
         timeOfSampleCollection: req.body.timeOfSampleCollection,
@@ -62,7 +64,7 @@ export const createAdminReception = async (req, res) => {
   try {
     const newStorage = new RECEPTION({
         studyName: req.body.studyName,
-        subject: req.body.subject,
+        sampleId: req.body.sampleId,
         visitName: req.body.visitName,
         visitDate: req.body.visitDate,
         sampleType: req.body.sampleType,
@@ -92,20 +94,73 @@ export const createAdminReception = async (req, res) => {
 }
 }
 
-// // Get Admin RECEPTION
-// export const getReception = async (req, res) => {
-//   try {
-//    const storage = await RECEPTION.find();
-//    res.status(200).json({ storage
-//     // status: 'success',
-//     // results: newsletters.length,
-//     // data: {
-//     //     storage
-//     // }
-// })
-//   } catch (error) {
-//     return res.status(500).json({
-//       message: error,
-//     });
-//   }
-// };
+export const editPost = async (req, res) => {
+  try {
+    await Reception.findByIdAndUpdate(req.params.id, {
+      studyName: req.body.studyName,
+      sampleId: req.body.sampleId,
+      visitName: req.body.visitName,
+      visitDate: req.body.visitDate,
+      sampleType: req.body.sampleType,
+      sampleQuality: req.body.sampleQuality,
+      ageAtVisit: req.body.ageAtVisit,
+      dateSampleCollection: req.body.dateSampleCollection,
+      timeOfSampleCollection: req.body.timeOfSampleCollection,
+      dateOfSampleReceipt: req.body.dateOfSampleReceipt,
+      timeOfSampleReceipt: req.body.timeOfSampleReceipt,
+      comments: req.body.comments,
+      dateOfEntry: req.body.dateOfEntry,
+      entryDoneBy: req.body.entryDoneBy,
+      createdAt: Date.now(),
+      updatedAt: Date.now(),
+    });
+
+    res.redirect(`/edit/${req.params.id}`);
+    console.log("redirected");
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+/**
+ * Delete /
+ * Delete Reception Data
+ */
+export const deleteReception = async (req, res) => {
+  try {
+    await Reception.deleteOne({ _id: req.params.id });
+    res.redirect("/");
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+/**
+ * Get /
+ * Search Reception Data
+ */
+export const searchReceptions = async (req, res) => {
+  const locals = {
+    title: "Search Reception Data",
+    description: "Free NodeJs User Management System",
+  };
+
+  try {
+    const searchTerm = req.body.searchTerm;
+    const searchNoSpecialChar = searchTerm.replace(/[^a-zA-Z0-9 ]/g, "");
+
+    const receptions = await Reception.find({
+      $or: [
+        { studyName: { $regex: new RegExp(searchNoSpecialChar, "i") } },
+        { sampleId: { $regex: new RegExp(searchNoSpecialChar, "i") } },
+      ],
+    });
+
+    res.render("search", {
+      receptions,
+      locals,
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};

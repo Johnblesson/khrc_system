@@ -4,10 +4,12 @@ const { Schema } = mongoose;
 
 const receptionSchema = new Schema({
   studyName: String,
-  subject: String,
+  sampleId: String,
   visitName: String,
   visitDate: Date,
   sampleType: String,
+  sampleQuality: String,
+  rejectionReason: String,
   ageAtVisit: String,
   dateSampleCollection: Date,
   timeOfSampleCollection: String, // Use String for TIME, or consider using Date and parsing it accordingly

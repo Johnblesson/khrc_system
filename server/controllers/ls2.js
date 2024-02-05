@@ -6,20 +6,18 @@ dotenv.config();
 export const createStorage = async (req, res) => {
   try {
     const newStorage = new LS2({
-        studyName: req.body.studyName,
-        subject: req.body.subject,
+        sampleId: req.body.sampleId,
         visitName: req.body.visitName,
-        visitDate: req.body.visitDate,
         sampleType: req.body.sampleType,
         roomNumber: req.body.roomNumber,
         boxNumber: req.body.boxNumber,
         row: req.body.row,
         column: req.body.column,
-        ageAtVisit: req.body.ageAtVisit,
-        dateSampleCollection: req.body.dateSampleCollection,
-        timeOfSampleCollection: req.body.timeOfSampleCollection,
-        dateOfSampleReceipt: req.body.dateOfSampleReceipt,
-        timeOfSampleReceipt: req.body.timeOfSampleReceipt,
+        compartment: req.body.compartment,
+        rage: req.body.rage,
+        urinePalletA: req.body.urinePalletA,
+        urinePalletB: req.body.urinePalletB,
+        dnaExtration: req.body.dnaExtration,
         comments: req.body.comments,
         dateOfEntry: req.body.dateOfEntry,
         entryDoneBy: req.body.entryDoneBy,
@@ -28,7 +26,7 @@ export const createStorage = async (req, res) => {
     // const newStorage = await LS2.create(req.body);
 
     const savedStorage = await newStorage.save();
-    res.status(201).redirect('index');
+    res.status(201).render('storage-success');
     // res.json({ message: "Storage created successfully", savedStorage})
     // res.status(201).json(savedStorage);
     console.log(savedStorage);

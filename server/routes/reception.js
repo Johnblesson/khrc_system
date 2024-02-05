@@ -4,7 +4,10 @@ const router = Router();
 import { 
     createStorage,
     createAdminReception, 
-    getStorage
+    getStorage,
+    editPost,
+    deleteReception,
+    searchReceptions
     } from "../controllers/reception.js";
 
 router.post('/reception', createStorage);

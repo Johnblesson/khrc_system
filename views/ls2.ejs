@@ -30,81 +30,110 @@
     
     <div class="storage-container">
       <!-- Reception Form -->
-      <form action="storage" method="POST" id="receptionForm">
-          <div class="form-group row">
-              <label for="subjectInput" class="col-sm-2 col-form-label">Subject:</label>
-              <div class="col-sm-4 position-relative">
-                  <input type="text" name="subject" class="form-control" id="subjectInput" placeholder="Subject">
-              </div>
-    
-              <label for="visitNameInput" class="col-sm-2 col-form-label">Visit Name:</label>
-                <div class="col-sm-4 position-relative">
-                    <select id="sampleType" class="form-control" name="visitName">
-                        <option value="m0">M0</option>
-                        <option value="m6">M6</option>
-                        <option value="m12">M12</option>
-                        <option value="m18">M18</option>
-                        <option value="m24">M24</option>
-                    </select>
-                </div>
-          </div>
-    
-          <div class="form-group row">
-              <label for="sampleType" class="col-sm-2 col-form-label">Sample Type:</label>
-              <div class="col-sm-4 position-relative">
-                  <input type="text" name="sampleType" class="form-control" id="sampleTypeInput" placeholder="" readonly>
-              </div>
-    
-              <label for="roomNumber" class="col-sm-2 col-form-label">Room Number:</label>
-              <div class="col-sm-4 position-relative">
-                  <input type="text" name="roomNumber" class="form-control" id="roomNumber" placeholder="Room Number">
-              </div>
-          </div>
-    
-          <!-- Add -->
-          <div class="form-group row">
-            <label for="boxNumber" class="col-sm-2 col-form-label">Box Number:</label>
+      <form action="ls2-storage" method="POST" id="receptionForm">
+        <div class="form-group row">
+            <label for="sampleIdInput" class="col-sm-2 col-form-label">Sample ID (SID):</label>
             <div class="col-sm-4 position-relative">
-                <input type="text" name="boxNumber" class="form-control" id="boxNumber" required>
+                <input type="text" name="sampleId" class="form-control" id="sampleIDInput" placeholder="Subject">
             </div>
-    
-            <label for="row" class="col-sm-2 col-form-label">Row:</label>
+  
+            <label for="visitNameInput" class="col-sm-2 col-form-label">Visit Name:</label>
+              <div class="col-sm-4 position-relative">
+                  <select id="sampleType" class="form-control" name="visitName">
+                      <option value="m0">M0</option>
+                      <option value="m6">M6</option>
+                      <option value="m12">M12</option>
+                      <option value="m18">M18</option>
+                      <option value="m24">M24</option>
+                  </select>
+              </div>
+        </div>
+  
+        <div class="form-group row">
+            <label for="sampleType" class="col-sm-2 col-form-label">Sample Type:</label>
             <div class="col-sm-4 position-relative">
-                <input type="text" name="row" class="form-control" id="row" placeholder="Row" required>
+                <input type="text" name="sampleType" class="form-control" id="sampleTypeInput" value="SCVS" readonly>
+            </div>
+  
+            <label for="roomNumber" class="col-sm-2 col-form-label">Room Number:</label>
+            <div class="col-sm-4 position-relative">
+                <input type="text" name="roomNumber" class="form-control" id="roomNumber" placeholder="Room Number">
             </div>
         </div>
-    
+  
+        <!-- Add -->
         <div class="form-group row">
-          <label for="column" class="col-sm-2 col-form-label">Column:</label>
+          <label for="boxNumber" class="col-sm-2 col-form-label">Box Number:</label>
           <div class="col-sm-4 position-relative">
-              <input type="text" name="column" class="form-control" id="column">
+              <input type="text" name="boxNumber" class="form-control" id="boxNumber" required>
           </div>
-    
+  
+          <label for="row" class="col-sm-2 col-form-label">Row:</label>
+          <div class="col-sm-4 position-relative">
+              <input type="text" name="row" class="form-control" id="row" placeholder="Row" required>
+          </div>
+      </div>
+  
+      <div class="form-group row">
+        <label for="column" class="col-sm-2 col-form-label">Column:</label>
+        <div class="col-sm-4 position-relative">
+            <input type="text" name="column" class="form-control" id="column">
+        </div>
+  
+            <label for="compartment" class="col-sm-2 col-form-label">Compartment:</label>
+              <div class="col-sm-4 position-relative">
+                  <input type="text" name="compartment" class="form-control" id="Input" placeholder="Compartment">
+              </div>
+          </div>
+  
+          <div class="form-group row">
+              <label for="rage" class="col-sm-2 col-form-label">Rage:</label>
+              <div class="col-sm-4 position-relative">
+                  <input type="text" name="rage" class="form-control" id="rage" placeholder="Rage">
+              </div>
+            
+            <label for="urinePalletA" class="col-sm-2 col-form-label">Urine Pallet A:</label>
+              <div class="col-sm-4 position-relative">
+                  <input type="text" name="urinePalletA" class="form-control" id="urinePalletA" placeholder="Urine Pallet A">
+              </div>
+          </div>
+  
+          <div class="form-group row">
+              
+              <label for="urinePalletB" class="col-sm-2 col-form-label">Urine Pallet B:</label>
+              <div class="col-sm-4 position-relative">
+                  <input type="text" name="urinePalletB" class="form-control" id="urinePalletB" placeholder="Urine Pallet B">
+              </div>
+              <label for="dnaExtration" class="col-sm-2 col-form-label">DNA Extration:</label>
+              <div class="col-sm-4 position-relative">
+                  <input type="text" name="dnaExtration" class="form-control" id="dnaExtration" placeholder="DNA Extration">
+              </div>
+          </div>
+  
+        <div class="form-group row">
           <label for="commentsInput" class="col-sm-2 col-form-label">Comments:</label>
-              <div class="col-sm-4 position-relative">
-                  <textarea name="comments" class="form-control" id="commentsInput" rows="4" placeholder="Comments"></textarea>
-              </div>
+            <div class="col-sm-4 position-relative">
+                <textarea name="comments" class="form-control" id="commentsInput" rows="4" placeholder="Comments"></textarea>
+            </div> 
+  
+            <label for="dateOfEntryInput" class="col-sm-2 col-form-label">Date of Entry:</label>
+            <div class="col-sm-4 position-relative">
+                <input type="date" name="dateOfEntry" class="form-control" id="dateOfEntryInput">
             </div>
-    
-          <div class="form-group row">
-              <label for="dateOfEntryInput" class="col-sm-2 col-form-label">Date of Entry:</label>
-              <div class="col-sm-4 position-relative">
-                  <input type="date" name="dateOfEntry" class="form-control" id="dateOfEntryInput">
-              </div>
-    
-              <label for="entryDoneByInput" class="col-sm-2 col-form-label">Entry Done By:</label>
-              <div class="col-sm-4 position-relative">
-                  <input type="text" name="entryDoneBy" class="form-control" id="entryDoneByInput" placeholder="Entry Done By">
-              </div>
-          </div>
-    
-          <!-- Button -->
-          <div class="form-group row">
-              <div class="col-sm-12">
-                  <button type="submit" class="btn text-light btn-large btn-block" style="background-color: #b40c57;" id="add-record-btn">Add Your Record</button>
-              </div>
-          </div>
-    
+  
+            <label for="entryDoneByInput" class="col-sm-2 col-form-label">Entry Done By:</label>
+            <div class="col-sm-4 position-relative">
+                <input type="text" name="entryDoneBy" class="form-control" id="entryDoneByInput" placeholder="Entry Done By">
+            </div>
+        </div>
+  
+        <!-- Button -->
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <button type="submit" class="btn text-light btn-large btn-block" style="background-color: #b40c57;" id="add-record-btn">Add Your Record</button>
+            </div>
+        </div>
+  
       </form>
     </div>
 

@@ -95,19 +95,26 @@
         <div class="form-group row">
             <label for="studyNameInput" class="col-sm-2 col-form-label">Study Name:</label>
             <div class="col-sm-4 position-relative">
-                <input type="text" name="studyName" class="form-control" id="studyNameInput" placeholder="Study Name">
+                <div class="col-sm-4 position-relative">
+                    <select id="studyName" class="form-control" name="studyName">
+                        <option value="css">CSS</option>
+                        <option value="l1/1">LS1/1</option>
+                        <option value="lS1/2">LS1/2</option>
+                        <option value="lS2">LS2</option>
+                    </select>
+                </div>
             </div>
 
-            <label for="subjectInput" class="col-sm-2 col-form-label">Subject:</label>
+            <label for="subjectInput" class="col-sm-2 col-form-label">SampleID (SID):</label>
             <div class="col-sm-4 position-relative">
-                <input type="text" name="subject" class="form-control" id="subjectInput" placeholder="Subject">
+                <input type="text" name="sampleId" class="form-control" id="" placeholder="SampleID (SID)">
             </div>
         </div>
 
         <div class="form-group row">
             <label for="visitNameInput" class="col-sm-2 col-form-label">Visit Name:</label>
             <div class="col-sm-4 position-relative">
-                <select id="sampleType" class="form-control" name="visitName">
+                <select id="visitName" class="form-control" name="visitName">
                     <option value="m0">M0</option>
                     <option value="m6">M6</option>
                     <option value="m12">M12</option>
@@ -126,13 +133,35 @@
             <label for="sampleType" class="col-sm-2 col-form-label">Sample Type:</label>
             <div class="col-sm-4 position-relative">
                 <select id="sampleType" class="form-control" name="sampleType">
-                    <option value="dna">DNA from Urine</option>
-                    <option value="dnaFromSCVS">DNA from SCVS</option>
-                    <option value="dna">DNA</option>
-                    <option value="urine_pellets">Urine Pellets</option>
-                    <option value="scvs">SCVS</option>
-                    <option value="urine_pellets_aliquots">Urine Pellets Aliquots</option>
-                    <option value="vaginal_swab_sample_aliquots">Vaginal Swab Sample Aliquots </option>
+                    <option value="Urine">Urine</option>
+                    <option value="Scvs">SCVS</option>
+                </select>
+            </div>
+    
+            <label class="col-sm-2 col-form-label">Sample Quality:</label>
+            <div class="col-sm-4">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="sampleQuality" id="accepted" value="Accepted">
+                    <label class="form-check-label" for="accepted">Accepted</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="sampleQuality" id="rejected" value="Rejected">
+                    <label class="form-check-label" for="rejected">Rejected</label>
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-group row">
+            <label for="rejectionReason" class="col-sm-2 col-form-label">Reason for Rejection:</label>
+            <div class="col-sm-4 position-relative">
+                <select id="rejectionReason" class="form-control" name="rejectionReason">
+                    <option value="insufficientSample">Insufficient Sample</option>
+                    <option value="urineLessThan5ML">Urine Sample Less Than 5ML</option>
+                    <option value="leakage">Leakage</option>
+                    <option value="swapNotInSCVSTube">Swab Not in SCVS Tube</option>
+                    <option value="missLabeling">Miss Labeling</option>
+                    <option value="heavyBloodyUrine">Heavy Bloody Urine</option>
+                    <option value="other">Other</option>
                 </select>
             </div>
         </div>
