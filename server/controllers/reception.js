@@ -7,7 +7,7 @@ export const createStorage = async (req, res) => {
   try {
     const newStorage = new RECEPTION({
         studyName: req.body.studyName,
-        subject: req.body.subject,
+        sampleId: req.body.sampleId,
         visitName: req.body.visitName,
         visitDate: req.body.visitDate,
         sampleType: req.body.sampleType,
@@ -26,7 +26,7 @@ export const createStorage = async (req, res) => {
     // const newStorage = await RECEPTION.create(req.body);
 
     const savedStorage = await newStorage.save();
-    res.status(201).render('user-success');
+    res.status(201).render('user-success', savedStorage);
     
     // res.json({ message: "Storage created successfully", savedStorage})
     // res.status(201).json(savedStorage);
@@ -39,26 +39,149 @@ export const createStorage = async (req, res) => {
 }
 }
 
-// Get Cross-sectional Survey-RECEPTION
-export const getStorage = async (req, res) => {
+
+// Get receptions data
+export const getReception = async () => {
   try {
-   const receptions = await RECEPTION.find();
-   res.status(200).json({ receptions
-// //     // status: 'success',
-// //     // results: newsletters.length,
-// //     // data: {
-// //     //     storage
-// //     // }
-})
-  
-} catch (error) {
-    return res.status(500).json({
-      message: error,
-    });
+    const receptions = await RECEPTION.find();
+    return receptions;
+  } catch (error) {
+    throw error;
   }
 };
 
+// User Home Page
+export const homeRoute = async (req, res) => {
+  const locals = {
+    title: "KHRC",
+    description: "Kambia Health Research Center KHRC System",
+  };
 
+  try {
+    // Call getReception to fetch receptions data
+    const { receptions } = await getReception(req, res);
+
+     // Fetch all storage data
+     const allStorage = await RECEPTION.find();
+
+    // Fetch the most recent storage data
+    const latestStorage = await RECEPTION.findOne().sort({ _id: -1 });
+
+    // Render the index page with the receptions and latestStorage data
+    res.render('index', { data: receptions, allStorage, latestStorage, locals });
+  } catch (error) {
+    console.error('Error rendering the page:', error);
+    res.status(500).send('Internal Server Error');
+  }
+};
+
+// Admin Home Page
+export const adminHomeRoute = async (req, res) => {
+
+  const locals = {
+    title: "KHRC",
+    description: "Kambia Health Research Center KHRC System",
+  };
+
+  try {
+    // Call getReception to fetch receptions data
+    const { receptions } = await getReception(req, res);
+
+    // Fetch all storage data
+    const allStorage = await RECEPTION.find();
+
+     // Fetch the most recent storage data
+     const latestStorage = await RECEPTION.findOne().sort({ _id: -1 });
+
+    // Render the index page with the receptions data
+    res.render('index-admin', { data: receptions, allStorage, latestStorage, locals });
+  } catch (error) {
+    console.error('Error rendering the page:', error);
+    res.status(500).send('Internal Server Error');
+  }
+};
+
+// View reception data
+export const viewReception = async (req, res) => {
+  const locals = {
+    title: "KHRC",
+    description: "Kambia Health Research Center KHRC System",
+  };
+
+  try {
+    // Call getReception to fetch receptions data
+    const { receptions } = await getReception(req, res);
+
+    const page = parseInt(req.query.page) || 1; // Get the requested page number from the query parameter
+    const limit = 3; // Number of entries per page
+    const skip = (page - 1) * limit;
+
+    // Fetch all storage data
+    // const allStorage = await RECEPTION.find();
+    const allStorage = await RECEPTION.find().skip(skip).limit(limit);
+    const totalEntries = await RECEPTION.countDocuments();
+
+    const totalPages = Math.ceil(totalEntries / limit);
+
+    // Fetch the most recent storage data
+    const latestStorage = await RECEPTION.findOne().sort({ _id: -1 });
+
+    // Render the index page with the receptions data
+    res.render('viewReception', { 
+      data: receptions, 
+      allStorage, 
+      latestStorage,
+      currentPage: page, 
+      totalPages: totalPages,
+      locals 
+    });
+  } catch (error) {
+    console.error('Error rendering the page:', error);
+    res.status(500).send('Internal Server Error');
+  }
+};
+
+// View admin reception data
+export const adminViewReception = async (req, res) => {
+  const locals = {
+    title: "KHRC",
+    description: "Kambia Health Research Center KHRC System",
+  };
+
+  try {
+    // Call getReception to fetch receptions data
+    const { receptions } = await getReception(req, res);
+
+    const page = parseInt(req.query.page) || 1; // Get the requested page number from the query parameter
+    const limit = 3; // Number of entries per page
+    const skip = (page - 1) * limit;
+
+    // Fetch all storage data
+    // const allStorage = await RECEPTION.find();
+    const allStorage = await RECEPTION.find().skip(skip).limit(limit);
+    const totalEntries = await RECEPTION.countDocuments();
+
+    const totalPages = Math.ceil(totalEntries / limit);
+
+    // Fetch the most recent storage data
+    const latestStorage = await RECEPTION.findOne().sort({ _id: -1 });
+
+    // Render the index page with the receptions data
+    res.render('adminViewReception', { 
+      data: receptions, 
+      allStorage, 
+      latestStorage,
+      currentPage: page, 
+      totalPages: totalPages,
+      locals 
+    });
+  } catch (error) {
+    console.error('Error rendering the page:', error);
+    res.status(500).send('Internal Server Error');
+  }
+};
+
+//adminViewReception
 // Create Admin RECEPTION
 export const createAdminReception = async (req, res) => {
   try {
@@ -96,7 +219,7 @@ export const createAdminReception = async (req, res) => {
 
 export const editPost = async (req, res) => {
   try {
-    await Reception.findByIdAndUpdate(req.params.id, {
+    await RECEPTION.findByIdAndUpdate(req.params.id, {
       studyName: req.body.studyName,
       sampleId: req.body.sampleId,
       visitName: req.body.visitName,
@@ -128,8 +251,8 @@ export const editPost = async (req, res) => {
  */
 export const deleteReception = async (req, res) => {
   try {
-    await Reception.deleteOne({ _id: req.params.id });
-    res.redirect("/");
+    await RECEPTION.deleteOne({ _id: req.params.id });
+    res.redirect("/viewReception");
   } catch (error) {
     console.error(error);
   }
@@ -139,28 +262,69 @@ export const deleteReception = async (req, res) => {
  * Get /
  * Search Reception Data
  */
-export const searchReceptions = async (req, res) => {
-  const locals = {
-    title: "Search Reception Data",
-    description: "Free NodeJs User Management System",
-  };
+// export const searchReceptions = async (req, res) => {
+//   const locals = {
+//     title: "KHRC",
+//     description: "Kambia Health Research Center KHRC System",
+//   };
 
+//   try {
+//     const searchTerm = req.body.searchTerm;
+//     const searchNoSpecialChar = searchTerm.replace(/[^a-zA-Z0-9 ]/g, "");
+
+//     const receptions = await RECEPTION.find({
+//       $or: [
+//         { studyName: { $regex: new RegExp(searchNoSpecialChar, "i") } },
+//         { sampleId: { $regex: new RegExp(searchNoSpecialChar, "i") } },
+//       ],
+//     });
+
+//     res.render("search", {
+//       receptions,
+//       locals,
+//     });
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
+
+
+export const view = async (req, res) => {
   try {
-    const searchTerm = req.body.searchTerm;
-    const searchNoSpecialChar = searchTerm.replace(/[^a-zA-Z0-9 ]/g, "");
+    const storage = await RECEPTION.findOne({ _id: req.params.id });
 
-    const receptions = await Reception.find({
-      $or: [
-        { studyName: { $regex: new RegExp(searchNoSpecialChar, "i") } },
-        { sampleId: { $regex: new RegExp(searchNoSpecialChar, "i") } },
-      ],
-    });
+    const locals = {
+      title: "KHRC",
+       description: "Kambia Health Research Center KHRC System",
+    };
 
-    res.render("search", {
-      receptions,
+    res.render("view", {
       locals,
+      storage,
     });
   } catch (error) {
-    console.error(error);
+    console.log(error);
+  }
+};
+
+/**
+ * GET /
+ * Edit Customer Data
+ */
+export const edit = async (req, res) => {
+  try {
+    const storage = await RECEPTION.findOne({ _id: req.params.id });
+
+    const locals = {
+      title: "KHRC",
+      description: "Kambia Health Research Center KHRC System",
+    };
+
+    res.render("edit", {
+      locals,
+      storage,
+    });
+  } catch (error) {
+    console.log(error);
   }
 };

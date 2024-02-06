@@ -34,6 +34,7 @@ const __dirname = dirname(__filename);
 
 const templatePath = path.join(__dirname, './views');
 app.set('view engine', 'ejs');
+app.set('views', templatePath);
 
 // Serve static files from the 'public' directory
 app.use(express.static('public')) 

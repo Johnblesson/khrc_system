@@ -5,14 +5,14 @@
 <!-- include style -->
 <%- include('include/_indexCss') %>
 <!-- /include style -->
- 
+
 
 <!-- Add the following block to your existing HTML file where you want the search inputs -->
 <div style="padding-top: 5rem; margin-top: 5rem; margin-bottom: 3rem;" class="container">
   <div style="margin-bottom: 4rem;" class="row my-4">
       <div style="width: 100%; display: flex; justify-content: center;" class="col-md-8 offset-md-2">
           <div style="display: flex; justify-content: flex-end; align-items: center;" class="input-group">
-              <input style="margin-right: 1rem;" type="text" id="search" class="form-control" placeholder="Search by Type, Subject, Visit Name, Visit Date">
+              <input style="margin-right: 1rem;" type="text" id="search" class="form-control" placeholder="Search by Sample Type, SID, Study Name, Visit Date">
               <select class="form-select" id="storageSearch">
                   <option value="">Select Type</option>
               </select>
@@ -24,8 +24,13 @@
 <div class="button-container">
   <button class="button">RECEPTION PANEL</button>
   <a href="reception-form" class="button"><i class="fa-solid fa-database"></i>  RECEPTION</a>
-  <a href="view-reception" class="button"><i class="fa-solid fa-eye"></i>  VIEW ALL RECEPTIONS</a>
+  <a href="/viewReception" class="button"><i class="fa-solid fa-eye"></i>  VIEW ALL RECEPTIONS</a>
 </div>
+
+<!-- <div class="btn-group me-2">
+  <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+  <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+</div> -->
 
 <br>
       <p class="text-center" id="subHead1"><b>Cross-sectional Survey-CSS</b></p>
@@ -50,25 +55,3 @@
       }
     }
   </script>
-
-<!-- <script>
-  document.addEventListener('DOMContentLoaded', function () {
-      fetch('http://localhost:3000/storage') // Replace with your API endpoint
-          .then(response => response.json())
-          .then(data => {
-              // Assuming data is an array of objects with properties matching the table headers
-              const tbody = document.getElementById('tbody');
-
-              data.forEach(item => {
-                  const row = document.createElement('tr');
-                  Object.values(item).forEach(value => {
-                      const cell = document.createElement('td');
-                      cell.textContent = value;
-                      row.appendChild(cell);
-                  });
-                  tbody.appendChild(row);
-              });
-          })
-          .catch(error => console.error('Error fetching data:', error));
-  });
-</script> -->

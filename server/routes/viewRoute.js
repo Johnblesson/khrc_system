@@ -1,7 +1,7 @@
 import { Router } from "express";
 const router = Router();
 import { getAllUsers, getUserById, signUp, logIn } from "../controllers/auth.js";
-import { homeRoute, update } from "../services/render.js";
+// import { homeRoute, update } from "../services/render.js";
 // import { isAdmin } from "../middleware/isAdmin.js";
 // import { isUser } from "../middleware/isUser.js";
 import { ensureAuthenticated } from "../middleware/isAuth.js";
@@ -27,19 +27,18 @@ router.get('/api/users/:id', getUserById)
 // })
 
 // router.get('/index', ensureAuthenticated, homeRoute)
-router.get('/update', update)
+// router.get('/update', update)
 
-router.get('/index', ensureAuthenticated, async(req, res) => {
+// router.get('/index', ensureAuthenticated, async(req, res) => {
+//     const messages = await req.flash("info");
 
-    const messages = await req.flash("info");
+//     // const locals = {
+//     //   title: "NodeJs",
+//     //   description: "Free NodeJs User Management System",
+//     // };
 
-    // const locals = {
-    //   title: "NodeJs",
-    //   description: "Free NodeJs User Management System",
-    // };
-
-    res.render('index', messages);
-})
+//     res.render('index', messages);
+// })
 
 router.get('/index-admin', ensureAuthenticated, (req, res) => {
     res.render('index-admin');
@@ -64,10 +63,6 @@ router.get('/reception-admin-form', ensureAuthenticated, (req, res) => {
     res.render('reception-admin');
 })
 
-router.get('/view-reception', ensureAuthenticated, (req, res) => {  
-    res.render('viewReception');
-})
-
 router.get('/admin-contact', ensureAuthenticated, (req, res) => {  
     res.render('contactUs');
 })
@@ -75,6 +70,15 @@ router.get('/admin-contact', ensureAuthenticated, (req, res) => {
 router.get('/user-contact', ensureAuthenticated, (req, res) => {  
     res.render('userContact');
 })
+
+// View reception
+// router.get('/view-reception', (req, res) => {
+//     res.render('viewReception');
+// })
+
+// router.get('/admin/view-reception', (req, res) => {
+//     res.render('adminViewReception');
+// })
 
 router.get('/about', ensureAuthenticated, (req, res) => {
     res.render('About');

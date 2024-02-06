@@ -1,0 +1,60 @@
+/* btn**/
+.button-container {
+    text-align: center;
+}
+
+.button {
+display: inline-block;
+padding: 10px 20px;
+margin: 5px;
+text-decoration: none;
+color: #fff;
+background-color: #b40c57;
+/* border: 1px solid #b40c57; */
+border-radius: 5px;
+font-size: 16px;
+cursor: pointer;
+}
+
+/* Basic styling for the forms */
+.main-form {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: none; /* Initially hide the form */
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.storage-container {
+    text-align: center;
+}
+
+.storage-button {
+    background-color: #b40c57;
+    color: #ffffff;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    margin-top: 3.5rem;
+}
+
+.icon {
+    margin-right: 5px;
+}

@@ -54,26 +54,6 @@ import jwt from 'jsonwebtoken';
     }
   };
 
-
-// Login Controller
-// export const logIn = async (req, res) => {
-//   try {
-//     const { username, password } = req.body;
-//     const user = await User.findOne({ username: username });
-//     if (!user) return res.status(400).json({ msg: "User does not exist. " });
-
-//     const isMatch = await bcrypt.compare(password, user.password);
-//     if (!isMatch) return res.status(400).json({ msg: "Invalid credentials. " });
-
-//     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1200s' });
-//     delete user.password;
-//     res.render('index');
-//     // res.status(200).json({ token, user });
-//   } catch (err) {
-//     res.status(500).json({ error: err.message });
-//   }
-// };
-
 // Login Controller
 export const logIn = async (req, res) => {
   try {
@@ -95,13 +75,13 @@ export const logIn = async (req, res) => {
     // Check the role and render different views
     if (user.role === 'admin') {
       // Render admin view
-      res.render('index-admin');
+      res.redirect('/admin-home');
     } else if (user.role === 'user') {
-      // Render user view
-      res.render('index');
+      // redirect user view
+      res.redirect('/home');
     } else {
       // Handle other roles or provide a default view
-      res.render('index');
+      res.redirect('/home');
     }
     
     // Alternatively, you can redirect to different routes based on the user's role.
