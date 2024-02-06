@@ -1,52 +1,176 @@
-<tbody class="bg-white divide-y divide-gray-200" id="tbody">
-  <% if (latestStorage) { %>
-      <tr>
-          <td class="px-6 py-4 whitespace-nowrap"><%= latestStorage.studyName %></td>
-          <td class="px-6 py-4 whitespace-nowrap"><%= latestStorage.sampleId %></td>
-          <td class="px-6 py-4 whitespace-nowrap"><%= latestStorage.visitName %></td>
-          <td class="px-6 py-4 whitespace-nowrap"><%= latestStorage.sampleType %></td>
-          <td class="px-6 py-4 whitespace-nowrap"><%= latestStorage.sampleQuality %></td>
-          <td class="px-6 py-4 whitespace-nowrap"><%= latestStorage.rejectionReason %></td>
-          <td class="px-6 py-4 whitespace-nowrap"><%= latestStorage.ageAtVisit %></td>
-          <td class="px-6 py-4 whitespace-nowrap"><%= latestStorage.comments %></td>
-          <td class="px-6 py-4 whitespace-nowrap"><%= latestStorage.entryDoneBy %></td>
-      </tr>
-      <% } else { %>
-          <p>No storage data available</p>
-        <% } %>
-</tbody>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= locals.title %></title>
+  <meta name="description" content="<%= locals.description %>">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
 
-<div class="container mx-auto">
-  <table class="min-w-full divide-y divide-gray-200">
-      <thead class="bg-gray-50">
-          <tr>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Study Name</th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Sample ID</th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Visit Name</th>
-              <!-- <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Visit Date</th> -->
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Sample Type</th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Sample Quality</th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Rejection Reason</th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Age At Visit</th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Comments</th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Entry Done By</th>
-          </tr>
-      </thead>
-      <tbody class="bg-white divide-y divide-gray-200" id="tbody">
-          <% if (allStorage) { %>
-              <tr>
-                  <td class="px-6 py-4 whitespace-nowrap"><%= latestStorage.studyName %></td>
-                  <td class="px-6 py-4 whitespace-nowrap"><%= latestStorage.sampleId %></td>
-                  <td class="px-6 py-4 whitespace-nowrap"><%= latestStorage.visitName %></td>
-                  <td class="px-6 py-4 whitespace-nowrap"><%= latestStorage.sampleType %></td>
-                  <td class="px-6 py-4 whitespace-nowrap"><%= latestStorage.sampleQuality %></td>
-                  <td class="px-6 py-4 whitespace-nowrap"><%= latestStorage.rejectionReason %></td>
-                  <td class="px-6 py-4 whitespace-nowrap"><%= latestStorage.ageAtVisit %></td>
-                  <td class="px-6 py-4 whitespace-nowrap"><%= latestStorage.comments %></td>
-                  <td class="px-6 py-4 whitespace-nowrap"><%= latestStorage.entryDoneBy %></td>
-              </tr>
-              <% } else { %>
-                  <p>No storage data available</p>
-                <% } %>
-        </tbody>
-  </table>
+  <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+
+    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="/">KHRC</a>
+    
+    <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <form class="nav col-12 col-md-auto flex-fill mb-2 justify-content-center mb-md-0" role="search" method="POST" action="/search">
+      <input type="search" name="searchTerm" class="form-control form-control-dark w-100 rounded-0 border-0" placeholder="Search..." aria-label="Search">
+    </form>
+  
+  </header>
+<!-- 
+  <div class="container-fluid">
+    <div class="row">
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    </main> 
+    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+      <div class="position-sticky pt-3 sidebar-sticky">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">
+              <i class="bi bi-house"></i>
+              Dashboard
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <i class="bi bi-patch-question"></i>
+              About
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    </div>
+  </div> -->
+
+<div class="d-flex justify-content-between flex-wrap flex-md nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2"><%= storage.studyName  %> <%= storage.sampleId %></h1>
+    <div class="btn-toolbar mb-2 mb-md 0">
+      <div class="btn-group me-2">
+        <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+        <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col py-3">
+  
+    <div class="row">
+      <div class="col">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/admin-home">Dashboard</a></li>
+            <li class="breadcrumb-item active"><%= storage.studyName  %></li>
+          </ol>
+        </nav>
+      </div>
+      <div class="col text-end fw-lighter">
+        <b>Last Updated <%= new Date(storage.updatedAt).toUTCString() %> </b>
+        <b>UserId:</b> <%= storage._id %>
+      </div>
+    </div>
+  
+  </div>
+  
+  <ul class="list-group">
+  
+    <li class="list-group-item"> 
+      <div class="row">
+        <div class="col" style="max-width: 140px"> <b>SampleID (SID):</b></div>
+        <div class="col"><%= storage.sampleId %></div>
+      </div>
+    </li>
+  
+    <li class="list-group-item"> 
+      <div class="row">
+        <div class="col" style="max-width: 140px"> <b>Visit Name:</b></div>
+        <div class="col"><%= storage.visitName %></div>
+      </div>
+    </li>
+  
+    <li class="list-group-item"> 
+      <div class="row">
+        <div class="col" style="max-width: 140px"> <b>Visit Date:</b></div>
+        <div class="col"><%= storage.visitDate %></div>
+      </div>
+    </li>
+  
+    <li class="list-group-item"> 
+      <div class="row">
+        <div class="col" style="max-width: 140px"> <b>Age at Visit:</b></div>
+        <div class="col"><%= storage.ageAtVisit %></div>
+      </div>
+    </li>
+  
+    <li class="list-group-item"> 
+      <div class="row">
+        <div class="col" style="max-width: 140px"> <b>Sample Type:</b></div>
+        <div class="col"><%= storage.sampleType %></div>
+      </div>
+    </li>
+  
+    <li class="list-group-item"> 
+      <div class="row">
+        <div class="col" style="max-width: 140px"> <b>Sample Quality:</b></div>
+        <div class="col"><%= storage.sampleQuality %></div>
+      </div>
+    </li>
+  
+    <li class="list-group-item"> 
+      <div class="row">
+        <div class="col" style="max-width: 140px"> <b>Reason for Rejection:</b></div>
+        <div class="col"><%= storage.rejectionReason %></div>
+      </div>
+    </li>
+  
+    <li class="list-group-item"> 
+      <div class="row">
+        <div class="col" style="max-width: 140px"> <b>Date of Sample Collection:</b></div>
+        <div class="col"><%= storage.dateSampleCollection %></div>
+      </div>
+    </li>
+  
+    <li class="list-group-item"> 
+      <div class="row">
+        <div class="col" style="max-width: 140px"> <b>Time of Sample Collection:</b></div>
+        <div class="col"><%= storage.timeOfSampleCollection %></div>
+      </div>
+    </li>
+  
+    <li class="list-group-item"> 
+      <div class="row">
+        <div class="col" style="max-width: 140px"> <b>Time od Sample Collection:</b></div>
+        <div class="col"><%= storage.timeOfSampleCollection %></div>
+      </div>
+    </li>
+  
+    <li class="list-group-item"> 
+      <div class="row">
+        <div class="col" style="max-width: 140px"> <b>Comments:</b></div>
+        <div class="col"><%= storage.comments %></div>
+      </div>
+    </li>
+  
+    <li class="list-group-item"> 
+      <div class="row">
+        <div class="col" style="max-width: 140px"> <b>Date Created:</b></div>
+        <div class="col"><%= storage.createdAt %></div>
+      </div>
+    </li>
+  
+    <li class="list-group-item"> 
+      <div class="row">
+        <div class="col" style="max-width: 140px"> <b>Date Modified:</b></div>
+        <div class="col"><%= storage.updatedAt %></div>
+      </div>
+    </li>
+  
+  </ul>

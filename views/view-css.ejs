@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KHRC</title>
+    <title>View/ CSS</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
 
 <div class="container mt-5 mx-auto">
     <div class="d-flex justify-content-between flex-wrap flex-md nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2"><%= storage.studyName %> <%= storage.sampleId %></h1>
+        <h1 class="h2"><%= storage.sampleId %> <%= storage.sampleType %></h1>
         <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group me-2">
                 <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
@@ -26,7 +26,7 @@
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
                         <li class="breadcrumb-item"><a href="#">Reception</a></li>
-                        <li class="breadcrumb-item active"><%= storage.studyName %></li>
+                        <li class="breadcrumb-item active"><%= storage.sampleId %></li>
                     </ol>
                 </nav>
             </div>
@@ -45,65 +45,73 @@
             </div>
         </li>
         <li class="list-group-item"> 
+            <div class="row">
+                <div class="col" style="max-width: 140px"> <b>Sample Type:</b></div>
+                <div class="col"><%= storage.sampleType %></div>
+            </div>
+          </li>
+        <li class="list-group-item"> 
+            <div class="row">
+                <div class="col" style="max-width: 140px"> <b>Visit Name:</b></div>
+                <div class="col"><%= storage.visitName %></div>
+            </div>
+        </li>
+        <li class="list-group-item"> 
           <div class="row">
-              <div class="col" style="max-width: 140px"> <b>Visit Name:</b></div>
-              <div class="col"><%= storage.visitName %></div>
+              <div class="col" style="max-width: 140px"> <b>Room Number:</b></div>
+              <div class="col"><%= storage.roomNumber %></div>
           </div>
       </li>
-      <li class="list-group-item"> 
-        <div class="row">
-            <div class="col" style="max-width: 140px"> <b>Visit Date:</b></div>
-            <div class="col"><%= storage.visitDate %></div>
-        </div>
-    </li>
-    <li class="list-group-item"> 
-      <div class="row">
-          <div class="col" style="max-width: 140px"> <b>Age at Visit:</b></div>
-          <div class="col"><%= storage.ageAtVisit %></div>
-      </div>
+    
+
+<li class="list-group-item"> 
+  <div class="row">
+      <div class="col" style="max-width: 140px"> <b>Box Number:</b></div>
+      <div class="col"><%= storage.boxNumber %></div>
+  </div>
+</li>
+<li class="list-group-item"> 
+  <div class="row">
+      <div class="col" style="max-width: 140px"> <b>Row:</b></div>
+      <div class="col"><%= storage.row %></div>
+  </div>
+</li>
+<li class="list-group-item"> 
+  <div class="row">
+      <div class="col" style="max-width: 140px"> <b>Column:</b></div>
+      <div class="col"><%= storage.column %></div>
+  </div>
+</li>
+<li class="list-group-item"> 
+  <div class="row">
+      <div class="col" style="max-width: 140px"> <b>Compartment:</b></div>
+      <div class="col"><%= storage.compartment %></div>
+  </div>
+</li>
+<li class="list-group-item"> 
+  <div class="row">
+      <div class="col" style="max-width: 140px"> <b>Rage:</b></div>
+      <div class="col"><%= storage.rage %></div>
+  </div>
+</li>
+<li class="list-group-item"> 
+  <div class="row">
+      <div class="col" style="max-width: 140px"> <b>Urine Pallet A:</b></div>
+      <div class="col"><%= storage.urinePalletA %></div>
+  </div>
+</li>
+<li class="list-group-item"> 
+    <div class="row">
+        <div class="col" style="max-width: 140px"> <b>Urine Pallet B:</b></div>
+        <div class="col"><%= storage.urinePalletB %></div>
+    </div>
   </li>
-<li class="list-group-item"> 
-  <div class="row">
-      <div class="col" style="max-width: 140px"> <b>Sample Type:</b></div>
-      <div class="col"><%= storage.sampleType %></div>
-  </div>
-</li>
-<li class="list-group-item"> 
-  <div class="row">
-      <div class="col" style="max-width: 140px"> <b>Sample Quality:</b></div>
-      <div class="col"><%= storage.sampleQuality %></div>
-  </div>
-</li>
-<li class="list-group-item"> 
-  <div class="row">
-      <div class="col" style="max-width: 140px"> <b>Reason for Rejection:</b></div>
-      <div class="col"><%= storage.rejectionReason %></div>
-  </div>
-</li>
-<li class="list-group-item"> 
-  <div class="row">
-      <div class="col" style="max-width: 140px"> <b>Date of Sample Collection:</b></div>
-      <div class="col"><%= storage.dateSampleCollection %></div>
-  </div>
-</li>
-<li class="list-group-item"> 
-  <div class="row">
-      <div class="col" style="max-width: 140px"> <b>Time of Sample Collection:</b></div>
-      <div class="col"><%= storage.timeOfSampleCollection %></div>
-  </div>
-</li>
-<li class="list-group-item"> 
-  <div class="row">
-      <div class="col" style="max-width: 140px"> <b>Date of Receipt:</b></div>
-      <div class="col"><%= storage.dateOfSampleReceipt %></div>
-  </div>
-</li>
-<li class="list-group-item"> 
-  <div class="row">
-      <div class="col" style="max-width: 140px"> <b>Time of Receipt:</b></div>
-      <div class="col"><%= storage.timeOfSampleReceipt %></div>
-  </div>
-</li>
+  <li class="list-group-item"> 
+    <div class="row">
+        <div class="col" style="max-width: 140px"> <b>DNA Extration:</b></div>
+        <div class="col"><%= storage.dnaExtration %></div>
+    </div>
+  </li>
 <li class="list-group-item"> 
   <div class="row">
       <div class="col" style="max-width: 140px"> <b>Comments:</b></div>

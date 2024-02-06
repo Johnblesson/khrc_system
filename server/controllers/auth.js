@@ -68,7 +68,7 @@ export const logIn = async (req, res) => {
     // Attach the user object to the request for later use in the middleware
     req.user = user;
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '30days' });
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '24hrs' });
     delete user.password;
     req.session.user = user;
 
@@ -93,11 +93,17 @@ export const logIn = async (req, res) => {
 
 // Get All Users Controller
 export const getAllUsers = async (req, res) => {
+
+  const locals = {
+    title: "KHRC",
+    description: "Kambia Health Research Center KHRC System",
+  };
+
   try {
     // Fetch all users from the database
     const users = await User.find({}, '-password'); // Exclude password field from the response
 
-    res.status(200).json(users);
+    res.render('all-users', { data: users, locals });
   } catch (error) {
     console.error(error);
     res.status(500).send('An error occurred while fetching users.');

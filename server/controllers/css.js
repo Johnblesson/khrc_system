@@ -41,13 +41,27 @@ export const createStorage = async (req, res) => {
 // Get Cross-sectional Survey-CSS
 export const getStorage = async (req, res) => {
   try {
-   const storage = await CSS.find();
-   res.status(200).json({ storage
-    // status: 'success',
-    // results: newsletters.length,
-    // data: {
-    //     storage
-    // }
+
+    const page = parseInt(req.query.page) || 1; // Get the requested page number from the query parameter
+    const limit = 3; // Number of entries per page
+    const skip = (page - 1) * limit;
+
+    // Fetch all storage data
+    // const allStorage = await RECEPTION.find();
+    const allStorage = await CSS.find().skip(skip).limit(limit);
+    const totalEntries = await CSS.countDocuments();
+
+    const totalPages = Math.ceil(totalEntries / limit);
+    // const allStorage = await CSS.find();
+
+    // Fetch the most recent storage data
+    const latestStorage = await CSS.findOne().sort({ _id: -1 });
+
+   res.render('allCss', { 
+    allStorage, 
+    latestStorage, 
+    currentPage: page, 
+    totalPages: totalPages,
 })
   } catch (error) {
     return res.status(500).json({

@@ -191,6 +191,8 @@ export const createAdminReception = async (req, res) => {
         visitName: req.body.visitName,
         visitDate: req.body.visitDate,
         sampleType: req.body.sampleType,
+        sampleQuality: req.body.sampleQuality,
+        rejectionReason: req.body.rejectionReason,
         ageAtVisit: req.body.ageAtVisit,
         dateSampleCollection: req.body.dateSampleCollection,
         timeOfSampleCollection: req.body.timeOfSampleCollection,
@@ -298,7 +300,7 @@ export const view = async (req, res) => {
        description: "Kambia Health Research Center KHRC System",
     };
 
-    res.render("view", {
+    res.render("adminView", {
       locals,
       storage,
     });
@@ -306,6 +308,24 @@ export const view = async (req, res) => {
     console.log(error);
   }
 };
+
+// export const userView = async (req, res) => {
+//   try {
+//     const storage = await RECEPTION.findOne({ _id: req.params.id });
+
+//     const locals = {
+//       title: "KHRC",
+//        description: "Kambia Health Research Center KHRC System",
+//     };
+
+//     res.render("view", {
+//       locals,
+//       storage,
+//     });
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
 
 /**
  * GET /

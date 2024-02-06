@@ -10,7 +10,7 @@ import {
     } from "../controllers/ls2.js";
 
 router.post('/ls2-storage', createStorage);
-router.get('/api/ls2-storages', getStorage);
+router.get('/all-ls2', getStorage);
 router.put('/ls2-storage/:id', updateStorage);
 router.delete('/ls2-storage/:id', deleteStorage);
 

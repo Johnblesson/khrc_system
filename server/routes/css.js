@@ -10,7 +10,7 @@ import {
     } from "../controllers/css.js";
 
 router.post('/storage', createStorage);
-router.get('/api/storages', getStorage);
+router.get('/view-css', getStorage);
 router.put('/storage/:id', updateStorage);
 router.delete('/storage/:id', deleteStorage);
 

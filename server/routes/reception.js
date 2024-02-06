@@ -13,10 +13,9 @@ import {
     editPost,
     edit,
     view,
-    // deleteReception,
-    // searchReceptions
     } from "../controllers/reception.js";
 
+    import { getAllUsers, getUserById } from "../controllers/auth.js";
     import { ensureAuthenticated } from "../middleware/isAuth.js";
 
 router.get('/home', ensureAuthenticated, homeRoute);
@@ -27,6 +26,10 @@ router.post('/reception', createStorage);
 router.get('/api/reception', getReception);
 router.post('/api/admin/reception', createAdminReception);
 
+router.get('/users', ensureAuthenticated, getAllUsers)
+router.get('/api/users/:id', getUserById)
+
+// Admin View
 router.get('/view/:id', view);
 router.get('/edit/:id', edit);
 router.put('/edit/:id', editPost);

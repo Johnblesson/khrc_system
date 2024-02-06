@@ -19,27 +19,6 @@ router.get('/register', (req, res) => {
     res.render('sign up'); 
 })
 
-router.get('/api/users', getAllUsers)
-router.get('/api/users/:id', getUserById)
-
-// router.get('/index', (req, res) => {
-//     res.render('index');
-// })
-
-// router.get('/index', ensureAuthenticated, homeRoute)
-// router.get('/update', update)
-
-// router.get('/index', ensureAuthenticated, async(req, res) => {
-//     const messages = await req.flash("info");
-
-//     // const locals = {
-//     //   title: "NodeJs",
-//     //   description: "Free NodeJs User Management System",
-//     // };
-
-//     res.render('index', messages);
-// })
-
 router.get('/index-admin', ensureAuthenticated, (req, res) => {
     res.render('index-admin');
 })
@@ -53,6 +32,18 @@ router.get('/ls1-storage', ensureAuthenticated, (req, res) => {
 })
 router.get('/ls2-storage', ensureAuthenticated, (req, res) => {  
     res.render('ls2');
+})
+
+// Storage
+router.get('/view/css', ensureAuthenticated, (req, res) => {
+    res.render('view-css');
+})
+
+router.get('/view/ls1', ensureAuthenticated, (req, res) => {
+    res.render('view-ls1');
+})
+router.get('/view/ls2', ensureAuthenticated, (req, res) => {
+    res.render('view-ls2');
 })
 
 router.get('/reception-form', ensureAuthenticated, (req, res) => { 

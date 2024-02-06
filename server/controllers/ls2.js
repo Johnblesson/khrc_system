@@ -40,21 +40,35 @@ export const createStorage = async (req, res) => {
 
 // Get LS2
 export const getStorage = async (req, res) => {
-  try {
-   const storage = await LS2.find();
-   res.status(200).json({ storage
-    // status: 'success',
-    // results: newsletters.length,
-    // data: {
-    //     storage
-    // }
-})
-  } catch (error) {
-    return res.status(500).json({
-      message: error,
-    });
-  }
-};
+    try {
+  
+      const page = parseInt(req.query.page) || 1; // Get the requested page number from the query parameter
+      const limit = 3; // Number of entries per page
+      const skip = (page - 1) * limit;
+  
+      // Fetch all storage data
+      // const allStorage = await RECEPTION.find();
+      const allStorage = await LS2.find().skip(skip).limit(limit);
+      const totalEntries = await LS2.countDocuments();
+  
+      const totalPages = Math.ceil(totalEntries / limit);
+      // const allStorage = await LS2.find();
+  
+      // Fetch the most recent storage data
+      const latestStorage = await LS2.findOne().sort({ _id: -1 });
+  
+     res.render('all-ls2', { 
+      allStorage, 
+      latestStorage, 
+      currentPage: page, 
+      totalPages: totalPages,
+  })
+    } catch (error) {
+      return res.status(500).json({
+        message: error,
+      });
+    }
+  };
 
 // retrieve and return all users/ retrive and return a single user
 export const findStorage = (req, res)=>{
