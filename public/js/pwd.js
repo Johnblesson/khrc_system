@@ -13,9 +13,3 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
-// document.addEventListener('DOMContentLoaded', function() {
-//   document.getElementById('receptionForm').addEventListener('submit', function(event) {
-//     event.preventDefault();
-//     alert('Reception created successfully');
-//   });
-// });

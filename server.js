@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import path from 'path';
 import ejs from 'ejs';
 import session from 'express-session';
+import passport from './server/passport/passport-config.js';
 import bodyParser from 'body-parser';
 import connectDB from './server/database/connection.js';
 import views from './server/routes/viewRoute.js';
@@ -21,13 +22,13 @@ connectDB();
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(express.urlencoded({ extended: false }));
-// app.use(cors());
+  app.use(cors());
 // Middleware to allow CORS (for development purposes)
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  next();
-});
+// app.use((req, res, next) => {
+//   res.header('Access-Control-Allow-Origin', '*');
+//   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+//   next();
+// });
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -42,9 +43,12 @@ app.use(express.static('public'))
 // Add express-session middleware
 app.use(session({
     secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false
+    resave: true,
+    saveUninitialized: true
   }))
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Add the router
 app.use(views)

@@ -3,6 +3,7 @@ import { body, validationResult } from 'express-validator';
 // import passport from 'passport';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import passport from '../passport/passport-config.js';
 // import dotenv from 'dotenv';
 
  // Sign Up Controller
@@ -55,40 +56,45 @@ import jwt from 'jsonwebtoken';
   };
 
 // Login Controller
-export const logIn = async (req, res) => {
-  try {
-    const { username, password } = req.body;
-    const user = await User.findOne({ username: username });
+export const logIn = (req, res, next) => {
+  passport.authenticate('local', (err, user, info) => {
+    try {
+      if (err) {
+        throw err;
+      }
 
-    if (!user) return res.status(400).json({ msg: "User does not exist. " });
+      if (!user) {
+        return res.status(400).json({ msg: info.message });
+      }
 
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) return res.status(400).json({ msg: "Invalid credentials. " });
+      req.login(user, (loginErr) => {
+        if (loginErr) {
+          throw loginErr;
+        }
 
-    // Attach the user object to the request for later use in the middleware
-    req.user = user;
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '24hrs' });
+        delete user.password;
+        req.session.user = user;
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '24hrs' });
-    delete user.password;
-    req.session.user = user;
+        // Check the role and render different views
+        if (user.role === 'admin') {
+          // Render admin view
+          res.redirect('/admin-home');
+        } else if (user.role === 'user') {
+          // Redirect user view
+          res.redirect('/home');
+        } else {
+          // Handle other roles or provide a default view
+          res.redirect('/home');
+        }
 
-    // Check the role and render different views
-    if (user.role === 'admin') {
-      // Render admin view
-      res.redirect('/admin-home');
-    } else if (user.role === 'user') {
-      // redirect user view
-      res.redirect('/home');
-    } else {
-      // Handle other roles or provide a default view
-      res.redirect('/home');
+        // Alternatively, you can redirect to different routes based on the user's role.
+        // Example: res.redirect('/admin-dashboard') or res.redirect('/user-dashboard');
+      });
+    } catch (catchErr) {
+      res.status(500).json({ error: catchErr.message });
     }
-    
-    // Alternatively, you can redirect to different routes based on the user's role.
-    // Example: res.redirect('/admin-dashboard') or res.redirect('/user-dashboard');
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+  })(req, res, next);
 };
 
 // Get All Users Controller

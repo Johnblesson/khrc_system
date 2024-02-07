@@ -1,4 +1,5 @@
 import RECEPTION from '../models/reception.js';
+import User from '../models/auth.js';
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -21,7 +22,7 @@ export const createStorage = async (req, res) => {
         comments: req.body.comments,
         dateOfEntry: req.body.dateOfEntry,
         entryDoneBy: req.body.entryDoneBy,
-        // user_id: req.body.user_id,
+        user_id: req.body.user_id,
         });
     // const newStorage = await RECEPTION.create(req.body);
 
@@ -43,8 +44,8 @@ export const createStorage = async (req, res) => {
 // Get receptions data
 export const getReception = async () => {
   try {
-    const receptions = await RECEPTION.find();
-    return receptions;
+    const username = await User.find();
+    return username;
   } catch (error) {
     throw error;
   }
@@ -217,6 +218,11 @@ export const createAdminReception = async (req, res) => {
       message: error,
   });
 }
+}
+
+// Get receptions data
+export const getAdminReception = async () => {
+
 }
 
 export const editPost = async (req, res) => {

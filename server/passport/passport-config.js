@@ -1,57 +1,41 @@
-// Import necessary modules
-import { Strategy as LocalStrategy } from 'passport-local';
+import passport from 'passport';
+import LocalStrategy from 'passport-local';
 import bcrypt from 'bcrypt';
+import User from  '../models/auth.js'; // Adjust the path based on your project structure
 
-// Define the initialize function
-function initialize(passport, getUserByEmail, getUserByUsername, getUserById) {
-  // Local strategy for email authentication
-  passport.use(
-    'local-email',
-    new LocalStrategy({ usernameField: 'email' }, async (email, password, done) => {
-      const user = getUserByEmail(email);
+passport.use(new LocalStrategy(
+  async (username, password, done) => {
+    try {
+      const user = await User.findOne({ username: username });
+
       if (!user) {
-        return done(null, false, { message: 'No user with that email' });
+        return done(null, false, { message: 'User does not exist.' });
       }
 
-      try {
-        if (await bcrypt.compare(password, user.password)) {
-          return done(null, user);
-        } else {
-          return done(null, false, { message: 'Password incorrect' });
-        }
-      } catch (e) {
-        return done(e);
-      }
-    })
-  );
+      const isMatch = await bcrypt.compare(password, user.password);
 
-  // Local strategy for username authentication
-  passport.use(
-    'local-username',
-    new LocalStrategy({ usernameField: 'username' }, async (username, password, done) => {
-      const user = getUserByUsername(username);
-      if (!user) {
-        return done(null, false, { message: 'No user with that username' });
+      if (!isMatch) {
+        return done(null, false, { message: 'Invalid credentials.' });
       }
 
-      try {
-        if (await bcrypt.compare(password, user.password)) {
-          return done(null, user);
-        } else {
-          return done(null, false, { message: 'Password incorrect' });
-        }
-      } catch (e) {
-        return done(e);
-      }
-    })
-  );
+      return done(null, user);
+    } catch (err) {
+      return done(err);
+    }
+  }
+));
 
-  // Serialize and deserialize user functions (assuming you have these implemented)
-  passport.serializeUser((user, done) => done(null, user.id));
-  passport.deserializeUser((id, done) => {
-    return done(null, getUserById(id));
-  });
-}
+passport.serializeUser((user, done) => {
+  done(null, user._id);
+});
 
-// Export the initialize function
-export default initialize;
+passport.deserializeUser(async (id, done) => {
+  try {
+    const user = await User.findById(id);
+    done(null, user);
+  } catch (err) {
+    done(err, null);
+  }
+});
+
+export default passport;

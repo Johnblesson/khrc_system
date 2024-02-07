@@ -140,7 +140,7 @@
 
             <label for="entryDoneByInput" class="col-sm-2 col-form-label">Entry Done By:</label>
             <div class="col-sm-4 position-relative">
-                <input type="text" name="entryDoneBy" class="form-control" id="entryDoneByInput" placeholder="Entry Done By">
+                <input type="text" name="entryDoneBy" class="form-control" id="entryDoneByInput" value="<%= user ? user.username : '' %>" readonly>
             </div>
         </div>
 

@@ -20,18 +20,23 @@ router.get('/register', (req, res) => {
 })
 
 router.get('/index-admin', ensureAuthenticated, (req, res) => {
-    res.render('index-admin');
+    const user = req.isAuthenticated() ? req.username : null;
+    res.render('index-admin', { user });
 })
 
 router.get('/css-storage', ensureAuthenticated, (req, res) => {  
-    res.render('css');
+  const user = req.isAuthenticated() ? req.user : null;
+  res.render('css', { user });
 })
 
 router.get('/ls1-storage', ensureAuthenticated, (req, res) => {  
-    res.render('ls1');
+  const user = req.isAuthenticated() ? req.user : null;
+  res.render('ls1', { user });
 })
+
 router.get('/ls2-storage', ensureAuthenticated, (req, res) => {  
-    res.render('ls2');
+  const user = req.isAuthenticated() ? req.user : null;
+  res.render('ls2', { user });
 })
 
 // Storage
@@ -46,12 +51,22 @@ router.get('/view/ls2', ensureAuthenticated, (req, res) => {
     res.render('view-ls2');
 })
 
+// View Storages
+
 router.get('/reception-form', ensureAuthenticated, (req, res) => { 
-    res.render('reception');
+// The user information should be available in req.user if authenticated
+  const user = req.isAuthenticated() ? req.user : null;
+
+// Render the page with the user information
+  res.render('reception', { user });
 })
 
 router.get('/reception-admin-form', ensureAuthenticated, (req, res) => { 
-    res.render('reception-admin');
+    // The user information should be available in req.user if authenticated
+  const user = req.isAuthenticated() ? req.user : null;
+
+  // Render the page with the user information
+  res.render('reception-admin', { user });
 })
 
 router.get('/admin-contact', ensureAuthenticated, (req, res) => {  
@@ -61,15 +76,6 @@ router.get('/admin-contact', ensureAuthenticated, (req, res) => {
 router.get('/user-contact', ensureAuthenticated, (req, res) => {  
     res.render('userContact');
 })
-
-// View reception
-// router.get('/view-reception', (req, res) => {
-//     res.render('viewReception');
-// })
-
-// router.get('/admin/view-reception', (req, res) => {
-//     res.render('adminViewReception');
-// })
 
 router.get('/about', ensureAuthenticated, (req, res) => {
     res.render('About');
