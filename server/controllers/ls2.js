@@ -141,3 +141,21 @@ export const deleteStorage = (req, res)=>{
           });
       });
 }
+
+export const ls2View = async (req, res) => {
+    try {
+      const storage = await LS2.findOne({ _id: req.params.id });
+  
+      const locals = {
+        title: "KHRC",
+         description: "Kambia Health Research Center KHRC System",
+      };
+  
+      res.render("view-ls2", {
+        locals,
+        storage,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
