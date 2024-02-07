@@ -10,6 +10,7 @@ import {
     getReception,
     viewReception,
     adminViewReception,
+    deleteRecord,
     editPost,
     edit,
     view,
@@ -33,6 +34,7 @@ router.get('/api/users/:id', getUserById)
 router.get('/view/:id', view);
 router.get('/edit/:id', edit);
 router.put('/edit/:id', editPost);
+router.delete('/edit/:id', deleteRecord);
 // router.delete('/edit/:id', deleteReception);
 // router.get('/api/admin/reception', getReception);
 export default router;

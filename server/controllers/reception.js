@@ -354,3 +354,18 @@ export const edit = async (req, res) => {
     console.log(error);
   }
 };
+
+export const deleteRecord = async (req, res) => {
+  try {
+    const deletedRecord = await RECEPTION.findOneAndDelete({ _id: req.params.id });
+
+    if (!deletedRecord) {
+      return res.status(404).send("Record not found");
+    }
+
+    res.redirect("/admin-view-reception"); // Redirect to a specific page after successful delete
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Internal Server Error");
+  }
+};
