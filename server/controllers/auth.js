@@ -97,6 +97,7 @@ export const logIn = (req, res, next) => {
   })(req, res, next);
 };
 
+
 // Get All Users Controller
 export const getAllUsers = async (req, res) => {
 

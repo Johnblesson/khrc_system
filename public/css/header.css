@@ -61,3 +61,18 @@ li:hover .dropdown {
 .dropdown a:hover {
     background-color: #ec5c9c;
 }
+
+.user-profile {
+    display: flex;
+    align-items: center;
+  }
+  
+  .user-icon-wrapper {
+    display: flex;
+    align-items: center;
+    margin-right: 10px; /* Adjust the margin as needed */
+  }
+  
+  #userIcon {
+    margin-right: 5px; /* Adjust the margin as needed */
+  }
