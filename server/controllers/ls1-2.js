@@ -1,16 +1,11 @@
-import CSS from '../models/css.js';
+import LS1_2ND from '../models/ls1-2.js';
 import dotenv from 'dotenv';
 dotenv.config();
 
-// Create Cross-sectional Survey-CSS
+// LS2 Storage
 export const createStorage = async (req, res) => {
   try {
-
-    // Append 'A' to the sampleId
-    const sampleIdWithA = req.body.sampleId + 'A';
-    const sampleIdWithB = req.body.sampleId + 'B';
-
-    const newStorage = new CSS({
+    const newStorage = new LS1_2ND({
         sampleId: req.body.sampleId,
         visitName: req.body.visitName,
         sampleType: req.body.sampleType,
@@ -18,17 +13,17 @@ export const createStorage = async (req, res) => {
         boxNumber: req.body.boxNumber,
         row: req.body.row,
         column: req.body.column,
-        compartment: req.body.compartment,  
+        compartment: req.body.compartment,
         rage: req.body.rage,
-        urinePalletA: sampleIdWithA,
-        urinePalletB: sampleIdWithB,
+        urinePalletA: req.body.urinePalletA,
+        urinePalletB: req.body.urinePalletB,
         dnaExtration: req.body.dnaExtration,
         comments: req.body.comments,
         dateOfEntry: req.body.dateOfEntry,
         entryDoneBy: req.body.entryDoneBy,
         // user_id: req.body.user_id,
         });
-    // const newStorage = await CSS.create(req.body);
+    // const newStorage = await LS1_2ND.create(req.body);
 
     const savedStorage = await newStorage.save();
     res.status(201).render('storage-success');
@@ -43,37 +38,37 @@ export const createStorage = async (req, res) => {
 }
 }
 
-// Get Cross-sectional Survey-CSS
+// Get LS1_2ND
 export const getStorage = async (req, res) => {
-  try {
-
-    const page = parseInt(req.query.page) || 1; // Get the requested page number from the query parameter
-    const limit = 3; // Number of entries per page
-    const skip = (page - 1) * limit;
-
-    // Fetch all storage data
-    // const allStorage = await RECEPTION.find();
-    const allStorage = await CSS.find().skip(skip).limit(limit);
-    const totalEntries = await CSS.countDocuments();
-
-    const totalPages = Math.ceil(totalEntries / limit);
-    // const allStorage = await CSS.find();
-
-    // Fetch the most recent storage data
-    const latestStorage = await CSS.findOne().sort({ _id: -1 });
-
-   res.render('allCss', { 
-    allStorage, 
-    latestStorage, 
-    currentPage: page, 
-    totalPages: totalPages,
-})
-  } catch (error) {
-    return res.status(500).json({
-      message: error,
-    });
-  }
-};
+    try {
+  
+      const page = parseInt(req.query.page) || 1; // Get the requested page number from the query parameter
+      const limit = 3; // Number of entries per page
+      const skip = (page - 1) * limit;
+  
+      // Fetch all storage data
+      // const allStorage = await RECEPTION.find();
+      const allStorage = await LS1_2ND.find().skip(skip).limit(limit);
+      const totalEntries = await LS1_2ND.countDocuments();
+  
+      const totalPages = Math.ceil(totalEntries / limit);
+      // const allStorage = await LS1_2ND.find();
+  
+      // Fetch the most recent storage data
+      const latestStorage = await LS1_2ND.findOne().sort({ _id: -1 });
+  
+     res.render('all-ls1-2', { 
+      allStorage, 
+      latestStorage, 
+      currentPage: page, 
+      totalPages: totalPages,
+  })
+    } catch (error) {
+      return res.status(500).json({
+        message: error,
+      });
+    }
+  };
 
 // retrieve and return all users/ retrive and return a single user
 export const findStorage = (req, res)=>{
@@ -81,7 +76,7 @@ export const findStorage = (req, res)=>{
   if(req.query.id){
       const id = req.query.id;
 
-      CSS.findById(id)
+      LS2.findById(id)
           .then(data =>{
               if(!data){
                   res.status(404).send({ message : "Not found user with id "+ id})
@@ -94,7 +89,7 @@ export const findStorage = (req, res)=>{
           })
 
   }else{
-      CSS.find()
+      LS2.find()
           .then(user => {
               res.send(user)
           })
@@ -113,7 +108,7 @@ export const updateStorage = (req, res)=>{
   }
 
   const id = req.params.id;
-  CSS.findByIdAndUpdate(id, req.body, { useFindAndModify: false})
+  LS2.findByIdAndUpdate(id, req.body, { useFindAndModify: false})
       .then(data => {
           if(!data){
               res.status(404).send({ message : `Cannot Update user with ${id}. Maybe user not found!`})
@@ -130,7 +125,7 @@ export const updateStorage = (req, res)=>{
 export const deleteStorage = (req, res)=>{
   const id = req.params.id;
 
-  CSS.findByIdAndDelete(id)
+  LS2.findByIdAndDelete(id)
       .then(data => {
           if(!data){
               res.status(404).send({ message : `Cannot Delete with id ${id}. Maybe id is wrong`})
@@ -147,16 +142,16 @@ export const deleteStorage = (req, res)=>{
       });
 }
 
-export const cssView = async (req, res) => {
+export const ls1_2_View = async (req, res) => {
     try {
-      const storage = await CSS.findOne({ _id: req.params.id });
+      const storage = await LS1_2ND.findOne({ _id: req.params.id });
   
       const locals = {
         title: "KHRC",
          description: "Kambia Health Research Center KHRC System",
       };
   
-      res.render("view-css", {
+      res.render("view-ls1-2", {
         locals,
         storage,
       });

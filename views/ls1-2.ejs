@@ -2,6 +2,7 @@
 <%- include('include/_header') %>
 <!-- /include header -->
 
+
 <!-- include style -->
 <%- include('include/_indexCss') %>
 <!-- /include style -->
@@ -9,32 +10,29 @@
 <!-- Section for Adding Health Records -->
 <div class="container pt-5 mt-5 my-3">
     <div class="storage-container">
-      <div>
     
-      <button class="storage-button">
-        <i class="fas fa-database icon"></i> LS1 1ST 250 STORAGE
-    </button>
-    
-      <button class="storage-button">
-          <a href="view-ls1"><i class="fas fa-eye icon"></i> VIEW STORAGE </a>
+      <button class="storage-button" onclick="toggleForm()">
+          <i class="fas fa-database icon"></i> LS1 2ND 250 STORAGE
       </button>
-      
+      <button class="storage-button">
+        <a href="view-ls1-2"><i class="fas fa-eye icon"></i> VIEW STORAGE </a>
+    </button>
     </div>
     </div>
     
     
     <div class="storage-container">
       <!-- Reception Form -->
-      <form action="ls1-storage" method="POST" id="receptionForm">
+      <form action="ls1-2-storage" method="POST" id="receptionForm">
         <div class="form-group row">
             <label for="sampleIdInput" class="col-sm-2 col-form-label">Sample ID (SID):</label>
             <div class="col-sm-4 position-relative">
-                <input type="text" name="sampleId" class="form-control" id="sampleIDInput" placeholder="Subject" required>
+                <input type="text" name="sampleId" class="form-control" id="sampleIDInput" placeholder="Subject">
             </div>
   
             <label for="visitNameInput" class="col-sm-2 col-form-label">Visit Name:</label>
               <div class="col-sm-4 position-relative">
-                  <select id="sampleType" class="form-control" name="visitName" required>
+                  <select id="sampleType" class="form-control" name="visitName">
                       <option value="m0">M0</option>
                       <option value="m6">M6</option>
                       <option value="m12">M12</option>
@@ -47,10 +45,7 @@
         <div class="form-group row">
             <label for="sampleType" class="col-sm-2 col-form-label">Sample Type:</label>
             <div class="col-sm-4 position-relative">
-                <select id="sampleType" class="form-control" name="sampleType">
-                    <option value="Urine">Urine</option>
-                    <option value="Scvs">SCVS</option>
-                </select>
+                <input type="text" name="sampleType" class="form-control" id="sampleTypeInput" value="SCVS" readonly>
             </div>
   
             <label for="roomNumber" class="col-sm-2 col-form-label">Room Number:</label>
@@ -87,12 +82,12 @@
           <div class="form-group row">
               <label for="rage" class="col-sm-2 col-form-label">Rage:</label>
               <div class="col-sm-4 position-relative">
-                  <input type="text" name="rage" class="form-control" id="rage" placeholder="Rage" required>
+                  <input type="text" name="rage" class="form-control" id="rage" placeholder="Rage">
               </div>
             
             <label for="urinePalletA" class="col-sm-2 col-form-label">Urine Pallet A:</label>
               <div class="col-sm-4 position-relative">
-                  <input type="text" name="urinePalletA" class="form-control" id="urinePalletA" placeholder="Urine Pallet A" required>
+                  <input type="text" name="urinePalletA" class="form-control" id="urinePalletA" placeholder="Urine Pallet A">
               </div>
           </div>
   

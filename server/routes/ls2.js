@@ -10,10 +10,12 @@ import {
     ls2View
     } from "../controllers/ls2.js";
 
-router.post('/ls2-storage', createStorage);
-router.get('/all-ls2', getStorage);
-router.get('/view-ls2/:id', ls2View);
-router.put('/ls2-storage/:id', updateStorage);
-router.delete('/ls2-storage/:id', deleteStorage);
+    import { ensureAuthenticated } from "../middleware/isAuth.js";
+
+router.post('/ls2-storage', ensureAuthenticated, createStorage);
+router.get('/all-ls2', ensureAuthenticated, getStorage);
+router.get('/view-ls2/:id', ensureAuthenticated, ls2View);
+router.put('/ls2-storage/:id', ensureAuthenticated, updateStorage);
+router.delete('/ls2-storage/:id', ensureAuthenticated, deleteStorage);
 
 export default router;

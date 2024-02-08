@@ -10,10 +10,12 @@ import {
     cssView,
     } from "../controllers/css.js";
 
-router.post('/storage', createStorage);
-router.get('/view-css', getStorage);
-router.get('/view-css/:id', cssView);
-router.put('/storage/:id', updateStorage);
-router.delete('/storage/:id', deleteStorage);
+    import { ensureAuthenticated } from "../middleware/isAuth.js";
+
+router.post('/storage', ensureAuthenticated, createStorage);
+router.get('/view-css', ensureAuthenticated, getStorage);
+router.get('/view-css/:id',ensureAuthenticated, cssView);
+router.put('/storage/:id', ensureAuthenticated, updateStorage);
+router.delete('/storage/:id', ensureAuthenticated, deleteStorage);
 
 export default router;

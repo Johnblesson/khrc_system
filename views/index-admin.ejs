@@ -5,7 +5,14 @@
 <!-- include style -->
 <%- include('include/_indexCss') %>
 <!-- /include style -->
- 
+
+<!-- Custom CSS for the button -->
+<style>
+  .btn-pink {
+    background-color: #b40955; /* Pink color */
+    color: #fff; /* White text on pink background */
+  }
+</style>
 
 <!-- Add the following block to your existing HTML file where you want the search inputs -->
 <div style="padding-top: 5rem; margin-top: 5rem; margin-bottom: 3rem;" class="container">
@@ -24,7 +31,15 @@
 <div class="button-container">
     <a href="reception-admin-form" class="button"><i class="fa-solid fa-database"></i>  RECEPTION</a>
     <a href="css-storage" class="button"><i class="fa-solid fa-database"></i>  CSS STORAGE</a>
-    <a href="ls1-storage" class="button"><i class="fa-solid fa-database"></i>  LS1 STORAGE</a>
+    <!-- <a href="ls1-storage" class="button"><i class="fa-solid fa-database"></i>  LS1 STORAGE</a> -->
+    <button class="btn btn-pink" type="button" id="adminPanelButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      LS1 STORAGE
+    </button>
+    <div class="dropdown-menu" aria-labelledby="adminPanelButton" style="background-color: #ff69b4;"> <!-- Pink background for the dropdown -->
+      <a class="dropdown-item" href="ls1-storage">First 250</a>
+      <a class="dropdown-item" href="ls1-2-storage">Second 250</a>
+      <!-- Add more items as needed -->
+    </div>
     <a href="ls2-storage" class="button"><i class="fa-solid fa-database"></i>  LS2 STORAGE</a>
     <a href="admin-view-reception" class="button"><i class="fa-solid fa-eye"></i>  VIEW ALL RECEPTIONS</a>
     <a href="users" class="button"><i class="fa-solid fa-user"></i>  VIEW ALL USERS</a>
@@ -56,3 +71,8 @@
       }
     }
   </script>
+
+  <!-- Include Bootstrap JS (Make sure to include this in your project) -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>

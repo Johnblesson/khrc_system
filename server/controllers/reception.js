@@ -6,9 +6,16 @@ dotenv.config();
 // Create RECEPTION
 export const createStorage = async (req, res) => {
   try {
+
+     // Append 'A' to the sampleId
+     const sampleIdWithA = req.body.sampleId + 'A';
+     const sampleIdWithB = req.body.sampleId + 'B';
+
     const newStorage = new RECEPTION({
         studyName: req.body.studyName,
         sampleId: req.body.sampleId,
+        sampleIdA: sampleIdWithA,
+        sampleIdB: sampleIdWithB,
         visitName: req.body.visitName,
         visitDate: req.body.visitDate,
         sampleType: req.body.sampleType,

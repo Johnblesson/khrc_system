@@ -9,7 +9,8 @@ import connectDB from './server/database/connection.js';
 import views from './server/routes/viewRoute.js';
 import css_Storage from './server/routes/css.js';
 import ls1_Storage from './server/routes/ls1.js';
-import ls2_Storage from './server/routes/ls2.js';
+import ls1_2_Storage from './server/routes/ls2.js';
+import ls2_Storage from './server/routes/ls1-2.js';
 import reception from './server/routes/reception.js';
 import contact from './server/routes/contactRoute.js';
 import cors from 'cors';
@@ -54,6 +55,7 @@ app.use(passport.session());
 app.use(views)
 app.use(css_Storage)
 app.use(ls1_Storage)
+app.use(ls1_2_Storage)
 app.use(ls2_Storage)
 app.use(reception)
 app.use(contact)

@@ -5,6 +5,7 @@ import { getAllUsers, getUserById, signUp, logIn } from "../controllers/auth.js"
 // import { isAdmin } from "../middleware/isAdmin.js";
 // import { isUser } from "../middleware/isUser.js";
 import { ensureAuthenticated } from "../middleware/isAuth.js";
+import { checkSudoPrivileges } from "../middleware/sudo.js"
 
 router.post('/register', signUp);
 router.post('/login', logIn);
@@ -15,7 +16,7 @@ router.get('/', (req, res) => {
     res.render('login');
 })
 
-router.get('/register', (req, res) => {
+router.get('/register', checkSudoPrivileges, (req, res) => {
     res.render('sign up'); 
 })
 
@@ -34,22 +35,27 @@ router.get('/ls1-storage', ensureAuthenticated, (req, res) => {
   res.render('ls1', { user });
 })
 
+router.get('/ls1-2-storage', ensureAuthenticated, (req, res) => {  
+  const user = req.isAuthenticated() ? req.user : null;
+  res.render('ls1-2', { user });
+})
+
 router.get('/ls2-storage', ensureAuthenticated, (req, res) => {  
   const user = req.isAuthenticated() ? req.user : null;
   res.render('ls2', { user });
 })
 
 // Storage
-router.get('/view/css', ensureAuthenticated, (req, res) => {
-    res.render('view-css');
-})
+// router.get('/view/css', ensureAuthenticated, (req, res) => {
+//     res.render('view-css');
+// })
 
-router.get('/view/ls1', ensureAuthenticated, (req, res) => {
-    res.render('view-ls1');
-})
-router.get('/view/ls2', ensureAuthenticated, (req, res) => {
-    res.render('view-ls2');
-})
+// router.get('/view/ls1', ensureAuthenticated, (req, res) => {
+//     res.render('view-ls1');
+// })
+// router.get('/view/ls2', ensureAuthenticated, (req, res) => {
+//     res.render('view-ls2');
+// })
 
 // View Storages
 
