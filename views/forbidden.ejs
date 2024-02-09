@@ -1,9 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>403 Forbidden</title>
+<!-- User Header -->
+<%- include('include/_404-header') %>
+<!-- /User Header -->
+
+<!-- include style -->
+<%- include('include/_indexCss') %>
+<!-- /include style -->
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -15,6 +16,7 @@
         .error-code {
             font-size: 100px;
             color: #333;
+            padding: 150px 0 1px 0;
         }
 
         .error-message {
@@ -34,3 +36,7 @@
     <p class="back-link"><a href="/">Go Back to Login</a></p>
 </body>
 </html>
+
+<!-- include footer -->
+<%- include('include/_footer') %>
+<!-- /include footer -->
