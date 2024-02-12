@@ -8,6 +8,22 @@
     }
   </style>
 
+  <!-- Add the following block to your existing HTML file where you want the search inputs -->
+<div style="padding-top: 5rem; margin-top: 5rem; margin-bottom: 3rem;" class="container">
+  <div style="margin-bottom: 4rem;" class="row my-4">
+      <div style="width: 100%; display: flex; justify-content: center;" class="col-md-8 offset-md-2">
+          <div style="display: flex; justify-content: flex-end; align-items: center;" class="input-group">
+            <form class="nav col-12 col-md-auto flex-fill mb-2 mb-md-0" role="search" method="#" action="#">
+              <input style="margin-right: 1rem;" name="searchTerm" type="text" id="search" class="form-control" placeholder="Search by Keyword...">
+              <!-- <select class="form-select" id="storageSearch">
+                  <option value="">Select Type</option>
+              </select> -->
+            </form>
+          </div>
+      </div>
+  </div>
+</div>
+
  <!-- Display information about the latest storage entry -->
  <div class="storage-info">
     <% if (allStorage.length > 0) { %>
@@ -21,6 +37,7 @@
         <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
                 <tr>
+                  <!-- <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th> -->
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Study Name</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Sample ID</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Visit Name</th>
@@ -38,6 +55,7 @@
                 <% if (allStorage && allStorage.length > 0) { %>
                     <% allStorage.forEach(storage => { %>
                         <tr>  
+                          <!-- <td><img src="/images/lab.jpg" alt="image" style="width: 50px; height: 50px; border-radius: 50%;"></td> -->
                             <td class="px-6 py-4 whitespace-nowrap"><%= storage.studyName %></td>
                             <td class="px-6 py-4 whitespace-nowrap"><%= storage.sampleId %></td>
                             <td class="px-6 py-4 whitespace-nowrap"><%= storage.visitName %></td>

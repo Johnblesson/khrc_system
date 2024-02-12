@@ -92,7 +92,7 @@
             
             <label for="urinePalletA" class="col-sm-2 col-form-label">Urine Pallet A:</label>
               <div class="col-sm-4 position-relative">
-                  <input type="text" name="urinePalletA" class="form-control" id="urinePalletA" placeholder="Urine Pallet A" required>
+                  <input type="text" name="urinePalletA" class="form-control" id="urinePalletA" value="A"readonly>
               </div>
           </div>
   
@@ -100,7 +100,7 @@
               
               <label for="urinePalletB" class="col-sm-2 col-form-label">Urine Pallet B:</label>
               <div class="col-sm-4 position-relative">
-                  <input type="text" name="urinePalletB" class="form-control" id="urinePalletB" placeholder="Urine Pallet B">
+                  <input type="text" name="urinePalletB" class="form-control" id="urinePalletB" value="B" readonly>
               </div>
               <label for="dnaExtration" class="col-sm-2 col-form-label">DNA Extration:</label>
               <div class="col-sm-4 position-relative">
@@ -131,7 +131,7 @@
                 <button type="submit" class="btn text-light btn-large btn-block" style="background-color: #b40c57;" id="add-record-btn">Add Your Record</button>
             </div>
         </div>
-  
+        <strong><p style="text-align: center;">Logged in: <%= user ? user.username : '' %></p></strong>
       </form>
     </div>
 

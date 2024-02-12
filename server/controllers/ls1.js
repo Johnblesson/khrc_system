@@ -5,6 +5,11 @@ dotenv.config();
 // LS1 Storage
 export const createStorage = async (req, res) => {
   try {
+
+    // Append 'A' to the sampleId
+    const sampleIdWithA = req.body.sampleId + 'A';
+    const sampleIdWithB = req.body.sampleId + 'B';
+
     const newStorage = new LS1({
         sampleId: req.body.sampleId,
         visitName: req.body.visitName,
@@ -15,8 +20,8 @@ export const createStorage = async (req, res) => {
         column: req.body.column,
         compartment: req.body.compartment,
         rage: req.body.rage,
-        urinePalletA: req.body.urinePalletA,
-        urinePalletB: req.body.urinePalletB,
+        urinePalletA: sampleIdWithA,
+        urinePalletB: sampleIdWithB,
         dnaExtration: req.body.dnaExtration,
         comments: req.body.comments,
         dateOfEntry: req.body.dateOfEntry,

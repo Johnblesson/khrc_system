@@ -19,14 +19,23 @@
   <div style="margin-bottom: 4rem;" class="row my-4">
       <div style="width: 100%; display: flex; justify-content: center;" class="col-md-8 offset-md-2">
           <div style="display: flex; justify-content: flex-end; align-items: center;" class="input-group">
-              <input style="margin-right: 1rem;" type="text" id="search" class="form-control" placeholder="Search by Sample Type, SID, Study Name, Visit Date">
-              <select class="form-select" id="storageSearch">
+            <form class="nav col-12 col-md-auto flex-fill mb-2 mb-md-0" role="search" method="#" action="#">
+              <input style="margin-right: 1rem;" name="searchTerm" type="text" id="search" class="form-control" placeholder="Search by Keyword...">
+              <!-- <select class="form-select" id="storageSearch">
                   <option value="">Select Type</option>
-              </select>
+              </select> -->
+            </form>
           </div>
       </div>
   </div>
 </div>
+
+<!-- <div class="d-flex justify-content-center">
+  <form class="nav col-12 col-md-auto flex-fill mb-2 mb-md-0" role="search" method="POST" action="/search">
+    <input type="search" name="searchTerm" class="form-control form-control-dark w-100 rounded-0 border-0" placeholder="Search..." aria-label="Search">
+  </form>
+</div> -->
+
 
 <div class="button-container">
     <a href="reception-admin-form" class="button"><i class="fa-solid fa-database"></i>  RECEPTION</a>

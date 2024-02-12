@@ -8,14 +8,14 @@ export const createStorage = async (req, res) => {
   try {
 
      // Append 'A' to the sampleId
-     const sampleIdWithA = req.body.sampleId + 'A';
-     const sampleIdWithB = req.body.sampleId + 'B';
+    //  const sampleIdWithA = req.body.sampleId + 'A';
+    //  const sampleIdWithB = req.body.sampleId + 'B';
 
     const newStorage = new RECEPTION({
         studyName: req.body.studyName,
         sampleId: req.body.sampleId,
-        sampleIdA: sampleIdWithA,
-        sampleIdB: sampleIdWithB,
+        // sampleIdA: sampleIdWithA,
+        // sampleIdB: sampleIdWithB,
         visitName: req.body.visitName,
         visitDate: req.body.visitDate,
         sampleType: req.body.sampleType,
@@ -291,10 +291,14 @@ export const deleteReception = async (req, res) => {
 //       $or: [
 //         { studyName: { $regex: new RegExp(searchNoSpecialChar, "i") } },
 //         { sampleId: { $regex: new RegExp(searchNoSpecialChar, "i") } },
+//         { visitName: { $regex: new RegExp(searchNoSpecialChar, "i") } },
+//         { sampleQuality: { $regex: new RegExp(searchNoSpecialChar, "i") } },
+//         { ageAtVisit: { $regex: new RegExp(searchNoSpecialChar, "i") } },
+//         { entryDoneBy: { $regex: new RegExp(searchNoSpecialChar, "i") } },
 //       ],
 //     });
 
-//     res.render("search", {
+//     res.render("viewReception", {
 //       receptions,
 //       locals,
 //     });

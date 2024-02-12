@@ -1,6 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import path from 'path';
+// import fs from 'fs';
 import ejs from 'ejs';
 import session from 'express-session';
 import passport from './server/passport/passport-config.js';
@@ -13,6 +14,7 @@ import ls1_2_Storage from './server/routes/ls2.js';
 import ls2_Storage from './server/routes/ls1-2.js';
 import reception from './server/routes/reception.js';
 import contact from './server/routes/contactRoute.js';
+import startSSHServer from './bin/sshServer.js';
 import cors from 'cors';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
@@ -61,7 +63,7 @@ app.use(reception)
 app.use(contact)
 
 // Start the Server  
-const PORT = process.env.PORT || 8080
+const PORT = process.env.PORT || 8080;
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server running on port ${PORT}`)
 })

@@ -10,6 +10,7 @@ import {
     getReception,
     viewReception,
     adminViewReception,
+    // searchReceptions,
     deleteRecord,
     editPost,
     edit,
@@ -29,6 +30,8 @@ router.post('/api/admin/reception', createAdminReception);
 
 router.get('/users', ensureAuthenticated, getAllUsers)
 router.get('/api/users/:id', getUserById)
+
+// router.post('/search', searchReceptions);
 
 // Admin View
 router.get('/view/:id', view);
