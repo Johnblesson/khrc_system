@@ -12,15 +12,15 @@
     }
   
     .role-green-bg {
-      background-color: rgb(118, 243, 118);
+      background-color: rgb(249, 233, 7);
     }
 
     .status-red-bg {
       background-color: rgb(255, 5, 5);
     }
 
-    .status-pink-bg {
-      background-color: rgb(249, 233, 7);
+    .status-green-bg {
+      background-color: rgb(118, 243, 118);;
     }
   
     /* Center the button */
@@ -60,7 +60,7 @@
           <td class="px-6 py-4 whitespace-nowrap <%= user.role === 'admin' ? 'role-pink-bg' : (user.role === 'user' ? 'role-green-bg' : '') %>">
             <%= user.role %>
           </td>
-          <td class="px-6 py-4 whitespace-nowrap <%= user.status === 'active' ? 'status-pink-bg' : (user.status === 'inactive' ? 'status-red-bg' : '') %>">
+          <td class="px-6 py-4 whitespace-nowrap <%= user.status === 'active' ? 'status-green-bg' : (user.status === 'inactive' ? 'status-red-bg' : '') %>">
             <%= user.status %>
           </td>
           <td class="px-6 py-4 whitespace-nowrap" id="hover">
