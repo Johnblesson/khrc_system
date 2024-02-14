@@ -10,7 +10,7 @@ import { ensureAuthenticated } from "../middleware/isAuth.js";
 // import { checkUserAndAdminStatus } from "../middleware/checkStatus.js";
 import { checkSudoPrivileges } from "../middleware/sudo.js"
 
-router.post('/register', signUp);
+router.post('/register', checkSudoPrivileges, signUp);
 router.post('/login', logIn);
 // router.get('/logout', logOut);
 
