@@ -3,26 +3,30 @@ import mongoose from "mongoose";
 const userSchema = new mongoose.Schema({
     email: {
         type: String,
-        require: true,
+        required: true,
         // maxLength: 6,
     },
     username: {
         type: String,
-        require: true,
+        required: true,
         // maxLength: 6,
     },
     password: {
         type: String,
-        require: true,
+        required: true,
         // maxLength: 6,
     },
     role: {
         type: String,
-        enum: ['admin', 'user'], // Restrict the role to 'admin' or 'user'
-        default: 'user', // Default role is 'user'
+        enum: ['admin', 'user'],
+        default: 'user',
     },
-})
+    status: {
+        type: String,
+        enum: ['active', 'inactive'], // You can adjust the enum values as needed
+    },
+});
 
-const User = mongoose.model('users', userSchema)
+const User = mongoose.model('users', userSchema);
 
 export default User;

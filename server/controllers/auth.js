@@ -1,9 +1,12 @@
+import express from 'express';
+const app = express();
 import User from '../models/auth.js';
 import { body, validationResult } from 'express-validator';
 // import passport from 'passport';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import passport from '../passport/passport-config.js';
+import { checkUserAndAdminStatus, checkAdminStatus } from "../middleware/checkStatus.js";
 // import dotenv from 'dotenv';
 
  // Sign Up Controller
@@ -30,6 +33,7 @@ import passport from '../passport/passport-config.js';
         username: req.body.username,
         password: hashedPassword,
         role: req.body.role,
+        status: req.body.status,
       });
   
       // Check for duplicate usernames
@@ -58,42 +62,44 @@ import passport from '../passport/passport-config.js';
 // Login Controller
 export const logIn = (req, res, next) => {
   passport.authenticate('local', (err, user, info) => {
-    try {
-      if (err) {
-        throw err;
+      try {
+          if (err) {
+              throw err;
+          }
+
+          if (!user) {
+              return res.status(400).json({ msg: info.message });
+          }
+
+          req.login(user, (loginErr) => {
+              if (loginErr) {
+                  throw loginErr;
+              }
+
+              const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '24hrs' });
+              delete user.password;
+              req.session.user = user;
+              console.log(token);
+              res.cookie('token', token, { httpOnly: true });
+              // Check the role and render different views
+              if (user.role === 'admin') {
+                  // Apply checkAdminStatus middleware before allowing access to admin routes
+                  app.use('/admin-home', checkAdminStatus);
+                  // Render admin view
+                  res.redirect('/admin-home');
+              } else if (user.role === 'user') {
+                  // Apply checkUserAndAdminStatus middleware before allowing access to user routes
+                  app.use('/home', checkUserAndAdminStatus);
+                  // Redirect user view
+                  res.redirect('/home');
+              } else {
+                  // Handle other roles or provide a default view
+                  res.redirect('/home');
+              }
+          });
+      } catch (catchErr) {
+          res.status(500).json({ error: catchErr.message });
       }
-
-      if (!user) {
-        return res.status(400).json({ msg: info.message });
-      }
-
-      req.login(user, (loginErr) => {
-        if (loginErr) {
-          throw loginErr;
-        }
-
-        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '24hrs' });
-        delete user.password;
-        req.session.user = user;
-
-        // Check the role and render different views
-        if (user.role === 'admin') {
-          // Render admin view
-          res.redirect('/admin-home');
-        } else if (user.role === 'user') {
-          // Redirect user view
-          res.redirect('/home');
-        } else {
-          // Handle other roles or provide a default view
-          res.redirect('/home');
-        }
-
-        // Alternatively, you can redirect to different routes based on the user's role.
-        // Example: res.redirect('/admin-dashboard') or res.redirect('/user-dashboard');
-      });
-    } catch (catchErr) {
-      res.status(500).json({ error: catchErr.message });
-    }
   })(req, res, next);
 };
 

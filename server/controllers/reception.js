@@ -357,7 +357,7 @@ export const edit = async (req, res) => {
       description: "Kambia Health Research Center KHRC System",
     };
 
-    res.render("edit", {
+    res.render("adminEdit", {
       locals,
       storage,
     });

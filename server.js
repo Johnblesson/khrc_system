@@ -14,7 +14,7 @@ import ls1_2_Storage from './server/routes/ls2.js';
 import ls2_Storage from './server/routes/ls1-2.js';
 import reception from './server/routes/reception.js';
 import contact from './server/routes/contactRoute.js';
-import startSSHServer from './bin/sshServer.js';
+// import startSSHServer from './bin/sshServer.js';
 import cors from 'cors';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
@@ -54,6 +54,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Add the router
+// app.use(checkStatusMiddleware);
 app.use(views)
 app.use(css_Storage)
 app.use(ls1_Storage)
