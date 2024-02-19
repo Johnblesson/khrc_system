@@ -7,7 +7,7 @@ import { getAllUsers, getUserById, signUp, logIn } from "../controllers/auth.js"
 import { isAdmin } from "../middleware/isAdmin.js";
 import { isUser } from "../middleware/isUser.js";
 import { ensureAuthenticated } from "../middleware/isAuth.js";
-// import { checkUserAndAdminStatus } from "../middleware/checkStatus.js";
+// import { checkActiveStatus } from "../middleware/status.js";
 import { checkSudoPrivileges } from "../middleware/sudo.js"
 
 router.post('/register', checkSudoPrivileges, signUp);
