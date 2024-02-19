@@ -19,7 +19,7 @@ router.get('/', (req, res) => {
     res.render('login');
 })
 
-router.get('/register', (req, res) => {
+router.get('/register', checkSudoPrivileges, (req, res) => {
     res.render('sign up'); 
 })
 
