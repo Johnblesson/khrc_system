@@ -6,10 +6,10 @@ const sampleReceiptSchema = new Schema({
   sampleId: String,
   visitName: String,
   sampleType: { type: String, default: 'Urine' },
-  roomNumber: { type: String, require: true },
-  boxNumber: { type: String, require: true },
-  row: { type: String, require: true },
-  column: { type: String, require: true},
+  roomNumber: { type: String },
+  boxNumber: { type: String },
+  row: String,
+  column: String,
   compartment: String,
   rage: String,
   urinePalletA: String,
@@ -19,7 +19,7 @@ const sampleReceiptSchema = new Schema({
   dateOfEntry: Date,
   entryDoneBy: String,
   // storageReception: { type: Schema.Types.ObjectId, ref: 'storageReception' },
-  user_id: { type: Schema.Types.ObjectId, ref: 'User' }, // Assuming there is a User model
+  // user_id: { type: Schema.Types.ObjectId, ref: 'User' }, // Assuming there is a User model
 }, {
   timestamps: true,
 });
@@ -27,3 +27,4 @@ const sampleReceiptSchema = new Schema({
 const CSS = mongoose.model('CSS-storages', sampleReceiptSchema);
 
 export default CSS;
+

@@ -86,8 +86,20 @@ router.get('/logout', (req, res) => {
     res.redirect('/'); 
 });
 
-router.get('/message', (req, res) => {  
-  res.render('message');
+// router.get('/css-table', (req, res) => {  
+//   res.render('table-css');
+// })
+
+router.get('/ls1-1-table', (req, res) => {  
+  res.render('table-ls1-1');
+})
+
+router.get('/ls1-2-table', (req, res) => {  
+  res.render('table-ls1-2');
+})
+
+router.get('/ls2-table', (req, res) => {  
+  res.render('table-ls2');
 })
 
 // export the router

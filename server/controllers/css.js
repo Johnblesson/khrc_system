@@ -3,52 +3,88 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 // Create Cross-sectional Survey-CSS
+// export const createStorage = async (req, res) => {
+//   try {
+
+//     // Append 'A' to the sampleId
+//     const sampleIdWithA = req.body.sampleId + 'A';
+//     const sampleIdWithB = req.body.sampleId + 'B';
+
+//     const newStorage = new CSS({
+//         sampleId: req.body.sampleId,
+//         visitName: req.body.visitName,
+//         sampleType: req.body.sampleType,
+//         roomNumber: req.body.roomNumber,
+//         boxNumber: req.body.boxNumber,
+//         row: req.body.row,
+//         column: req.body.column,
+//         compartment: req.body.compartment,  
+//         rage: req.body.rage,
+//         urinePalletA: sampleIdWithA,
+//         urinePalletB: sampleIdWithB,
+//         dnaExtration: req.body.dnaExtration,
+//         comments: req.body.comments,
+//         dateOfEntry: req.body.dateOfEntry,
+//         entryDoneBy: req.body.entryDoneBy,
+//         // user_id: req.body.user_id,
+//         });
+// // const newStorage = await CSS.create(req.body);
+//     const savedStorage = await newStorage.save();
+//     res.status(201).render('storage-success');
+//     // res.json({ message: "Storage created successfully", savedStorage})
+//     // res.status(201).json(savedStorage);
+//     console.log(savedStorage);
+
+//   } catch (error) {
+//     return res.status(500).json({
+//       message: error,
+//   });
+// }
+// };
+
 export const createStorage = async (req, res) => {
   try {
-
     // Append 'A' to the sampleId
     const sampleIdWithA = req.body.sampleId + 'A';
     const sampleIdWithB = req.body.sampleId + 'B';
 
     const newStorage = new CSS({
-        sampleId: req.body.sampleId,
-        visitName: req.body.visitName,
-        sampleType: req.body.sampleType,
-        roomNumber: req.body.roomNumber,
-        boxNumber: req.body.boxNumber,
-        row: req.body.row,
-        column: req.body.column,
-        compartment: req.body.compartment,  
-        rage: req.body.rage,
-        urinePalletA: sampleIdWithA,
-        urinePalletB: sampleIdWithB,
-        dnaExtration: req.body.dnaExtration,
-        comments: req.body.comments,
-        dateOfEntry: req.body.dateOfEntry,
-        entryDoneBy: req.body.entryDoneBy,
-        // user_id: req.body.user_id,
-        });
-    // const newStorage = await CSS.create(req.body);
+      sampleId: req.body.sampleId,
+      visitName: req.body.visitName,
+      sampleType: req.body.sampleType,
+      roomNumber: req.body.roomNumber,
+      boxNumber: req.body.boxNumber,
+      row: req.body.row,
+      column: req.body.column,
+      compartment: req.body.compartment,
+      rage: req.body.rage,
+      urinePalletA: sampleIdWithA,
+      urinePalletB: sampleIdWithB,
+      dnaExtration: req.body.dnaExtration,
+      comments: req.body.comments,
+      dateOfEntry: req.body.dateOfEntry,
+      entryDoneBy: req.body.entryDoneBy,
+      // user_id: req.body.user_id,
+    });
 
+    // Save the new storage entry
     const savedStorage = await newStorage.save();
-    res.status(201).render('storage-success');
-    // res.json({ message: "Storage created successfully", savedStorage})
-    // res.status(201).json(savedStorage);
-    console.log(savedStorage);
 
+    res.status(201).render('storage-success');
+    console.log(savedStorage);
   } catch (error) {
-    return res.status(500).json({
+  res.status(500).json({
       message: error,
-  });
-}
-}
+    });
+  }
+};
 
 // Get Cross-sectional Survey-CSS
 export const getStorage = async (req, res) => {
   try {
 
     const page = parseInt(req.query.page) || 1; // Get the requested page number from the query parameter
-    const limit = 3; // Number of entries per page
+    const limit = 7; // Number of entries per page
     const skip = (page - 1) * limit;
 
     // Fetch all storage data
@@ -74,6 +110,7 @@ export const getStorage = async (req, res) => {
     });
   }
 };
+
 
 // retrieve and return all users/ retrive and return a single user
 export const findStorage = (req, res)=>{
@@ -164,3 +201,48 @@ export const cssView = async (req, res) => {
       console.log(error);
     }
   };
+
+  // export const cssTable = async (req, res) => {
+  //   try {
+  //     const storage = await CSS.find();
+  
+  //     const locals = {
+  //       title: "KHRC",
+  //        description: "Kambia Health Research Center KHRC System",
+  //     };
+  
+  //     res.render("table-css", {
+  //       locals,
+  //       storage,
+  //     });
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  export const cssTable = async (req, res) => {
+    try {
+      // Find all documents in the CSS collection
+      const storage = await CSS.find();
+  
+      // Extract sampleIds from the storage documents
+      const sampleIds = storage.map(item => item.sampleId);
+  
+      const locals = {
+        title: "KHRC",
+        description: "Kambia Health Research Center KHRC System",
+      };
+  
+      res.render("table-css", {
+        locals,
+        storage,
+        sampleIds,
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({
+        message: "Internal Server Error",
+      });
+    }
+  };
+  

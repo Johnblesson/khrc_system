@@ -65,6 +65,19 @@ export const homeRoute = async (req, res) => {
     description: "Kambia Health Research Center KHRC System",
   };
 
+  // Function to determine the time of the day
+const getTimeOfDay = () => {
+  const currentHour = new Date().getHours();
+
+  if (currentHour >= 5 && currentHour < 12) {
+    return 'Good Morning';
+  } else if (currentHour >= 12 && currentHour < 18) {
+    return 'Good Afternoon';
+  } else {
+    return 'Good Evening';
+  }
+};
+
   try {
     // Call getReception to fetch receptions data
     const { receptions } = await getReception(req, res);
@@ -75,8 +88,13 @@ export const homeRoute = async (req, res) => {
     // Fetch the most recent storage data
     const latestStorage = await RECEPTION.findOne().sort({ _id: -1 });
 
+    const user = req.isAuthenticated() ? req.user : null;
+
+     // Determine the time of the day
+    const greeting = getTimeOfDay();
+
     // Render the index page with the receptions and latestStorage data
-    res.render('index', { data: receptions, allStorage, latestStorage, locals });
+    res.render('index', { data: receptions, allStorage, latestStorage, locals, user, greeting});
   } catch (error) {
     console.error('Error rendering the page:', error);
     res.status(500).send('Internal Server Error');
@@ -91,6 +109,19 @@ export const adminHomeRoute = async (req, res) => {
     description: "Kambia Health Research Center KHRC System",
   };
 
+    // Function to determine the time of the day
+const getTimeOfDay = () => {
+  const currentHour = new Date().getHours();
+
+  if (currentHour >= 5 && currentHour < 12) {
+    return 'Good Morning';
+  } else if (currentHour >= 12 && currentHour < 17) {
+    return 'Good Afternoon';
+  } else {
+    return 'Good Evening';
+  }
+};
+
   try {
     // Call getReception to fetch receptions data
     const { receptions } = await getReception(req, res);
@@ -101,8 +132,13 @@ export const adminHomeRoute = async (req, res) => {
      // Fetch the most recent storage data
      const latestStorage = await RECEPTION.findOne().sort({ _id: -1 });
 
+     const user = req.isAuthenticated() ? req.user : null;
+
+    // Determine the time of the day
+    const greeting = getTimeOfDay();
+
     // Render the index page with the receptions data
-    res.render('index-admin', { data: receptions, allStorage, latestStorage, locals });
+    res.render('index-admin', { data: receptions, allStorage, latestStorage, locals, user, greeting});
   } catch (error) {
     console.error('Error rendering the page:', error);
     res.status(500).send('Internal Server Error');

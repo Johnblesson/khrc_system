@@ -43,6 +43,7 @@
       <!-- <i class="fa fa-stethoscope" style="font-size:30px;color:white"></i> -->
       <img src="./images/khrc_logo.png" alt="logo" width="130px">
     </a>
+    <strong><p style="text-align: center;"><%= greeting %>  <%= user ? user.username : '' %></p></strong>
     <ul>
       <li><a href="/home">Home</a></li>
       <li><a href="reception-form"> Reception </a></li>
@@ -61,7 +62,7 @@
       <div class="user-profile">
         <div class="user-icon-wrapper">
           <i class="fa-solid fa-user" id="userIcon"></i>
-          <!-- <p>Blesson</p> -->
+          <p><%= user ? user.username : '' %></p>
         </div>
         <div id="userDropdown" class="profile-card">
           <!-- Your profile card content goes here -->

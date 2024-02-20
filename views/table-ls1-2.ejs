@@ -73,17 +73,14 @@
 </head>
 <body>
 
-  <h1>CSS STORAGE POSITION</h1>
+  <h1>LS1 SECOND STORAGE POSITION</h1>
 
   <table>
     <thead>
       <tr>
         <th></th>
         <% for (let i = 1; i <= 9; i++) { %>
-          <th>
-            <%= i %><br> <!-- Display the column number -->
-            
-          </th>
+          <th><%= i %></th>
         <% } %>
       </tr>
     </thead>
@@ -94,16 +91,12 @@
         <tr>
           <th><%= row %></th>
           <% for (let i = 1; i <= 9; i++) { %>
-            <td class="storage-cell">
-              <%= row + i %><br> <!-- Display the cell content -->
-              <%= sampleIds %><br> <!-- Display the sampleId -->
-            </td>
+            <td class="storage-cell"><%= row + i %></td>
           <% } %>
         </tr>
       <% } %>
     </tbody>
   </table>
-  
 
 </body>
 </html>

@@ -11,6 +11,19 @@
       background-color: #b40955;
       content: attr(Non-functional);
     }
+
+    .green-bg {
+      background-color: rgb(118, 243, 118);
+    }
+
+    .pink-bg {
+      background-color: pink;
+    } 
+
+    .yellow-bg {
+      background-color: rgb(249, 233, 7);
+    }
+
   </style>
 
  <!-- Display information about the latest storage entry -->
@@ -51,19 +64,19 @@
                             <td class="px-6 py-4 whitespace-nowrap"><%= storage.visitName %></td>
                             <td class="px-6 py-4 whitespace-nowrap"><%= storage.sampleType %></td>
                             <td class="px-6 py-4 whitespace-nowrap"><%= storage.roomNumber %></td>
-                            <td class="px-6 py-4 whitespace-nowrap"><%= storage.boxNumber %></td>
-                            <td class="px-6 py-4 whitespace-nowrap"><%= storage.row %></td>
-                            <td class="px-6 py-4 whitespace-nowrap"><%= storage.column %></td>
+                            <td class="pink-bg px-6 py-4 whitespace-nowrap"><%= storage.boxNumber %></td>
+                            <td class="green-bg px-6 py-4 whitespace-nowrap"><%= storage.row %></td>
+                            <td class="green-bg px-6 py-4 whitespace-nowrap"><%= storage.column %></td>
                             <td class="px-6 py-4 whitespace-nowrap"><%= storage.compartment %></td>
                             <td class="px-6 py-4 whitespace-nowrap"><%= storage.rage %></td>
-                            <td class="px-6 py-4 whitespace-nowrap"><%= storage.urinePalletA %></td>
-                            <td class="px-6 py-4 whitespace-nowrap"><%= storage.urinePalletB %></td>
+                            <td class="yellow-bg px-6 py-4 whitespace-nowrap"><%= storage.urinePalletA %></td>
+                            <td class="yellow-bg px-6 py-4 whitespace-nowrap"><%= storage.urinePalletB %></td>
                             <td class="px-6 py-4 whitespace-nowrap"><%= storage.dnaExtration %></td>
                             <!-- ... Your existing table data columns ... -->
                             <td class="px-6 py-4 whitespace-nowrap" id="hover">
                                 <!-- Add icons with links to your delete, view, and update routes -->
-                                <a href="#"><i class="fas fa-trash-alt text-red-500 cursor-pointer"></i></a>
                                 <a href="/view-css/<%= storage._id %>"><i class="fas fa-eye text-blue-500 cursor-pointer mx-2"></i></a>
+                                <a href="#"><i class="fas fa-trash-alt text-red-500 cursor-pointer"></i></a>
                                 <a href="#"><i class="fas fa-edit text-green-500 cursor-pointer"></i></a>
                               </td>
                         </tr>

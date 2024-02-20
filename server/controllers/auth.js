@@ -78,6 +78,7 @@ export const logIn = (req, res, next) => {
             return next(loginErr);
           }
 
+          // Create a JWT token
           const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '24hrs' });
           delete user.password;
           req.session.user = user;
@@ -102,7 +103,6 @@ export const logIn = (req, res, next) => {
     }
   })(req, res, next);
 };
-
 
 
 // Get All Users Controller
