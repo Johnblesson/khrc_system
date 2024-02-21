@@ -90,15 +90,15 @@ router.get('/logout', (req, res) => {
 //   res.render('table-css');
 // })
 
-router.get('/ls1-1-table', (req, res) => {  
+router.get('/ls1-1-table', ensureAuthenticated, (req, res) => {  
   res.render('table-ls1-1');
 })
 
-router.get('/ls1-2-table', (req, res) => {  
+router.get('/ls1-2-table', ensureAuthenticated, (req, res) => {  
   res.render('table-ls1-2');
 })
 
-router.get('/ls2-table', (req, res) => {  
+router.get('/ls2-table', ensureAuthenticated, (req, res) => {  
   res.render('table-ls2');
 })
 

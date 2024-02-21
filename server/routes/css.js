@@ -13,7 +13,7 @@ import {
 
     import { ensureAuthenticated } from "../middleware/isAuth.js";
 
-router.post('/storage', createStorage);
+router.post('/storage', ensureAuthenticated, createStorage);
 router.get('/css-table', ensureAuthenticated, cssTable);
 router.get('/view-css', ensureAuthenticated, getStorage);
 router.get('/view-css/:id',ensureAuthenticated, cssView);

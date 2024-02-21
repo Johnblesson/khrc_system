@@ -30,7 +30,7 @@
       <div class="form-group row">
           <label for="sampleIdInput" class="col-sm-2 col-form-label">Sample ID (SID):</label>
           <div class="col-sm-4 position-relative">
-              <input type="text" name="sampleId" class="form-control" id="sampleIDInput" placeholder="Subject">
+              <input type="text" name="sampleId" class="form-control" id="sampleIDInput" placeholder="Sample ID (SID) ">
           </div>
 
           <label for="visitNameInput" class="col-sm-2 col-form-label">Visit Name:</label>
@@ -51,29 +51,38 @@
               <input type="text" name="sampleType" class="form-control" id="sampleTypeInput" value="Urine" readonly>
           </div>
 
-          <label for="roomNumber" class="col-sm-2 col-form-label">Room Number:</label>
+          <!-- <label for="roomNumber" class="col-sm-2 col-form-label">Room Number:</label>
           <div class="col-sm-4 position-relative">
               <input type="text" name="roomNumber" class="form-control" id="roomNumber" placeholder="Room Number" required>
-          </div>
+          </div> -->
+          <label for="roomNumber" class="col-sm-2 col-form-label">Room Number:</label>
+            <div class="col-sm-4 position-relative">
+                <select id="roomNumber" class="form-control" name="roomNumber">
+                    <option value="No room number selected">Select a room</option>
+                    <option value="Urine">1</option>
+                    <option value="Scvs">2</option>
+                </select>
+            </div>
       </div>
 
       <!-- Add -->
       <div class="form-group row">
         <label for="boxNumber" class="col-sm-2 col-form-label">Box Number:</label>
         <div class="col-sm-4 position-relative">
-            <input type="text" name="boxNumber" class="form-control" id="boxNumber" placeholder="Box Number" readonly>
+            <input type="text" name="boxNumber" class="form-control" id="boxNumber" value="1" readonly>
         </div>
-
+        
         <label for="row" class="col-sm-2 col-form-label">Row:</label>
-        <div class="col-sm-4 position-relative">
-            <input type="text" name="row" class="form-control" id="row" placeholder="Row">
-        </div>
+            <div class="col-sm-4 position-relative">
+                <input type="text" name="row" class="form-control" id="row" placeholder="Row" readonly>
+            </div>
+       
     </div>
 
     <div class="form-group row">
       <label for="column" class="col-sm-2 col-form-label">Column:</label>
       <div class="col-sm-4 position-relative">
-          <input type="text" name="column" class="form-control" id="column" placeholder="Column" >
+          <input type="text" name="column" class="form-control" id="column" placeholder="Column" readonly>
       </div>
 
           <label for="compartment" class="col-sm-2 col-form-label">Compartment:</label>
@@ -83,6 +92,7 @@
         </div>
 
         <div class="form-group row">
+
             <label for="rage" class="col-sm-2 col-form-label">Rage:</label>
             <div class="col-sm-4 position-relative">
                 <input type="text" name="rage" class="form-control" id="rage" placeholder="Rage" required>
