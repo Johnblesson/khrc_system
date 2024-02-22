@@ -86,7 +86,7 @@ export const createStorage = async (req, res) => {
 
     // Send the row and column information in the response
     // res.status(201).json({ message: "Storage created successfully", savedStorage, markedBox: { row: currentRow, column: currentColumn } });
-    res.status(201).render('storage-success');
+    res.status(201).render('storage-success/css');
     console.log(savedStorage);
   } catch (error) {
     return res.status(500).json({ message: error });
@@ -205,7 +205,7 @@ export const getAllCss = async (req, res) => {
   try {
     const allStorage = await CSS.find();
 
-   res.render('css_see_more', { 
+   res.render('see_more/css', { 
     allStorage
 })
   } catch (error) {

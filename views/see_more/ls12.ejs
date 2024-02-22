@@ -1,6 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="Shortcut Icon" type="image/ico" href="images/favicon.svg">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>KHRC</title>
+  <meta name="description" content="<%= locals.description %>">
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet"> -->
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="./css/style.css"> <!-- Your custom CSS file -->
+ <!-- <link rel="stylesheet" href="./css/header.css"> -->
+  <!-- <link rel="stylesheet" href="./css/common.css">  -->
+  <!-- <link rel="stylesheet" href="./css/scrollTop.css"> -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+</head>
+<body>
 <style>
+    .table-container {
+  max-height: 80vh; /* Set max height for table container */
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.table-body {
+  display: absolute;     
+}
+
+.table-head {
+  position: sticky; /* Make table header sticky */
+  top: 0; /* Stick to the top */
+  z-index: 1; /* Ensure the header is above table body */
+  background-color: white; /* Match background color of table body */
+}
+
+.main {
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+    height: 100vh;
+}
+
     .storage-info {
-        text-align: center;
+    text-align: center;
       margin-top: 20px;
       padding: 10px;
       border: 1px solid #ccc;
@@ -11,6 +69,7 @@
       background-color: #b40955;
       content: attr(Non-functional);
     }
+
     .green-bg {
       background-color: rgb(118, 243, 118);
     }
@@ -22,20 +81,22 @@
     .yellow-bg {
       background-color: rgb(249, 233, 7);
     }
+
   </style>
-  
-  <!-- Display information about the latest storage entry -->
-  <div class="storage-info">
+
+<div class="main">
+ <!-- Display information about the latest storage entry -->
+ <div class="storage-info">
     <% if (allStorage.length > 0) { %>
-      <h2>ALL LS1 2ND 250 PARTICIPANTS STORAGE</h2>
+      <h2>ALL LS1 2ND STORAGE</h2>
     <% } else { %>
       <p>No storage data available</p>
     <% } %>
   </div>
-  
-    <div class="container mx-auto">
+ 
+    <div class="container mx-auto table-container">
         <table class="min-w-full divide-y divide-gray-200">
-            <thead class="bg-gray-50">
+            <thead class="bg-gray-50 table-head">
                 <tr>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Sample ID</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Visit Name</th>
@@ -54,11 +115,11 @@
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                 </tr>
             </thead>
-            <tbody class="bg-white divide-y divide-gray-200" id="tbody">
+            <tbody class="bg-white divide-y divide-gray-200 table-body" id="tbody">
                 <% if (allStorage && allStorage.length > 0) { %>
                     <% allStorage.forEach(storage => { %>
                         <tr>  
-                            <td class="py-4 whitespace-nowrap"><%= storage.sampleId %></td>
+                            <td class="px-6 py-4 whitespace-nowrap"><%= storage.sampleId %></td>
                             <td class="px-6 py-4 whitespace-nowrap"><%= storage.visitName %></td>
                             <td class="px-6 py-4 whitespace-nowrap"><%= storage.sampleType %></td>
                             <td class="px-6 py-4 whitespace-nowrap"><%= storage.roomNumber %></td>
@@ -73,8 +134,8 @@
                             <!-- ... Your existing table data columns ... -->
                             <td class="px-6 py-4 whitespace-nowrap" id="hover">
                                 <!-- Add icons with links to your delete, view, and update routes -->
+                                <a href="/view-css/<%= storage._id %>"><i class="fas fa-eye text-blue-500 cursor-pointer mx-2"></i></a>
                                 <a href="#"><i class="fas fa-trash-alt text-red-500 cursor-pointer"></i></a>
-                                <a href="/view-ls1-2/<%= storage._id %>"><i class="fas fa-eye text-blue-500 cursor-pointer mx-2"></i></a>
                                 <a href="#"><i class="fas fa-edit text-green-500 cursor-pointer"></i></a>
                               </td>
                         </tr>
@@ -89,32 +150,54 @@
     </div>
 
     <div>
-      <button class="storage-button">
-        <a href="ls1-2-table"><i class="fas fa-eye icon"></i> STORAGE POSITION </a>
-    </button>
-  
-      <!-- Export to Excel Button -->
-      <button class="storage-button" id="exportBtn">
-        <i class="fas fa-file-excel icon"></i> Export to Excel
-    </button>
-  
-    <button class="storage-button">
-      <a href="all-ls12"><i class="fas fa-eye icon"></i> See More </a>
+    <!-- Export to Excel Button -->
+    <button class="storage-button" id="exportBtn">
+      <i class="fas fa-file-excel icon"></i> Export to Excel
   </button>
-  </div>
-  </div>
-  
+</div>
+</div>
+
   <!-- Assuming you have a variable 'currentPage' and 'totalPages' from the server-side -->
-  
+
   <div class="container mx-auto">
     <!-- Your existing table code -->
   
     <!-- Pagination Controls -->
-    <div class="pagination">
-      <% for (let i = 1; i <= totalPages; i++) { %>
-        <a href="?page=<%= i %>" class="<%= i === currentPage ? 'active' : '' %>">
-          <%= i %>
-        </a>
-      <% } %>
-    </div>
+   
   </div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
+
+<script>
+  document.getElementById('exportBtn').addEventListener('click', function() {
+      // Get table
+      const table = document.querySelector('table');
+
+      // Convert table to Excel workbook
+      const wb = XLSX.utils.table_to_book(table, {sheet: "Sheet JS"});
+
+      // Save workbook to Excel file
+      XLSX.writeFile(wb, 'storage_data.xlsx');
+  });
+</script>
+
+<script>
+document.getElementById('exportBtn').addEventListener('click', function() {
+    // Get table body
+    const tableBody = document.querySelector('.table-body');
+
+    // Convert table body to Excel workbook
+    const wb = XLSX.utils.table_to_book(tableBody, {sheet: "Sheet JS"});
+
+    // Save workbook to Excel file
+    XLSX.writeFile(wb, 'storage_data.xlsx');
+});
+</script>
+
+<!-- dynamic data code -->
+<script src="/js/script.js"></script>
+<script src="/js/icon.js"></script>
+<script src="/js/pwd.js"></script>
+<script src="/js/storageLogic.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>

@@ -3,44 +3,50 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 // LS2 Storage
+let currentRow = 'A';
+let currentColumn = 1;
+
 export const createStorage = async (req, res) => {
   try {
-
     // Append 'A' to the sampleId
     const sampleIdWithA = req.body.sampleId + 'A';
     const sampleIdWithB = req.body.sampleId + 'B';
 
     const newStorage = new LS2({
-        sampleId: req.body.sampleId,
-        visitName: req.body.visitName,
-        sampleType: req.body.sampleType,
-        roomNumber: req.body.roomNumber,
-        boxNumber: req.body.boxNumber,
-        row: req.body.row,
-        column: req.body.column,
-        compartment: req.body.compartment,
-        rage: req.body.rage,
-        urinePalletA: sampleIdWithA,
-        urinePalletB: sampleIdWithB,
-        dnaExtration: req.body.dnaExtration,
-        comments: req.body.comments,
-        dateOfEntry: req.body.dateOfEntry,
-        entryDoneBy: req.body.entryDoneBy,
-        // user_id: req.body.user_id,
-        });
-    // const newStorage = await LS2.create(req.body);
+      sampleId: req.body.sampleId,
+      visitName: req.body.visitName,
+      sampleType: req.body.sampleType,
+      roomNumber: req.body.roomNumber,
+      boxNumber: req.body.boxNumber,
+      row: currentRow,
+      column: currentColumn,
+      compartment: req.body.compartment,  
+      rage: req.body.rage,
+      urinePalletA: sampleIdWithA,
+      urinePalletB: sampleIdWithB,
+      dnaExtration: req.body.dnaExtration,
+      comments: req.body.comments,
+      dateOfEntry: req.body.dateOfEntry,
+      entryDoneBy: req.body.entryDoneBy,
+    });
 
     const savedStorage = await newStorage.save();
-    res.status(201).render('storage-success');
-    // res.json({ message: "Storage created successfully", savedStorage})
-    // res.status(201).json(savedStorage);
-    console.log(savedStorage);
 
+    // Move to the next row and column
+    if (currentColumn === 9) {
+      currentRow = String.fromCharCode(currentRow.charCodeAt(0) + 1); // Move to the next row
+      currentColumn = 1; // Reset column to 1
+    } else {
+      currentColumn++; // Move to the next column
+    }
+
+    // Send the row and column information in the response
+    // res.status(201).json({ message: "Storage created successfully", savedStorage, markedBox: { row: currentRow, column: currentColumn } });
+    res.status(201).render('storage-success/ls2');
+    console.log(savedStorage);
   } catch (error) {
-    return res.status(500).json({
-      message: error,
-  });
-}
+    return res.status(500).json({ message: error });
+  }
 }
 
 // Get LS2
@@ -74,6 +80,22 @@ export const getStorage = async (req, res) => {
       });
     }
   };
+
+// Get ALL LS2 without pagination
+export const getAll_ls2 = async (req, res) => {
+  try {
+    const allStorage = await LS2.find();
+
+   res.render('see_more/ls2', { 
+    allStorage
+})
+  } catch (error) {
+    return res.status(500).json({
+      message: error,
+    });
+  }
+};
+
 
 // retrieve and return all users/ retrive and return a single user
 export const findStorage = (req, res)=>{
@@ -162,5 +184,31 @@ export const ls2View = async (req, res) => {
       });
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  export const ls2Table = async (req, res) => {
+    try {
+      // Find all documents in the CSS collection
+      const storage = await LS2.find();
+  
+      // Extract sampleIds from the storage documents
+      const sampleIds = storage.map(item => item.sampleId);
+  
+      const locals = {
+        title: "KHRC",
+        description: "Kambia Health Research Center KHRC System",
+      };
+  
+      res.render("table-ls2", {
+        locals,
+        storage,
+        sampleIds,
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({
+        message: "Internal Server Error",
+      });
     }
   };

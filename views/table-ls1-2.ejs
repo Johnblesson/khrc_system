@@ -18,12 +18,14 @@
     }
 
     h1 {
-      margin-bottom: 20px; /* Add margin for spacing */
+      margin-bottom: 10px; /* Add margin for spacing */
     }
 
     table {
       border-collapse: collapse;
       width: 80%;
+      margin-bottom: 20px; /* Add margin for spacing */
+      padding: 20px; /* Add padding for spacing */
     }
 
     th, td {
@@ -68,19 +70,42 @@
         transform: translateX(0);
       }
     }
+
+     /* Add CSS for the yellow-bg class */
+     .yellow-bg {
+      background-color: yellow;
+    }
+
+    /* Add CSS for the green-bg class */
+    .green-bg {
+      background-color: green;
+    }
+
+    /* Add CSS for the sample-id class */
+    .sample-id {
+      background-color: lightblue; /* Set the background color for sample IDs */
+    }
   </style>
   <title>Table</title>
 </head>
 <body>
 
-  <h1>LS1 SECOND STORAGE POSITION</h1>
+  <h1>LS1 2ND 250 STORAGE POSITION</h1>
+
+  <!-- Add export buttons -->
+<div style="margin: 5px; padding: 5px;">
+  <button onclick="exportToExcel()">Export to Excel</button>
+  <!-- <button onclick="exportToWord()">Export to Word</button> -->
+</div>
 
   <table>
     <thead>
       <tr>
         <th></th>
         <% for (let i = 1; i <= 9; i++) { %>
-          <th><%= i %></th>
+          <th>
+            <%= i %><br> <!-- Display the column number -->
+          </th>
         <% } %>
       </tr>
     </thead>
@@ -91,12 +116,45 @@
         <tr>
           <th><%= row %></th>
           <% for (let i = 1; i <= 9; i++) { %>
-            <td class="storage-cell"><%= row + i %></td>
+            <td class="storage-cell">
+              <%= row + i %><br> <!-- Display the cell content -->
+              <span class="sample-id"><%= sampleIds.shift() %></span><br> <!-- Display and remove the first sampleId from the array -->
+            </td>
           <% } %>
         </tr>
       <% } %>
     </tbody>
   </table>
+
+  <!-- Add the following script tags at the end of the <body> section -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.0/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html-docx-js/0.5.0/html-docx.js"></script>
+
+<script>
+  // Function to export table data to Excel
+  function exportToExcel() {
+    const wb = XLSX.utils.table_to_book(document.querySelector('table'));
+    const wbout = XLSX.write(wb, { bookType: 'xlsx', bookSST: true, type: 'binary' });
+
+    function s2ab(s) {
+      const buf = new ArrayBuffer(s.length);
+      const view = new Uint8Array(buf);
+      for (let i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
+      return buf;
+    }
+
+    saveAs(new Blob([s2ab(wbout)], { type: 'application/octet-stream' }), 'table.xlsx');
+  }
+
+  // Function to export table data to Word
+  function exportToWord() {
+    const html = document.querySelector('table').outerHTML;
+    const converted = htmlDocx.asBlob(html);
+    saveAs(converted, 'table.docx');
+  }
+</script>
 
 </body>
 </html>

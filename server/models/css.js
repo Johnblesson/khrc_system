@@ -6,10 +6,10 @@ const sampleReceiptSchema = new Schema({
   sampleId: String,
   visitName: String,
   sampleType: { type: String, default: 'Urine' },
-  roomNumber: { type: String },
-  boxNumber: { type: String },
+  roomNumber: String,
+  boxNumber: String,
   row: String,
-  column: String, // Remove unique constraint
+  column: String,
   compartment: String,
   rage: String,
   urinePalletA: String,

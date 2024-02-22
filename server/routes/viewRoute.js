@@ -86,21 +86,5 @@ router.get('/logout', (req, res) => {
     res.redirect('/'); 
 });
 
-// router.get('/css-table', (req, res) => {  
-//   res.render('table-css');
-// })
-
-router.get('/ls1-1-table', ensureAuthenticated, (req, res) => {  
-  res.render('table-ls1-1');
-})
-
-router.get('/ls1-2-table', ensureAuthenticated, (req, res) => {  
-  res.render('table-ls1-2');
-})
-
-router.get('/ls2-table', ensureAuthenticated, (req, res) => {  
-  res.render('table-ls2');
-})
-
 // export the router
 export default router;
