@@ -9,6 +9,7 @@ import {
     deleteStorage,
     cssView,
     cssTable,
+    getAllCss,
     } from "../controllers/css.js";
 
     import { ensureAuthenticated } from "../middleware/isAuth.js";
@@ -19,5 +20,6 @@ router.get('/view-css', ensureAuthenticated, getStorage);
 router.get('/view-css/:id',ensureAuthenticated, cssView);
 router.put('/storage/:id', ensureAuthenticated, updateStorage);
 router.delete('/storage/:id', ensureAuthenticated, deleteStorage);
+router.get('/all-css', ensureAuthenticated, getAllCss);
 
 export default router;
