@@ -1,4 +1,5 @@
 import Contact from '../models/contactModel.js';
+// import User from '../models/auth.js';
 
 export const createMessage = async (req, res) => {
     try {
@@ -8,9 +9,17 @@ export const createMessage = async (req, res) => {
             phone: req.body.phone,
             msg: req.body.msg
         });
-
+        const user = req.isAuthenticated() ? req.user : null;
         const savedContact = await newMessage.save();
-        res.status(201).render('message-success', { message: 'Your message has been sent successfully!' })
+
+        // Check the role and render different views
+        if (user.role === 'admin') {
+            res.redirect('admin-message-success')
+        } else if (user.role === 'user') {
+            res.redirect('user-message-success')
+        } else {
+            res.redirect('user-message-success')
+        }
         //   res.status(201).json({
         //     status: 'success',
         //     data: {
@@ -28,44 +37,44 @@ export const createMessage = async (req, res) => {
 }
 
 // Get one contact form by ID
-// export const messagesRoute = async (req, res) => {
+export const messagesRoute = async (req, res) => {
 
-//     const locals = {
-//         title: "KHRC",
-//         description: "Kambia Health Research Center KHRC System",
-//       };
+    const locals = {
+        title: "KHRC",
+        description: "Kambia Health Research Center KHRC System",
+      };
 
-//     try {
+    try {
   
-//       const page = parseInt(req.query.page) || 1; // Get the requested page number from the query parameter
-//       const limit = 3; // Number of entries per page
-//       const skip = (page - 1) * limit;
+      const page = parseInt(req.query.page) || 1; // Get the requested page number from the query parameter
+      const limit = 7; // Number of entries per page
+      const skip = (page - 1) * limit;
   
-//       // Fetch all storage data
-//     //   const { messages } = await getAllContactForms(req, res);
+      // Fetch all storage data
+    //   const { messages } = await getAllContactForms(req, res);
 
-//       const allStorage = await Contact.find().skip(skip).limit(limit);
-//       const totalEntries = await Contact.countDocuments();
+      const allStorage = await Contact.find().skip(skip).limit(limit);
+      const totalEntries = await Contact.countDocuments();
   
-//       const totalPages = Math.ceil(totalEntries / limit);
-//     //   const allStorage = await Contact.find();
+      const totalPages = Math.ceil(totalEntries / limit);
+    //   const allStorage = await Contact.find();
   
-//       // Fetch the most recent storage data
-//       const latestStorage = await Contact.findOne().sort({ _id: -1 });
+      // Fetch the most recent storage data
+      const latestStorage = await Contact.findOne().sort({ _id: -1 });
   
-//      res.render('message', { 
-//       allStorage, 
-//       latestStorage,
-//       locals, 
-//       currentPage: page, 
-//       totalPages: totalPages,
-//   })
-//     } catch (error) {
-//       return res.status(500).json({
-//         message: error,
-//       });
-//     }
-//   };
+     res.render('message', { 
+      allStorage, 
+      latestStorage,
+      locals, 
+      currentPage: page, 
+      totalPages: totalPages,
+  })
+    } catch (error) {
+      return res.status(500).json({
+        message: error,
+      });
+    }
+  };
 
 // Get all contact forms
 export const getAllContactForms = async (req, res) => {
@@ -86,23 +95,21 @@ export const getAllContactForms = async (req, res) => {
     }
 }
 
-export const messagesRoute = async (req, res) => {
-    const locals = {
-      title: "KHRC",
-      description: "Kambia Health Research Center KHRC System",
-    };
-  
+export const messageView = async (req, res) => {
     try {
-      const allMessages = await getAllContactForms(req, res);
+      const storage = await Contact.findOne({ _id: req.params.id });
   
-      // Render the messages page with the contact forms data
-      res.render('message', { 
-          allMessages, 
-          locals,
+      const locals = {
+        title: "KHRC",
+         description: "Kambia Health Research Center KHRC System",
+      };
+  
+      res.render("view-message", {
+        locals,
+        storage,
       });
     } catch (error) {
-      console.error('Error rendering the messages page:', error);
-      res.status(500).send('Internal Server Error');
+      console.log(error);
     }
   };
   

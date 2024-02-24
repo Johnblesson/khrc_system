@@ -15,6 +15,7 @@ import {
     editPost,
     edit,
     view,
+    getAllReception,
     } from "../controllers/reception.js";
 
     import { getAllUsers, getUserById } from "../controllers/auth.js";
@@ -30,6 +31,7 @@ router.post('/api/admin/reception', createAdminReception);
 
 router.get('/users', ensureAuthenticated, getAllUsers)
 router.get('/api/users/:id', getUserById)
+router.get('/all-reception', getAllReception)
 
 // router.post('/search', searchReceptions);
 

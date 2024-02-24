@@ -152,6 +152,19 @@ export const viewReception = async (req, res) => {
     description: "Kambia Health Research Center KHRC System",
   };
 
+// Function to determine the time of the day
+const getTimeOfDay = () => {
+  const currentHour = new Date().getHours();
+
+  if (currentHour >= 5 && currentHour < 12) {
+    return 'Good Morning';
+  } else if (currentHour >= 12 && currentHour < 18) {
+    return 'Good Afternoon';
+  } else {
+    return 'Good Evening';
+  }
+};
+
   try {
     // Call getReception to fetch receptions data
     const { receptions } = await getReception(req, res);
@@ -170,6 +183,11 @@ export const viewReception = async (req, res) => {
     // Fetch the most recent storage data
     const latestStorage = await RECEPTION.findOne().sort({ _id: -1 });
 
+    const user = req.isAuthenticated() ? req.user : null;
+
+     // Determine the time of the day
+     const greeting = getTimeOfDay();
+
     // Render the index page with the receptions data
     res.render('viewReception', { 
       data: receptions, 
@@ -177,7 +195,9 @@ export const viewReception = async (req, res) => {
       latestStorage,
       currentPage: page, 
       totalPages: totalPages,
-      locals 
+      locals,
+      greeting,
+      user,
     });
   } catch (error) {
     console.error('Error rendering the page:', error);
@@ -192,6 +212,19 @@ export const adminViewReception = async (req, res) => {
     description: "Kambia Health Research Center KHRC System",
   };
 
+// Function to determine the time of the day
+const getTimeOfDay = () => {
+  const currentHour = new Date().getHours();
+
+  if (currentHour >= 5 && currentHour < 12) {
+    return 'Good Morning';
+  } else if (currentHour >= 12 && currentHour < 18) {
+    return 'Good Afternoon';
+  } else {
+    return 'Good Evening';
+  }
+};
+
   try {
     // Call getReception to fetch receptions data
     const { receptions } = await getReception(req, res);
@@ -210,6 +243,11 @@ export const adminViewReception = async (req, res) => {
     // Fetch the most recent storage data
     const latestStorage = await RECEPTION.findOne().sort({ _id: -1 });
 
+    const user = req.isAuthenticated() ? req.user : null;
+
+  // Determine the time of the day
+  const greeting = getTimeOfDay();
+
     // Render the index page with the receptions data
     res.render('adminViewReception', { 
       data: receptions, 
@@ -217,7 +255,9 @@ export const adminViewReception = async (req, res) => {
       latestStorage,
       currentPage: page, 
       totalPages: totalPages,
-      locals 
+      locals,
+      greeting,
+      user,
     });
   } catch (error) {
     console.error('Error rendering the page:', error);
@@ -414,5 +454,20 @@ export const deleteRecord = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).send("Internal Server Error");
+  }
+};
+
+// Get Reception without pagination
+export const getAllReception = async (req, res) => {
+  try {
+    const allStorage = await RECEPTION.find();
+
+   res.render('see_more/reception', { 
+    allStorage
+})
+  } catch (error) {
+    return res.status(500).json({
+      message: error,
+    });
   }
 };

@@ -69,13 +69,19 @@
         </div>
       </li>
       <!-- <li><a href="About"> About </a></li> -->
-      <li><a href="admin-contact">Contact Us</a></li>
+      <li><a href="admin-contact">Message Us</a></li>
 
       <div class="user-icon-wrapper">
         <i class="fa-solid fa-user" id="userIcon"></i>
         <p><%= user ? user.username : '' %></p>
       </div>
-      
+      <div>
+        <form action="/message" method="get">
+          <button type="submit">
+        <i class="fa-solid fa-message"></i>
+      </button>
+      </form>
+      </div>
       <div class="logout-container">
         <form action="/logout" method="get">
            <button type="submit" class="logout-button">
@@ -135,7 +141,7 @@
     <!-- Add more items as needed -->
   </div>
   <a href="ls2-storage" class="button ls2"><i class="fa-solid fa-database"></i>  LS2 STORAGE</a>
-  <a href="admin-view-reception reception" class="button"><i class="fa-solid fa-eye"></i>  VIEW ALL RECEPTIONS</a>
+  <a href="admin-view-reception" class="button"><i class="fa-solid fa-eye"></i>  VIEW ALL RECEPTIONS</a>
   <a href="users" class="button"><i class="fa-solid fa-user"></i>  VIEW ALL USERS</a>
   <button id="exportToExcelBtn" class="button" style="display: none;">Export to Excel</button>
   <!-- Hide export button by default -->
@@ -153,9 +159,9 @@
 <%- include('include/_display') %>
 <!-- /include display -->
 
-<h1 style="text-align: center;">
+<!-- <h1 style="text-align: center;">
   <a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&pause=1000&width=435&lines=Welcome+to+the+KHRC+Software+System!...;Welcome+to+the+KHRC+Software+System!...;Welcome+to+the+KHRC+Software+System!...;Welcome+to+the+KHRC+Software+System!&center=true&size=20" alt="Typing SVG" /></a>
-</h1>
+</h1> -->
     
 <!-- include footer -->
 <%- include('include/_footer') %>

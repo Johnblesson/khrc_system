@@ -1,0 +1,25 @@
+  <div class="contact-form">
+    <h1 style="margin: 5px;">Message us</h1>
+    <!-- <a href="messages" class="button"><i class="fa-solid fa-message"></i> Messages</a> -->
+    <div class="container">
+        <div class="main">
+            <div class="content">
+                <h2>Send Message</h2>
+                <form action="contact" method="post">
+                    <input type="text" name="name" value="<%= user ? user.username : '' %>: (<%= user ? user.role : '' %>)" readonly>
+                    <input type="email" name="email" value="<%= user ? user.email : '' %>" readonly>
+                    <input type="phone" name="phone" placeholder="Enter your phone number">
+                    <textarea name="msg" placeholder="Your Message"></textarea>
+                    <button type="submit" class="btn">Send<i class="butn"></i></button>
+                </form>
+            </div>
+            <div class="form-img">
+                <a href="/message"><img src="./images/contactus.svg" alt="contactus"></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+  

@@ -65,12 +65,25 @@ router.get('/reception-admin-form', ensureAuthenticated, isAdmin, (req, res) => 
   res.render('reception-admin', { user });
 })
 
-router.get('/admin-contact', ensureAuthenticated, isAdmin, (req, res) => {  
-    res.render('contactUs');
+router.get('/admin-contact', ensureAuthenticated, (req, res) => {
+  // The user information should be available in req.user if authenticated
+  const user = req.isAuthenticated() ? req.user : null;  
+    res.render('contact-admin', { user });
 })
 
-router.get('/user-contact', ensureAuthenticated, isUser, (req, res) => {  
-    res.render('userContact');
+router.get('/user-contact', ensureAuthenticated, (req, res) => {  
+  // The user information should be available in req.user if authenticated
+  const user = req.isAuthenticated() ? req.user : null;  
+    res.render('contact-user', { user });
+})
+
+// Message Success 
+router.get('/admin-message-success', ensureAuthenticated, isAdmin, (req, res) => {
+  res.render('message_success/admin')
+})
+
+router.get('/user-message-success', ensureAuthenticated, (req, res) => {
+  res.render('message_success/user')
 })
 
 router.get('/about', ensureAuthenticated, (req, res) => {

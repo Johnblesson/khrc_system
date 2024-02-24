@@ -20,18 +20,23 @@
         </tr>
       </thead>
       <tbody class="bg-white divide-y divide-gray-200" id="tbody">
-        <% if (allMessages && allMessages.length > 0) { %>
-          <% allMessages.forEach(message => { %>
+        <% if (allStorage && allStorage.length > 0) { %>
+          <% allStorage.forEach(storage => { %>
             <tr>
-              <td class="px-6 py-4 whitespace-nowrap"><%= message.name %></td>
-              <td class="px-6 py-4 whitespace-nowrap"><%= message.email %></td>
-              <td class="px-6 py-4 whitespace-nowrap"><%= message.phone %></td>
-              <td class="px-6 py-4 whitespace-nowrap"><%= message.msg %></td>
+              <td class="px-6 py-4 whitespace-nowrap"><%= storage.name %></td>
+              <td class="px-6 py-4 whitespace-nowrap"><%= storage.email %></td>
+              <td class="px-6 py-4 whitespace-nowrap"><%= storage.phone %></td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <script>
+                    var msg = '<%= storage.msg %>';
+                    var truncatedMsg = msg.length > 5 ? msg.substring(0, 5) + "..." : msg;
+                    document.write(truncatedMsg);
+                </script>
+            </td>
+      
               <td class="px-6 py-4 whitespace-nowrap">
                 <!-- Add icons with links to your delete, view, and update routes -->
-                <a href="#"><i class="fas fa-trash-alt text-red-500 cursor-pointer"></i></a>
-                <a href="#"><i class="fas fa-eye text-blue-500 cursor-pointer mx-2"></i></a>
-                <a href="#"><i class="fas fa-edit text-green-500 cursor-pointer"></i></a>
+                <a href="/view-message/<%= storage._id %>"><i class="fas fa-eye text-blue-500 cursor-pointer mx-2"></i></a>
               </td>
             </tr>
           <% }) %>
@@ -42,5 +47,15 @@
         <% } %>
       </tbody>
     </table>
+      <!-- Assuming you have a variable 'currentPage' and 'totalPages' from the server-side -->
+  <div class="container mx-auto">
+    <div class="pagination">
+      <% for (let i = 1; i <= totalPages; i++) { %>
+          <a href="?page=<%= i %>" class="<%= i === currentPage ? 'active' : '' %>">
+              <%= i %>
+          </a>
+      <% } %>
+  </div>
+  </div>
   </div>
   

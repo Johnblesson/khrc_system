@@ -4,11 +4,14 @@ const router = Router();
 import { 
     createMessage, 
     getAllContactForms,
-    messagesRoute
+    messagesRoute,
+    messageView
     } from "../controllers/contactController.js";
+import { ensureAuthenticated } from "../middleware/isAuth.js";    
 
-router.post('/contact', createMessage);
-router.get('/message', messagesRoute);
-router.get('/get-all-contact', getAllContactForms);
+router.post('/contact', ensureAuthenticated, createMessage);
+router.get('/message', ensureAuthenticated, messagesRoute);
+router.get('/get-all-contact', ensureAuthenticated, getAllContactForms);
+router.get('/view-message/:id', ensureAuthenticated, messageView)
 
 export default router;
