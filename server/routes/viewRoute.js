@@ -10,12 +10,12 @@ import { ensureAuthenticated } from "../middleware/isAuth.js";
 // import { checkActiveStatus } from "../middleware/status.js";
 import { checkSudoPrivileges } from "../middleware/sudo.js"
 
-router.post('/register', signUp);
+router.post('/register', checkSudoPrivileges, signUp);
 router.post('/login', logIn);
 // router.get('/logout', logOut);
 
 // Ejs routes
-router.get('/', (req, res) => {
+router.get('/', checkSudoPrivileges, (req, res) => {
     res.render('login');
 })
 
