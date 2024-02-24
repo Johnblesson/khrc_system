@@ -6,6 +6,11 @@
       border: 1px solid #ccc;
       border-radius: 5px;
     }
+    .hover:hover {
+      background-color: #c6195e;
+      content: attr(Non-functional);
+      color: #ffffff;
+    }
   </style>
   
   <div class="container mx-auto">
@@ -23,18 +28,19 @@
         <% if (allStorage && allStorage.length > 0) { %>
           <% allStorage.forEach(storage => { %>
             <tr>
-              <td class="px-6 py-4 whitespace-nowrap"><%= storage.name %></td>
-              <td class="px-6 py-4 whitespace-nowrap"><%= storage.email %></td>
-              <td class="px-6 py-4 whitespace-nowrap"><%= storage.phone %></td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <script>
-                    var msg = '<%= storage.msg %>';
-                    var truncatedMsg = msg.length > 5 ? msg.substring(0, 5) + "..." : msg;
-                    document.write(truncatedMsg);
-                </script>
+              <td class="hover px-6 py-4 whitespace-nowrap"><%= storage.name %></td>
+              <td class="hover px-6 py-4 whitespace-nowrap"><%= storage.email %></td>
+              <td class="hover px-6 py-4 whitespace-nowrap"><%= storage.phone %></td>
+              <td class="hover px-6 py-4 whitespace-nowrap">
+                <% if (storage.msg && storage.msg.length > 20) { %>
+                    <%= storage.msg.substring(0, 20) + "..." %>
+                <% } else { %>
+                    <%= storage.msg %>
+                <% } %>
             </td>
+            
       
-              <td class="px-6 py-4 whitespace-nowrap">
+              <td class="hover px-6 py-4 whitespace-nowrap">
                 <!-- Add icons with links to your delete, view, and update routes -->
                 <a href="/view-message/<%= storage._id %>"><i class="fas fa-eye text-blue-500 cursor-pointer mx-2"></i></a>
               </td>

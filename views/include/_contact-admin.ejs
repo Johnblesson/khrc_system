@@ -8,8 +8,8 @@
                 <form action="contact" method="post">
                     <input type="text" name="name" value="<%= user ? user.username : '' %>: (<%= user ? user.role : '' %>)" readonly>
                     <input type="email" name="email" value="<%= user ? user.email : '' %>" readonly>
-                    <input type="phone" name="phone" placeholder="Enter your phone number">
-                    <textarea name="msg" placeholder="Your Message"></textarea>
+                    <input type="phone" name="phone" placeholder="Enter your phone number" required>
+                    <textarea name="msg" placeholder="Your Message" required></textarea>
                     <button type="submit" class="btn">Send<i class="butn"></i></button>
                 </form>
             </div>

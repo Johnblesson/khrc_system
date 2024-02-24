@@ -30,9 +30,10 @@
       margin-top: 20px;
     }
 
-    #hover:hover {
-      background-color: #b40955;
+    .hover:hover {
+      background-color: #c6195e;
       content: attr(Non-functional);
+      color: #ffffff;
     }
   </style>
   
@@ -55,15 +56,15 @@
       <tbody class="bg-white divide-y divide-gray-200" id="tbody">
         <% data.forEach(user => { %>
         <tr>
-          <td class="px-6 py-4 whitespace-nowrap"><%= user.username %></td>
-          <td class="px-6 py-4 whitespace-nowrap"><a href="mailto:<%= user.email %>"><%= user.email %></a></td>
-          <td class="px-6 py-4 whitespace-nowrap <%= user.role === 'admin' ? 'role-pink-bg' : (user.role === 'user' ? 'role-green-bg' : '') %>">
+          <td class="hover px-6 py-4 whitespace-nowrap"><%= user.username %></td>
+          <td class="hover px-6 py-4 whitespace-nowrap"><a href="mailto:<%= user.email %>"><%= user.email %></a></td>
+          <td class="hover px-6 py-4 whitespace-nowrap <%= user.role === 'admin' ? 'role-pink-bg' : (user.role === 'user' ? 'role-green-bg' : '') %>">
             <%= user.role %>
           </td>
-          <td class="px-6 py-4 whitespace-nowrap <%= user.status === 'active' ? 'status-green-bg' : (user.status === 'inactive' ? 'status-red-bg' : '') %>">
+          <td class="hover px-6 py-4 whitespace-nowrap <%= user.status === 'active' ? 'status-green-bg' : (user.status === 'inactive' ? 'status-red-bg' : '') %>">
             <%= user.status %>
           </td>
-          <td class="px-6 py-4 whitespace-nowrap" id="hover">
+          <td class="hover px-6 py-4 whitespace-nowrap">
             <!-- Add icons with links to your delete, view, and update routes -->
             <a href="#"><i class="fas fa-trash-alt text-red-500 cursor-pointer"></i></a>
             <a href="#"><i class="fas fa-eye text-blue-500 cursor-pointer mx-2"></i></a>
