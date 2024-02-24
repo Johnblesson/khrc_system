@@ -10,7 +10,7 @@ import { ensureAuthenticated } from "../middleware/isAuth.js";
 // import { checkActiveStatus } from "../middleware/status.js";
 import { checkSudoPrivileges } from "../middleware/sudo.js"
 
-router.post('/register', checkSudoPrivileges, signUp);
+router.post('/register', signUp);
 router.post('/login', logIn);
 // router.get('/logout', logOut);
 
@@ -19,7 +19,7 @@ router.get('/', (req, res) => {
     res.render('login');
 })
 
-router.get('/register', checkSudoPrivileges, (req, res) => {
+router.get('/register', (req, res) => {
     res.render('sign up'); 
 })
 
