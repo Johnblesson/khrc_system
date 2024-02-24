@@ -15,11 +15,11 @@ router.post('/login', logIn);
 // router.get('/logout', logOut);
 
 // Ejs routes
-router.get('/', checkSudoPrivileges, (req, res) => {
+router.get('/', (req, res) => {
     res.render('login');
 })
 
-router.get('/register', (req, res) => {
+router.get('/register', checkSudoPrivileges, (req, res) => {
     res.render('sign up'); 
 })
 
