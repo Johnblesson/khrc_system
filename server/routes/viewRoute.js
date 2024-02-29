@@ -2,7 +2,7 @@ import { Router } from "express";
 import express from "express";
 const app = express();
 const router = Router();
-import { getAllUsers, getUserById, signUp, logIn } from "../controllers/auth.js";
+import { getAllUsers, getUserById, signUp, logIn, getLoginPage } from "../controllers/auth.js";
 // import { homeRoute, update } from "../services/render.js";
 import { isAdmin } from "../middleware/isAdmin.js";
 import { isUser } from "../middleware/isUser.js";
@@ -10,16 +10,13 @@ import { ensureAuthenticated } from "../middleware/isAuth.js";
 // import { checkActiveStatus } from "../middleware/status.js";
 import { checkSudoPrivileges } from "../middleware/sudo.js"
 
-router.post('/register', signUp);
+router.post('/register', checkSudoPrivileges, signUp);
 router.post('/login', logIn);
+router.get('/', getLoginPage);
 // router.get('/logout', logOut);
 
-// Ejs routes
-router.get('/', (req, res) => {
-    res.render('login');
-})
 
-router.get('/register', (req, res) => {
+router.get('/register', checkSudoPrivileges, (req, res) => {
     res.render('sign up'); 
 })
 

@@ -104,6 +104,18 @@ export const logIn = (req, res, next) => {
   })(req, res, next);
 };
 
+// Get Login Page Controller
+export const getLoginPage = (req, res) => {
+const ip =
+  req.headers['cf-conneting-ip'] ||
+  req.headers['x-real-ip'] ||
+  req.headers['x-forwarded-for'] || 
+  req.socket.remoteAddress || '';
+
+  console.log('ip address:', ip);
+  res.render('login');
+};
+
 
 // Get All Users Controller
 export const getAllUsers = async (req, res) => {
