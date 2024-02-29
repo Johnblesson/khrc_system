@@ -1,4 +1,8 @@
 import RECEPTION from '../models/reception.js';
+import CSS from "../models/css.js";
+import LS1 from "../models/ls1.js";
+import LS2 from "../models/ls2.js";
+import LS1_2ND from "../models/ls1-2.js";
 import User from '../models/auth.js';
 import dotenv from 'dotenv';
 dotenv.config();
@@ -132,13 +136,18 @@ const getTimeOfDay = () => {
      // Fetch the most recent storage data
      const latestStorage = await RECEPTION.findOne().sort({ _id: -1 });
 
+    const latestStorageCss = await CSS.findOne().sort({ _id: -1 });
+    const latestStorageLs11 = await LS1.findOne().sort({ _id: -1 });
+    const latestStorageLs12 = await LS1_2ND.findOne().sort({ _id: -1 });
+    const latestStorageLs2 = await LS2.findOne().sort({ _id: -1 });
+
      const user = req.isAuthenticated() ? req.user : null;
 
     // Determine the time of the day
     const greeting = getTimeOfDay();
 
     // Render the index page with the receptions data
-    res.render('index-admin', { data: receptions, allStorage, latestStorage, locals, user, greeting});
+    res.render('index-admin', { data: receptions, allStorage, latestStorage, locals, user, greeting, latestStorageCss, latestStorageLs11, latestStorageLs12, latestStorageLs2});
   } catch (error) {
     console.error('Error rendering the page:', error);
     res.status(500).send('Internal Server Error');
@@ -230,7 +239,7 @@ const getTimeOfDay = () => {
     const { receptions } = await getReception(req, res);
 
     const page = parseInt(req.query.page) || 1; // Get the requested page number from the query parameter
-    const limit = 2; // Number of entries per page
+    const limit = 5; // Number of entries per page
     const skip = (page - 1) * limit;
 
     // Fetch all storage data

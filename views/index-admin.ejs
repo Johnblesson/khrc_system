@@ -105,8 +105,6 @@
   }
 </style>
 
-
-
 <div style="padding-top: 5rem; margin-top: 5rem; margin-bottom: 3rem;" class="container">
   <div style="margin-bottom: 4rem;" class="row my-4">
       <div style="width: 100%; display: flex; justify-content: center;" class="col-md-8 offset-md-2">
@@ -127,7 +125,6 @@
   </div>
 </div>
 
-
 <div class="button-container">
   <a href="reception-admin-form" class="button reception"><i class="fa-solid fa-database"></i>  RECEPTION</a>
   <a href="css-storage" class="button css"><i class="fa-solid fa-database"></i>  CSS STORAGE</a>
@@ -138,7 +135,6 @@
   <div class="dropdown-menu" aria-labelledby="adminPanelButton" style="background-color: #ff69b4;"> <!-- Pink background for the dropdown -->
     <a class="dropdown-item category-item ls1" href="ls1-storage">First 250</a>
     <a class="dropdown-item category-item ls1" href="ls1-2-storage">Second 250</a>
-    <!-- Add more items as needed -->
   </div>
   <a href="ls2-storage" class="button ls2"><i class="fa-solid fa-database"></i>  LS2 STORAGE</a>
   <a href="admin-view-reception" class="button"><i class="fa-solid fa-eye"></i>  VIEW ALL RECEPTIONS</a>
@@ -157,6 +153,10 @@
 
 <!-- include display -->
 <%- include('include/_display') %>
+<%- include('include/_latestCss') %>
+<%- include('include/_latest-ls1') %>
+<%- include('include/_latest-ls12') %>
+<%- include('include/_latest-ls2') %>
 <!-- /include display -->
 
 <!-- <h1 style="text-align: center;">
@@ -171,26 +171,3 @@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-
-<script>
-  // Get all category items
-  const categoryItems = document.querySelectorAll('.category-item');
-
-  // Add event listeners to category items
-  categoryItems.forEach(item => {
-    item.addEventListener('click', function() {
-      // Show export button when a category is selected
-      document.getElementById('exportToExcelBtn').style.display = 'block';
-
-      // Hide the export button if "All" category is selected
-      if (item.classList.contains('reception') || item.classList.contains('css') || item.classList.contains('ls1') || item.classList.contains('ls2')) {
-        document.getElementById('exportToExcelBtn').style.display = 'none';
-      }
-    });
-  });
-</script>
-
-
-
-
-

@@ -22,7 +22,7 @@ import {
     import { ensureAuthenticated } from "../middleware/isAuth.js";
 
 router.get('/home', ensureAuthenticated, homeRoute);
-router.get('/admin-home', ensureAuthenticated, adminHomeRoute);
+router.get('/admin-home', ensureAuthenticated, adminHomeRoute );
 router.get('/viewReception', ensureAuthenticated, viewReception);
 router.get('/admin-view-reception', ensureAuthenticated, adminViewReception);
 router.post('/reception', createStorage);

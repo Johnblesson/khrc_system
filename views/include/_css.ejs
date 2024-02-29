@@ -1,7 +1,7 @@
 <style>
     .storage-info {
-        text-align: center;
-      margin-top: 20px;
+      text-align: center;
+      margin-top: 50px;
       padding: 10px;
       border: 1px solid #ccc;
       border-radius: 5px;
@@ -26,14 +26,20 @@
 
   </style>
 
- <!-- Display information about the latest storage entry -->
- <div class="storage-info">
+<div class="flex justify-between items-center">
+  <!-- Display information about the latest storage entry -->
+  <div class="storage-info">
     <% if (allStorage.length > 0) { %>
-      <h2>ALL CSS STORAGE</h2>
+        <h2>ALL CSS STORAGE</h2>
     <% } else { %>
-      <p>No storage data available</p>
+        <p>No storage data available</p>
     <% } %>
-  </div>
+</div>
+</div>
+<!-- Search input -->
+<div class="search-container">
+  <input type="text" id="searchInput" placeholder="Search SampleId...">
+</div>
  
     <div class="container mx-auto">
         <table class="min-w-full divide-y divide-gray-200">
@@ -132,4 +138,31 @@
       // Save workbook to Excel file
       XLSX.writeFile(wb, 'storage_data.xlsx');
   });
+</script>
+
+<script>
+  // Function to filter table rows based on search input
+  function filterTable() {
+      // Get input value and convert to lowercase for case-insensitive search
+      const searchValue = document.getElementById('searchInput').value.toLowerCase();
+
+      // Get table rows
+      const rows = document.querySelectorAll('tbody tr');
+
+      // Loop through each row and hide those that do not match the search input
+      rows.forEach(row => {
+          // Get row text content and convert to lowercase
+          const rowData = row.textContent.toLowerCase();
+
+          // If search value is found in row data, display the row; otherwise, hide it
+          if (rowData.includes(searchValue)) {
+              row.style.display = '';
+          } else {
+              row.style.display = 'none';
+          }
+      });
+  }
+
+  // Event listener for search input
+  document.getElementById('searchInput').addEventListener('input', filterTable);
 </script>
