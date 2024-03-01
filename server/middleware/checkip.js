@@ -10,5 +10,3 @@ export const checkIpAccess = (req, res, next) => {
         res.redirect('/forbidden');
     }
     }
-    
-    
