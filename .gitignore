@@ -8,4 +8,4 @@
 .vscode
 node_modules
 .env
-middleware/checkip.js
+server/middleware/checkip.js
