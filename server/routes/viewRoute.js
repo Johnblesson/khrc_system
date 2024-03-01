@@ -9,14 +9,15 @@ import { isUser } from "../middleware/isUser.js";
 import { ensureAuthenticated } from "../middleware/isAuth.js";
 // import { checkActiveStatus } from "../middleware/status.js";
 import { checkSudoPrivileges } from "../middleware/sudo.js"
+import { checkIpAccess } from "../middleware/checkip.js";
 
-router.post('/register', checkSudoPrivileges, signUp);
-router.post('/login', logIn);
-router.get('/', getLoginPage);
+router.post('/register', checkSudoPrivileges, checkIpAccess, signUp);
+router.post('/login', checkIpAccess, logIn);
+router.get('/', checkIpAccess, getLoginPage);
 // router.get('/logout', logOut);
 
 
-router.get('/register', checkSudoPrivileges, (req, res) => {
+router.get('/register', checkSudoPrivileges, checkIpAccess, (req, res) => {
     res.render('sign up'); 
 })
 
