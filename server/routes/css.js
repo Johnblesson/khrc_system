@@ -12,7 +12,8 @@ import {
     getAllCss,
     } from "../controllers/css.js";
 
-    import { ensureAuthenticated } from "../middleware/isAuth.js";
+    import { ensureAuthenticated } from "../middleware/isAuth.js"; 
+    import { superAdminOnly } from "../middleware/sudo.js";
 
 router.post('/storage', ensureAuthenticated, createStorage);
 router.get('/css-table', ensureAuthenticated, cssTable);

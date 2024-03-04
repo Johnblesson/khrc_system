@@ -1,6 +1,9 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 export const checkIpAccess = (req, res, next) => {
     // Define an array of allowed IP addresses
-    const allowedIps = ['192.168.0.144', '192.168.0.191', '192.168.0.192'];
+    const allowedIps = process.env.ALLOWED_IPS.split(',');
 
     // Get the client's IP address from the request object
     const clientIp = req.ip;

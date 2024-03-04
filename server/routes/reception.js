@@ -20,6 +20,7 @@ import {
 
     import { getAllUsers, getUserById } from "../controllers/auth.js";
     import { ensureAuthenticated } from "../middleware/isAuth.js";
+    import { superAdminOnly } from "../middleware/sudo.js";
 
 router.get('/home', ensureAuthenticated, homeRoute);
 router.get('/admin-home', ensureAuthenticated, adminHomeRoute );

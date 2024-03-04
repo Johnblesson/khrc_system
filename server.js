@@ -27,12 +27,6 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(express.urlencoded({ extended: false }));
   app.use(cors());
-// Middleware to allow CORS (for development purposes)
-// app.use((req, res, next) => {
-//   res.header('Access-Control-Allow-Origin', '*');
-//   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-//   next();
-// });
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -53,6 +47,18 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+// Disable X-Powered-By header
+app.disable('x-powered-by');
+
+// Disable ETag header
+app.set('etag', false);
+
+// Disable Server signature
+app.use((req, res, next) => {
+  res.removeHeader('Server');
+  next();
+});
 
 // Add the router
 // app.use(checkStatusMiddleware);

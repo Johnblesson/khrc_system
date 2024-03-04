@@ -1,54 +1,20 @@
-// import fs from 'fs';
-// import path from 'path';
 import CSS from '../models/css.js';
 import dotenv from 'dotenv';
+import Position from '../models/position.js';
 dotenv.config();
-
-// Create Cross-sectional Survey-CSS
-// export const createStorage = async (req, res) => {
-//   try {
-
-//     // Append 'A' to the sampleId
-//     const sampleIdWithA = req.body.sampleId + 'A';
-//     const sampleIdWithB = req.body.sampleId + 'B';
-
-//     const newStorage = new CSS({
-//         sampleId: req.body.sampleId,
-//         visitName: req.body.visitName,
-//         sampleType: req.body.sampleType,
-//         roomNumber: req.body.roomNumber,
-//         boxNumber: req.body.boxNumber,
-//         row: req.body.row,
-//         column: req.body.column,
-//         compartment: req.body.compartment,  
-//         rage: req.body.rage,
-//         urinePalletA: sampleIdWithA,
-//         urinePalletB: sampleIdWithB,
-//         dnaExtration: req.body.dnaExtration,
-//         comments: req.body.comments,
-//         dateOfEntry: req.body.dateOfEntry,
-//         entryDoneBy: req.body.entryDoneBy,
-//         // user_id: req.body.user_id,
-//         });
-// // const newStorage = await CSS.create(req.body);
-//     const savedStorage = await newStorage.save();
-//     res.status(201).render('storage-success');
-//     // res.json({ message: "Storage created successfully", savedStorage})
-//     // res.status(201).json(savedStorage);
-//     console.log(savedStorage);
-
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).send('An error occurred while creating a storage.');
-//   }
-// };
-
-
-
 
 // Create Cross-sectional Survey-CSS
 let currentRow = 'A';
 let currentColumn = 1;
+
+// Function to update the current row and column values in the database
+const updatePosition = async (row, column) => {
+  try {
+    await Position.findOneAndUpdate({}, { currentRow: row, currentColumn: column }, { upsert: true });
+  } catch (error) {
+    console.error('Error updating position:', error);
+  }
+};
 
 export const createStorage = async (req, res) => {
   try {
@@ -64,7 +30,7 @@ export const createStorage = async (req, res) => {
       boxNumber: req.body.boxNumber,
       row: currentRow,
       column: currentColumn,
-      compartment: req.body.compartment,  
+      compartment: req.body.compartment,
       rage: req.body.rage,
       urinePalletA: sampleIdWithA,
       urinePalletB: sampleIdWithB,
@@ -84,14 +50,16 @@ export const createStorage = async (req, res) => {
       currentColumn++; // Move to the next column
     }
 
-    // Send the row and column information in the response
-    // res.status(201).json({ message: "Storage created successfully", savedStorage, markedBox: { row: currentRow, column: currentColumn } });
+    // Update the current row and column values in the database
+    await updatePosition(currentRow, currentColumn);
+
     res.status(201).render('storage-success/css');
     console.log(savedStorage);
   } catch (error) {
     return res.status(500).json({ message: error });
   }
-}
+};
+
 
 // Get Cross-sectional Survey-CSS
 export const getStorage = async (req, res) => {
@@ -124,8 +92,6 @@ export const getStorage = async (req, res) => {
     });
   }
 };
-
-
 
 // Get Cross-sectional Survey-CSS without pagination
 export const getAllCss = async (req, res) => {

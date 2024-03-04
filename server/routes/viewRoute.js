@@ -7,17 +7,13 @@ import { getAllUsers, getUserById, signUp, logIn, getLoginPage } from "../contro
 import { isAdmin } from "../middleware/isAdmin.js";
 import { isUser } from "../middleware/isUser.js";
 import { ensureAuthenticated } from "../middleware/isAuth.js";
-// import { checkActiveStatus } from "../middleware/status.js";
-import { checkSudoPrivileges } from "../middleware/sudo.js"
 import { checkIpAccess } from "../middleware/checkip.js";
+import { superAdminOnly } from "../middleware/sudo.js";
 
-router.post('/register', checkSudoPrivileges, checkIpAccess, signUp);
-router.post('/login', checkIpAccess, logIn);
+router.post('/register', superAdminOnly, checkIpAccess, signUp);
+router.post('/login', logIn);
 router.get('/', checkIpAccess, getLoginPage);
-// router.get('/logout', logOut);
-
-
-router.get('/register', checkSudoPrivileges, checkIpAccess, (req, res) => {
+router.get('/register', superAdminOnly, (req, res) => {
     res.render('sign up'); 
 })
 

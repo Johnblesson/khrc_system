@@ -106,15 +106,17 @@ export const logIn = (req, res, next) => {
 
 // Get Login Page Controller
 export const getLoginPage = (req, res) => {
-const ip =
-  req.headers['cf-conneting-ip'] ||
-  req.headers['x-real-ip'] ||
-  req.headers['x-forwarded-for'] || 
-  req.socket.remoteAddress || '';
+  const ip =
+    req.headers['cf-conneting-ip'] ||
+    req.headers['x-real-ip'] ||
+    req.headers['x-forwarded-for'] ||
+    req.socket.remoteAddress || '';
 
-  console.log('ip address:', ip);
+  const timestamp = new Date().toISOString();
+  console.log('ip address:', ip, '/', timestamp);
   res.render('login');
 };
+
 
 
 // Get All Users Controller

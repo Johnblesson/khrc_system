@@ -1,31 +1,42 @@
-// Import User model
-import User from "../models/auth.js";
+// import dotenv from 'dotenv';
+// dotenv.config();
 
-// Middleware to check sudo privileges
-export const checkSudoPrivileges = async (req, res, next) => {
-  try {
-    const userId = req.userId; // Assuming you have a way to get the user's ID from the request
+// export const superAdminOnly = (req, res, next) => {
+//     // Define an array of allowed IP addresses
+//     const allowedIps = process.env.SUPER_ADMIN_IPS;
+    
+//     // Check if allowedIps is defined and not empty
+//     if (allowedIps && allowedIps.length > 0) {
+//         // Split the string into an array of IP addresses
+//         const allowedIpsArray = allowedIps.split(',');
 
-    const user = await User.findById(userId).exec();
+//         // Get the client's IP address from the request object
+//         const clientIp = req.ip;
 
-    if (!user) {
-      return res.redirect('forbidden');
+//         // Check if the client's IP address is in the allowed IPs array
+//         if (allowedIpsArray.includes(clientIp)) {
+//             next();
+//         } else {
+//             res.redirect('/forbidden');
+//         }
+//     } else {
+//         // If allowedIps is undefined or empty, deny access
+//         res.redirect('/forbidden');
+//     }
+// }
+
+import dotenv from 'dotenv';
+dotenv.config();
+
+export const superAdminOnly = (req, res, next) => {
+    // Define an array of allowed IP addresses
+    const allowedIps = process.env.SUPER_ADMIN_IPS.split(',');
+
+    // Get the client's IP address from the request object
+    const clientIp = req.ip;
+    if (allowedIps.includes(clientIp)) {
+        next();
+    } else {
+        res.redirect('/forbidden');
     }
-
-    if (user.sudo) {
-      // Grant access to the user with sudo privileges
-      return next();
     }
-
-    // If the user does not have sudo privileges, deny access
-    return res.status(403).json({ message: 'Permission Denied' });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: 'Internal Server Error' });
-  }
-};
-
-
-  
-
-  
