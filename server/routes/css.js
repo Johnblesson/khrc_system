@@ -22,7 +22,7 @@ router.get('/css-table', ensureAuthenticated, cssTable);
 router.get('/view-css', ensureAuthenticated, getStorage);
 router.get('/view-css/:id',ensureAuthenticated, cssView);
 // router.put('/storage/:id', ensureAuthenticated, updateStorage);
-router.patch('/edit_css/:id', updateStorage1);
+router.patch('/edit_css/:id', superAdminOnly, updateStorage1);
 router.delete('/storage/:id', ensureAuthenticated, deleteStorage);
 router.get('/all-css', ensureAuthenticated, getAllCss);
 router.get('/edit_css/:id', ensureAuthenticated, superAdminOnly, edit_css);
