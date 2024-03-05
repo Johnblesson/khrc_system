@@ -12,10 +12,11 @@ import {
     adminViewReception,
     // searchReceptions,
     deleteRecord,
-    editPost,
+    // editPost,
     edit,
     view,
     getAllReception,
+    updateAdminReception,
     } from "../controllers/reception.js";
 
     import { getAllUsers, getUserById } from "../controllers/auth.js";
@@ -39,7 +40,7 @@ router.get('/all-reception', getAllReception)
 // Admin View
 router.get('/view/:id', view);
 router.get('/reception_edit/:id', edit);
-router.put('/edit/:id', editPost);
+router.patch('/edit/:id', updateAdminReception);
 router.delete('/edit/:id', deleteRecord);
 // router.delete('/edit/:id', deleteReception);
 // router.get('/api/admin/reception', getReception);

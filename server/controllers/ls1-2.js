@@ -1,4 +1,5 @@
 import LS1_2ND from '../models/ls1-2.js';
+import RECEPTION from '../models/reception.js';
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -213,3 +214,63 @@ export const ls1_2_View = async (req, res) => {
       });
     }
   };
+
+  // View the edit form
+export const edit = async (req, res) => {
+  try {
+    const storage = await LS1_2ND.findOne({ _id: req.params.id });
+
+    // Fetch all sampleId values from the database
+    const sampleIds = await RECEPTION.distinct('sampleId');
+
+    const user = req.isAuthenticated() ? req.user : null;
+
+    const locals = {
+      title: "KHRC",
+      description: "Kambia Health Research Center KHRC System",
+    };
+
+    res.render("edit-storage/ls12", {
+      locals,
+      storage,
+      sampleIds,
+      user,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// Function to update the current row and column values in the database
+const updatePosition1 = async (row, column) => {
+  try {
+    await Position.findOneAndUpdate({}, { currentRow: row, currentColumn: column }, { upsert: true });
+  } catch (error) {
+    console.error('Error updating position:', error);
+  }
+};
+
+export const updateStorage1 = async (req, res) => {
+  try {
+    // Extract the CSS ID from the request parameters
+    const { id } = req.params;
+
+    // Find the CSS record by ID and update its fields
+    const updatedStorage = await LS1_2ND.findByIdAndUpdate(id, req.body, { new: true });
+
+    // Check if the CSS record exists
+    if (!updatedStorage) {
+      return res.status(404).json({ message: 'CSS record not found' });
+    }
+
+    // Update the current row and column values in the database
+    await updatePosition1(updatedStorage.row, updatedStorage.column);
+
+    // Respond with the updated CSS record
+    // res.status(200).json(updatedStorage);
+    res.render('update-success/storage');
+  } catch (error) {
+    console.error('Error updating CSS record:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};

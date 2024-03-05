@@ -10,6 +10,8 @@ import {
     ls1View,
     ls1_1Table,
     getAll_ls11,
+    edit,
+    updateStorage1,
     } from "../controllers/ls1.js";
 
     import { ensureAuthenticated } from "../middleware/isAuth.js";
@@ -22,5 +24,7 @@ router.get('/view-ls1/:id', ensureAuthenticated, ls1View);
 router.get('/all-ls11', ensureAuthenticated, getAll_ls11);
 router.put('/ls1-storage/:id', ensureAuthenticated, updateStorage);
 router.delete('/ls1-storage/:id', ensureAuthenticated, deleteStorage);
+router.get('/edit_ls11/:id', ensureAuthenticated, superAdminOnly, edit);
+router.patch('/edit_ls11/:id', updateStorage1);
 
 export default router;

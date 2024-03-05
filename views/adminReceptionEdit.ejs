@@ -172,12 +172,16 @@
     <button class="storage-button" onclick="toggleForm()">
         <i class="fas fa-database icon"></i> UPDATE RECEPTION FORM
     </button>
+    <button class="storage-button" onclick="goBack()">
+        <i class="fa-solid fa-backward"></i> GO BACK
+    </button>
 </div>
-
+<script> function goBack() { window.history.back(); } 
+</script>
 
 <div class="storage-container">
     <!-- Reception Form -->
-    <form action="/edit/<%= storage._id %>" method="POST" id="receptionForm">
+    <form action="/edit/<%= storage._id %>?_method=PATCH" method="POST" id="receptionForm">
 
         <div class="form-group row">
             <label for="studyNameInput" class="col-sm-2 col-form-label">Study Name:</label>

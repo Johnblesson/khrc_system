@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="Shortcut Icon" type="image/ico" href="images/favicon.svg">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>KHRC</title>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet"> -->
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+
+  <link rel="stylesheet" type="text/css" href="./css/style.css"> <!-- Your custom CSS file -->
+  <link rel="stylesheet" type="text/css" href="./css/header.css">
+  <link rel="stylesheet" type="text/css" href="./css/common.css">
+  <link rel="stylesheet" type="text/css" href="./css/scrollTop.css">
+  <link rel="preconnect" type="text/css" href="https://fonts.googleapis.com">
+  <link rel="preconnect" type="text/css" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+</head>
+
+<style>
+  body {
+   font-family: Arial, sans-serif;
+ }
+
+ .row {
+   margin-bottom: 4rem;
+ }
+
+ .input-group {
+   display: flex;
+   justify-content: flex-end;
+   align-items: center;
+ }
+
+ #search {
+   margin-right: 1rem;
+ }
+ /* Style for th/e logout button container */
+.logout-container {
+ text-align: right;
+}
+
+/* Style for the logout button */
+.logout-button {
+ background-color: #b40c57;
+ color: #ffffff;
+ padding: 5px 10px;
+ border: none;
+ cursor: pointer;
+ border-radius: 10px;
+}
+
+/* Style for the logout button container */
+.logout-container {
+ text-align: right;
+}
+
+/* Style for the logout button */
+.logout-button {
+ background-color: #b40c57;
+ color: #ffffff;
+ padding: 5px 10px;
+ border: none;
+ cursor: pointer;
+ border-radius: 10px;
+}
+
+.form-group {
+ margin: 2rem;
+}
+
+/* Pagination Control*/
+.pagination-container {
+display: flex;
+justify-content: center;
+}
+
+.pagination a {
+margin: 0 10px; /* Adjust margin to add more space */
+font-size: 18px; /* Set your desired font size */
+}
+
+.pagination a.active {
+font-weight: bold; /* Highlight the active page */
+}
+
+
+/* btn**/
+.button-container {
+         text-align: center;
+     }
+
+.button {
+ display: inline-block;
+ padding: 10px 20px;
+ margin: 5px;
+ text-decoration: none;
+ color: #fff;
+ background-color: #b40c57;
+ /* border: 1px solid #b40c57; */
+ border-radius: 5px;
+ font-size: 16px;
+ cursor: pointer;
+  }
+
+     /* Basic styling for the forms */
+     .main-form {
+         max-width: 400px;
+         margin: 50px auto;
+         padding: 20px;
+         border: 1px solid #ccc;
+         border-radius: 5px;
+         display: none; /* Initially hide the form */
+     }
+
+     label {
+         display: block;
+         margin-bottom: 10px;
+         cursor: pointer;
+     }
+
+     input, textarea {
+         width: 100%;
+         padding: 10px;
+         margin-bottom: 15px;
+         border: 1px solid #ccc;
+         border-radius: 5px;
+         box-sizing: border-box;
+     }
+
+     .storage-container {
+         text-align: center;
+     }
+
+     .storage-button {
+         background-color: #b40c57;
+         color: #ffffff;
+         padding: 5px 10px;
+         border: none;
+         cursor: pointer;
+         border-radius: 10px;
+         margin-top: 3.5rem;
+     }
+
+     .icon {
+         margin-right: 5px;
+     }
+</style>
+
+<!-- Section for Adding Health Records -->
+<div class="container pt-5 mt-5 my-3">
+    <div class="storage-container">
+    
+      <button class="storage-button" onclick="toggleForm()">
+          <i class="fas fa-database icon"></i> UPDATE LS2 STORAGE
+      </button>
+      <button class="storage-button" onclick="goBack()">
+        <i class="fa-solid fa-backward"></i> GO BACK
+    </button>
+    </div>
+    </div>
+    <script> function goBack() { window.history.back(); } 
+    </script>
+    
+    <div class="storage-container">
+      <!-- Reception Form -->
+      <form action="/edit_ls2/<%= storage._id %>?_method=PATCH" method="POST" id="receptionForm">
+        <div class="form-group row">
+            <label for="sampleIdInput" class="col-sm-2 col-form-label">Sample ID (SID):</label>
+            <div class="col-sm-4 position-relative">
+              <select name="sampleId" class="form-control" id="sampleIDInput">
+                <% sampleIds.forEach(sampleId => { %>
+                  <option value="<%= sampleId %>"><%= sampleId %></option>
+                <% }); %>
+              </select>
+            </div>
+  
+            <label for="visitNameInput" class="col-sm-2 col-form-label">Visit Name:</label>
+              <div class="col-sm-4 position-relative">
+                  <select id="sampleType" class="form-control" name="visitName">
+                      <option value="m0">M0</option>
+                      <option value="m6">M6</option>
+                      <option value="m12">M12</option>
+                      <option value="m18">M18</option>
+                      <option value="m24">M24</option>
+                  </select>
+              </div>
+        </div>
+  
+        <div class="form-group row">
+            <label for="sampleType" class="col-sm-2 col-form-label">Sample Type:</label>
+            <div class="col-sm-4 position-relative">
+                <input type="text" name="sampleType" class="form-control" id="sampleTypeInput" value="SCVS" readonly>
+            </div>
+  
+            <label for="roomNumber" class="col-sm-2 col-form-label">Room Number:</label>
+            <div class="col-sm-4 position-relative">
+                <select id="roomNumber" class="form-control" name="roomNumber">
+                    <option value="No room number selected">Select a room</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                </select>
+            </div>
+        </div>
+  
+        <!-- Add -->
+        <div class="form-group row">
+          <label for="boxNumber" class="col-sm-2 col-form-label">Box Number:</label>
+          <div class="col-sm-4 position-relative">
+              <input type="text" name="boxNumber" class="form-control" id="boxNumber" value="1" readonly>
+          </div>
+  
+          <label for="row" class="col-sm-2 col-form-label">Row:</label>
+          <div class="col-sm-4 position-relative">
+              <input type="text" name="row" class="form-control" id="row" placeholder="Row" readonly>
+          </div>
+      </div>
+  
+      <div class="form-group row">
+        <label for="column" class="col-sm-2 col-form-label">Column:</label>
+        <div class="col-sm-4 position-relative">
+            <input type="text" name="column" class="form-control" id="column" placeholder="Column" readonly>
+        </div>
+  
+            <label for="compartment" class="col-sm-2 col-form-label">Compartment:</label>
+              <div class="col-sm-4 position-relative">
+                  <input type="text" name="compartment" class="form-control" id="Input" placeholder="Compartment">
+              </div>
+          </div>
+  
+          <div class="form-group row">
+              <label for="rage" class="col-sm-2 col-form-label">Rage:</label>
+              <div class="col-sm-4 position-relative">
+                  <input type="text" name="rage" class="form-control" id="rage" placeholder="Rage">
+              </div>
+            
+            <label for="urinePalletA" class="col-sm-2 col-form-label">Urine Pallet A:</label>
+              <div class="col-sm-4 position-relative">
+                  <input type="text" name="urinePalletA" class="form-control" id="urinePalletA" value="A" readonly>
+              </div>
+          </div>
+  
+          <div class="form-group row">
+              
+              <label for="urinePalletB" class="col-sm-2 col-form-label">Urine Pallet B:</label>
+              <div class="col-sm-4 position-relative">
+                  <input type="text" name="urinePalletB" class="form-control" id="urinePalletB" value="B" readonly>
+              </div>
+              <label for="dnaExtration" class="col-sm-2 col-form-label">DNA Extration:</label>
+              <div class="col-sm-4 position-relative">
+                  <input type="text" name="dnaExtration" class="form-control" id="dnaExtration" placeholder="DNA Extration">
+              </div>
+          </div>
+  
+        <div class="form-group row">
+          <label for="commentsInput" class="col-sm-2 col-form-label">Comments:</label>
+            <div class="col-sm-4 position-relative">
+                <textarea name="comments" class="form-control" id="commentsInput" rows="4" placeholder="Comments"></textarea>
+            </div> 
+  
+            <!-- <label for="dateOfEntryInput" class="col-sm-2 col-form-label">Date of Entry:</label>
+            <div class="col-sm-4 position-relative">
+                <input type="date" name="dateOfEntry" class="form-control" id="dateOfEntryInput">
+            </div> -->
+  
+            <label for="entryDoneByInput" class="col-sm-2 col-form-label">Entry Done By:</label>
+            <div class="col-sm-4 position-relative">
+                <input type="text" name="entryDoneBy" class="form-control" id="entryDoneByInput" value="<%= user ? user.username : '' %>" readonly>
+            </div>
+        </div>
+  
+        <!-- Button -->
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <button type="submit" class="btn text-light btn-large btn-block" style="background-color: #b40c57;" id="add-record-btn">Add Your Record</button>
+            </div>
+        </div>
+        <strong><p style="text-align: center;">Logged in: <%= user ? user.username : '' %></p></strong>
+      </form>
+    </div>
+
+
+  <script>
+    function toggleForm() {
+        var form = document.getElementById("storageForm");
+        form.style.display = (form.style.display === "none" || form.style.display === "") ? "block" : "none";
+    }
+
+
+      // Function to format the current date and time
+      function getCurrentDateTime() {
+        const now = new Date();
+        const formattedDateTime = now.toISOString().slice(0, 16); // Format: "YYYY-MM-DDTHH:mm"
+        return formattedDateTime;
+    }
+
+    // Set the default values on page load
+    document.getElementById("dateOfEntryInput").value = getCurrentDateTime();
+</script>
+
+<!-- <footer>
+    <p class="text-center1">
+      Made by Kharis pro-tech <br>
+      Powered by KHRC Copyright © 2024 <span id="current-year"></span>
+      </br></br>
+    </p>
+  </footer> -->
+
+  <!-- dynamic data code -->
+  <script src="/js/script.js"></script>
+  <script src="/js/icon.js"></script>
+  <script src="/js/pwd.js"></script>
+  <script src="/js/storageLogic.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+</body>
+</html>

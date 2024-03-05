@@ -161,6 +161,7 @@ export const updateStorage = (req, res)=>{
       })
 }
 
+
 // Delete a user with specified user id in the request
 export const deleteStorage = (req, res)=>{
   const id = req.params.id;
@@ -275,7 +276,8 @@ export const searchCss = async (req, res) => {
   }
 };
 
-export const edit = async (req, res) => {
+// View Edit Cross-sectional Survey-CSS GET REQUEST
+export const edit_css = async (req, res) => {
   try {
     const storage = await CSS.findOne({ _id: req.params.id });
 
@@ -297,5 +299,39 @@ export const edit = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
+  }
+};
+
+// Function to update the current row and column values in the database
+const updatePosition1 = async (row, column) => {
+  try {
+    await Position.findOneAndUpdate({}, { currentRow: row, currentColumn: column }, { upsert: true });
+  } catch (error) {
+    console.error('Error updating position:', error);
+  }
+};
+
+export const updateStorage1 = async (req, res) => {
+  try {
+    // Extract the CSS ID from the request parameters
+    const { id } = req.params;
+
+    // Find the CSS record by ID and update its fields
+    const updatedStorage = await CSS.findByIdAndUpdate(id, req.body, { new: true });
+
+    // Check if the CSS record exists
+    if (!updatedStorage) {
+      return res.status(404).json({ message: 'CSS record not found' });
+    }
+
+    // Update the current row and column values in the database
+    await updatePosition1(updatedStorage.row, updatedStorage.column);
+
+    // Respond with the updated CSS record
+    // res.status(200).json(updatedStorage);
+    res.render('update-success/storage');
+  } catch (error) {
+    console.error('Error updating CSS record:', error);
+    res.status(500).json({ message: 'Internal server error' });
   }
 };

@@ -358,41 +358,6 @@ export const deleteReception = async (req, res) => {
   }
 };
 
-/**
- * Get /
- * Search Reception Data
- */
-// export const searchReceptions = async (req, res) => {
-//   const locals = {
-//     title: "KHRC",
-//     description: "Kambia Health Research Center KHRC System",
-//   };
-
-//   try {
-//     const searchTerm = req.body.searchTerm;
-//     const searchNoSpecialChar = searchTerm.replace(/[^a-zA-Z0-9 ]/g, "");
-
-//     const receptions = await RECEPTION.find({
-//       $or: [
-//         { studyName: { $regex: new RegExp(searchNoSpecialChar, "i") } },
-//         { sampleId: { $regex: new RegExp(searchNoSpecialChar, "i") } },
-//         { visitName: { $regex: new RegExp(searchNoSpecialChar, "i") } },
-//         { sampleQuality: { $regex: new RegExp(searchNoSpecialChar, "i") } },
-//         { ageAtVisit: { $regex: new RegExp(searchNoSpecialChar, "i") } },
-//         { entryDoneBy: { $regex: new RegExp(searchNoSpecialChar, "i") } },
-//       ],
-//     });
-
-//     res.render("viewReception", {
-//       receptions,
-//       locals,
-//     });
-//   } catch (error) {
-//     console.error(error);
-//   }
-// };
-
-
 export const view = async (req, res) => {
   try {
     const storage = await RECEPTION.findOne({ _id: req.params.id });
@@ -411,23 +376,27 @@ export const view = async (req, res) => {
   }
 };
 
-// export const userView = async (req, res) => {
-//   try {
-//     const storage = await RECEPTION.findOne({ _id: req.params.id });
+// Update RECEPTION
+export const updateAdminReception = async (req, res) => {
+  try {
+    const { id } = req.params; // Extract the ID of the record to be updated
 
-//     const locals = {
-//       title: "KHRC",
-//        description: "Kambia Health Research Center KHRC System",
-//     };
+    // Find the existing RECEPTION record by ID and update its fields
+    const updatedStorage = await RECEPTION.findByIdAndUpdate(id, req.body, { new: true });
 
-//     res.render("view", {
-//       locals,
-//       storage,
-//     });
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
+    // Check if the RECEPTION record exists
+    if (!updatedStorage) {
+      return res.status(404).json({ message: 'RECEPTION record not found' });
+    }
+
+    // Respond with the updated RECEPTION record
+    res.status(200).render('update-success/reception', { updatedStorage });
+  } catch (error) {
+    console.error('Error updating RECEPTION record:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
 
 /**
  * GET /

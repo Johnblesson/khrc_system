@@ -6,6 +6,7 @@ import ejs from 'ejs';
 import session from 'express-session';
 import passport from './server/passport/passport-config.js';
 import bodyParser from 'body-parser';
+import methodOverride from 'method-override';
 import connectDB from './server/database/connection.js';
 import views from './server/routes/viewRoute.js';
 import css_Storage from './server/routes/css.js';
@@ -47,6 +48,9 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+// Middleware to parse "_method" query parameter
+app.use(methodOverride('_method'));
 
 // Disable X-Powered-By header
 app.disable('x-powered-by');
