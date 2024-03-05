@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 
 const receptionSchema = new Schema({
   studyName: String,
-  sampleId: String,
+  sampleId: { type: String, required: true, unique: true },
   visitName: String,
   visitDate: Date,
   sampleType: String,
@@ -12,14 +12,12 @@ const receptionSchema = new Schema({
   rejectionReason: String,
   ageAtVisit: String,
   dateSampleCollection: Date,
-  timeOfSampleCollection: String, // Use String for TIME, or consider using Date and parsing it accordingly
+  timeOfSampleCollection: String,
   dateOfSampleReceipt: Date,
-  timeOfSampleReceipt: String, // Use String for TIME, or consider using Date and parsing it accordingly
+  timeOfSampleReceipt: String,
   comments: String,
   dateOfEntry: Date,
   entryDoneBy: String,
-  // storageReception: { type: Schema.Types.ObjectId, ref: 'storageReception' },
-  user_id: { type: Schema.Types.ObjectId, ref: 'User' }, // Assuming there is a User model
 }, {
   timestamps: true,
 });

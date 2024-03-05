@@ -30,7 +30,11 @@
         <div class="form-group row">
             <label for="sampleIdInput" class="col-sm-2 col-form-label">Sample ID (SID):</label>
             <div class="col-sm-4 position-relative">
-                <input type="text" name="sampleId" class="form-control" id="sampleIDInput" placeholder="Subject">
+              <select name="sampleId" class="form-control" id="sampleIDInput">
+                <% sampleIds.forEach(sampleId => { %>
+                  <option value="<%= sampleId %>"><%= sampleId %></option>
+                <% }); %>
+              </select>
             </div>
   
             <label for="visitNameInput" class="col-sm-2 col-form-label">Visit Name:</label>

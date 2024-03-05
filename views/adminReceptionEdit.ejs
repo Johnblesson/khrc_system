@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="Shortcut Icon" type="image/ico" href="images/favicon.svg">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>KHRC</title>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet"> -->
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+
+  <link rel="stylesheet" type="text/css" href="./css/style.css"> <!-- Your custom CSS file -->
+  <link rel="stylesheet" type="text/css" href="./css/header.css">
+  <link rel="stylesheet" type="text/css" href="./css/common.css">
+  <link rel="stylesheet" type="text/css" href="./css/scrollTop.css">
+  <link rel="preconnect" type="text/css" href="https://fonts.googleapis.com">
+  <link rel="preconnect" type="text/css" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+</head>
+<style>
+     body {
+      font-family: Arial, sans-serif;
+    }
+  
+    .row {
+      margin-bottom: 4rem;
+    }
+  
+    .input-group {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+  
+    #search {
+      margin-right: 1rem;
+    }
+    /* Style for th/e logout button container */
+  .logout-container {
+    text-align: right;
+  }
+  
+  /* Style for the logout button */
+  .logout-button {
+    background-color: #b40c57;
+    color: #ffffff;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+  }
+
+  /* Style for the logout button container */
+  .logout-container {
+    text-align: right;
+  }
+  
+/* Style for the logout button */
+  .logout-button {
+    background-color: #b40c57;
+    color: #ffffff;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+  }
+
+.form-group {
+    margin: 2rem;
+}
+
+/* Pagination Control*/
+.pagination-container {
+  display: flex;
+  justify-content: center;
+}
+
+.pagination a {
+  margin: 0 10px; /* Adjust margin to add more space */
+  font-size: 18px; /* Set your desired font size */
+}
+
+.pagination a.active {
+  font-weight: bold; /* Highlight the active page */
+}
+
+
+/* btn**/
+  .button-container {
+            text-align: center;
+        }
+
+  .button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 5px;
+    text-decoration: none;
+    color: #fff;
+    background-color: #b40c57;
+    /* border: 1px solid #b40c57; */
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+     }
+
+        /* Basic styling for the forms */
+        .main-form {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            display: none; /* Initially hide the form */
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .storage-container {
+            text-align: center;
+        }
+
+        .storage-button {
+            background-color: #b40c57;
+            color: #ffffff;
+            padding: 5px 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 10px;
+            margin-top: 3.5rem;
+        }
+
+        .icon {
+            margin-right: 5px;
+        }
+</style>
+<body>
+
+
+
+<!-- Section for Adding Health Records -->
+<div class="container pt-5 mt-5 my-3">
+
+ <!-- Reception Form -->
+ <div class="storage-container">
+
+    <button class="storage-button" onclick="toggleForm()">
+        <i class="fas fa-database icon"></i> UPDATE RECEPTION FORM
+    </button>
+</div>
+
+
+<div class="storage-container">
+    <!-- Reception Form -->
+    <form action="/edit/<%= storage._id %>" method="POST" id="receptionForm">
+
+        <div class="form-group row">
+            <label for="studyNameInput" class="col-sm-2 col-form-label">Study Name:</label>
+            <div class="col-sm-4 position-relative">
+                <div class="col-sm-4 position-relative">
+                    <select id="studyName" class="form-control" name="studyName" value="<%= storage.studyName %>">
+                        <option value="css">CSS</option>
+                        <option value="l1/1">LS1/1</option>
+                        <option value="lS1/2">LS1/2</option>
+                        <option value="lS2">LS2</option>
+                    </select>
+                </div>
+            </div>
+
+            <label for="subjectInput" class="col-sm-2 col-form-label">SampleID (SID):</label>
+            <div class="col-sm-4 position-relative">
+                <input type="text" name="sampleId" class="form-control" id="" placeholder="SampleID (SID)" value="<%= storage.sampleId %>">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="visitNameInput" class="col-sm-2 col-form-label">Visit Name:</label>
+            <div class="col-sm-4 position-relative">
+                <select id="visitName" class="form-control" name="visitName">
+                    <option value="m0" <%= storage.visitName === 'm0' ? 'selected' : '' %>>M0</option>
+                    <option value="m6" <%= storage.visitName === 'm6' ? 'selected' : '' %>>M6</option>
+                    <option value="m12" <%= storage.visitName === 'm12' ? 'selected' : '' %>>M12</option>
+                    <option value="m18" <%= storage.visitName === 'm18' ? 'selected' : '' %>>M18</option>
+                    <option value="m24" <%= storage.visitName === 'm24' ? 'selected' : '' %>>M24</option>
+                </select>
+            </div>
+
+            <label for="visitDateInput" class="col-sm-2 col-form-label">Visit Date:</label>
+            <div class="col-sm-4 position-relative">
+                <input type="date" name="visitDate" class="form-control" id="visitDateInput" value="<%= storage.visitDate %>">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="sampleType" class="col-sm-2 col-form-label">Sample Type:</label>
+            <div class="col-sm-4 position-relative">
+                <select id="sampleType" class="form-control" name="sampleType" value="<%= storage.sampleId %>">
+                    <option value="Urine">Urine</option>
+                    <option value="Scvs">SCVS</option>
+                </select>
+            </div>
+    
+            <label class="col-sm-2 col-form-label">Sample Quality:</label>
+            <div class="col-sm-4">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="sampleQuality" value="Accepted" <%= storage.sampleQuality == 'Accepted' ? 'checked' : '' %> >
+                    <label class="form-check-label" for="accepted">Accepted</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="sampleQuality" value="Rejected" <%= storage.sampleQuality == 'Rejected' ? 'checked' : '' %> >
+                    <label class="form-check-label" for="rejected">Rejected</label>
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-group row">
+            <label for="rejectionReason" class="col-sm-2 col-form-label">Reason for Rejection:</label>
+            <div class="col-sm-4 position-relative">
+                <select id="rejectionReason" class="form-control" name="rejectionReason" value="<%= storage.rejectionReason %>">
+                    <option value="insufficientSample">Insufficient Sample</option>
+                    <option value="urineLessThan5ML">Urine Sample Less Than 5ML</option>
+                    <option value="leakage">Leakage</option>
+                    <option value="swapNotInSCVSTube">Swab Not in SCVS Tube</option>
+                    <option value="missLabeling">Miss Labeling</option>
+                    <option value="heavyBloodyUrine">Heavy Bloody Urine</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="ageAtVisitInput" class="col-sm-2 col-form-label">Age at Visit:</label>
+            <div class="col-sm-4 position-relative">
+                <input type="text" name="ageAtVisit" class="form-control" id="ageAtVisitInput" placeholder="Age at Visit" value="<%= storage.ageAtVisit %>">
+            </div>
+
+            <label for="dateSampleCollectionInput" class="col-sm-2 col-form-label">Date of Sample Collection:</label>
+            <div class="col-sm-4 position-relative">
+                <input type="date" name="dateSampleCollection" class="form-control" id="dateSampleCollectionInput">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="timeOfSampleCollectionInput" class="col-sm-2 col-form-label">Time of Sample Collection:</label>
+            <div class="col-sm-4 position-relative">
+                <input type="time" name="timeOfSampleCollection" class="form-control" id="timeOfSampleCollectionInput" placeholder="Time of Sample Collection" value="<%= storage.timeOfSampleCollection %>">
+            </div>
+
+            <label for="dateOfSampleReceiptInput" class="col-sm-2 col-form-label">Date of Sample Receipt:</label>
+            <div class="col-sm-4 position-relative">
+                <input type="date" name="dateOfSampleReceipt" class="form-control" id="dateOfSampleReceiptInput" value="<%= storage.dateOfSampleReceipt %>">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="timeOfSampleReceiptInput" class="col-sm-2 col-form-label">Time of Sample Receipt:</label>
+            <div class="col-sm-4 position-relative">
+                <input type="time" name="timeOfSampleReceipt" class="form-control" id="timeOfSampleReceiptInput" placeholder="Time of Sample Receipt" value="<%= storage.timeOfSampleReceipt %>">
+            </div>
+
+            <label for="commentsInput" class="col-sm-2 col-form-label">Comments:</label>
+            <div class="col-sm-4 position-relative">
+             <textarea name="comments" class="form-control" id="commentsInput" rows="4" placeholder="Comments"><%= storage.comments %></textarea>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="dateOfEntryInput" class="col-sm-2 col-form-label">Date of Entry:</label>
+            <div class="col-sm-4 position-relative">
+                <input type="date" name="dateOfEntry" class="form-control" id="dateOfEntryInput">
+            </div>
+
+            <label for="entryDoneByInput" class="col-sm-2 col-form-label">Entry Done By:</label>
+            <div class="col-sm-4 position-relative">
+                <input type="text" name="entryDoneBy" class="form-control" id="entryDoneByInput" placeholder="Entry Done By">
+            </div>
+        </div>
+
+        <!-- Button -->
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <button type="submit" class="btn text-light btn-large btn-block" style="background-color: #b40c57;" id="add-record-btn">Update Your Record</button>
+            </div>
+        </div>
+
+    </form>
+</div>
+<!-- <footer>
+    <p class="text-center1">
+      Made by Kharis pro-tech <br>
+      Powered by KHRC Copyright © 2024 <span id="current-year"></span>
+      </br></br>
+    </p>
+  </footer> -->
+
+  <!-- dynamic data code -->
+  <script src="/js/script.js"></script>
+  <script src="/js/icon.js"></script>
+  <script src="/js/pwd.js"></script>
+  <script src="/js/storageLogic.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+ 
+  <script>
+    function toggleForm() {
+        var form = document.getElementById("storageForm");
+        form.style.display = (form.style.display === "none" || form.style.display === "") ? "block" : "none";
+    }
+
+
+      // Function to format the current date and time
+      function getCurrentDateTime() {
+        const now = new Date();
+        const formattedDateTime = now.toISOString().slice(0, 16); // Format: "YYYY-MM-DDTHH:mm"
+        return formattedDateTime;
+    }
+
+    // Set the default values on page load
+    document.getElementById("dateOfEntryInput").value = getCurrentDateTime();
+</script>
+</body>
+</html>

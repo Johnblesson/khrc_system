@@ -38,7 +38,7 @@ router.get('/all-reception', getAllReception)
 
 // Admin View
 router.get('/view/:id', view);
-router.get('/edit/:id', edit);
+router.get('/reception_edit/:id', edit);
 router.put('/edit/:id', editPost);
 router.delete('/edit/:id', deleteRecord);
 // router.delete('/edit/:id', deleteReception);

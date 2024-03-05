@@ -1,4 +1,5 @@
 import CSS from '../models/css.js';
+import RECEPTION from '../models/reception.js';
 import dotenv from 'dotenv';
 import Position from '../models/position.js';
 dotenv.config();
@@ -271,5 +272,30 @@ export const searchCss = async (req, res) => {
     });
   } catch (error) {
     console.error(error);
+  }
+};
+
+export const edit = async (req, res) => {
+  try {
+    const storage = await CSS.findOne({ _id: req.params.id });
+
+    // Fetch all sampleId values from the database
+    const sampleIds = await RECEPTION.distinct('sampleId');
+
+    const user = req.isAuthenticated() ? req.user : null;
+
+    const locals = {
+      title: "KHRC",
+      description: "Kambia Health Research Center KHRC System",
+    };
+
+    res.render("edit-storage/css", {
+      locals,
+      storage,
+      sampleIds,
+      user,
+    });
+  } catch (error) {
+    console.log(error);
   }
 };

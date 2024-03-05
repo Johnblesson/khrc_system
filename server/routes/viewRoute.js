@@ -3,6 +3,7 @@ import express from "express";
 const app = express();
 const router = Router();
 import { getAllUsers, getUserById, signUp, logIn, getLoginPage } from "../controllers/auth.js";
+import { renderCssForm, renderLs1Form, renderLs12Form, renderLs2Form } from "../controllers/storageRender.js";
 // import { homeRoute, update } from "../services/render.js";
 import { isAdmin } from "../middleware/isAdmin.js";
 import { isUser } from "../middleware/isUser.js";
@@ -22,25 +23,31 @@ router.get('/index-admin', ensureAuthenticated, isAdmin, (req, res) => {
   res.render('index-admin', { user });
 });
 
-router.get('/css-storage', ensureAuthenticated, isAdmin, (req, res) => {  
-  const user = req.isAuthenticated() ? req.user : null;
-  res.render('css', { user });
-})
+// Routes for the storage views
+router.get('/css-storage', ensureAuthenticated, isAdmin, renderCssForm)
+router.get('/ls1-storage', ensureAuthenticated, isAdmin, renderLs1Form)
+router.get('/ls1-2-storage', ensureAuthenticated, isAdmin, renderLs12Form)
+router.get('/ls2-storage', ensureAuthenticated, isAdmin, renderLs2Form)
 
-router.get('/ls1-storage', ensureAuthenticated, isAdmin, (req, res) => {  
-  const user = req.isAuthenticated() ? req.user : null;
-  res.render('ls1', { user });
-})
+// router.get('/css-storage', ensureAuthenticated, isAdmin, (req, res) => {  
+//   const user = req.isAuthenticated() ? req.user : null;
+//   res.render('css', { user });
+// })
 
-router.get('/ls1-2-storage', ensureAuthenticated, isAdmin, (req, res) => {  
-  const user = req.isAuthenticated() ? req.user : null;
-  res.render('ls1-2', { user });
-})
+// router.get('/ls1-storage', ensureAuthenticated, isAdmin, (req, res) => {  
+//   const user = req.isAuthenticated() ? req.user : null;
+//   res.render('ls1', { user });
+// })
 
-router.get('/ls2-storage', ensureAuthenticated, isAdmin, (req, res) => {  
-  const user = req.isAuthenticated() ? req.user : null;
-  res.render('ls2', { user });
-})
+// router.get('/ls1-2-storage', ensureAuthenticated, isAdmin, (req, res) => {  
+//   const user = req.isAuthenticated() ? req.user : null;
+//   res.render('ls1-2', { user });
+// })
+
+// router.get('/ls2-storage', ensureAuthenticated, isAdmin, (req, res) => {  
+//   const user = req.isAuthenticated() ? req.user : null;
+//   res.render('ls2', { user });
+// })
 
 // Storage views
 router.get('/reception-form', ensureAuthenticated, isUser, (req, res) => { 

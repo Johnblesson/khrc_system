@@ -18,9 +18,6 @@ const sampleReceiptSchema = new Schema({
   comments: String,
   dateOfEntry: Date,
   entryDoneBy: String,
-  
-  // storageReception: { type: Schema.Types.ObjectId, ref: 'storageReception' },
-  user_id: { type: Schema.Types.ObjectId, ref: 'User' }, // Assuming there is a User model
 }, {
   timestamps: true,
 });

@@ -313,9 +313,9 @@ export const createAdminReception = async (req, res) => {
 }
 
 // Get receptions data
-export const getAdminReception = async () => {
+// export const getAdminReception = async () => {
 
-}
+// }
 
 export const editPost = async (req, res) => {
   try {
@@ -442,7 +442,7 @@ export const edit = async (req, res) => {
       description: "Kambia Health Research Center KHRC System",
     };
 
-    res.render("adminEdit", {
+    res.render("adminReceptionEdit", {
       locals,
       storage,
     });
