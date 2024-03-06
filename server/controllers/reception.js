@@ -420,18 +420,13 @@ export const edit = async (req, res) => {
   }
 };
 
+// Delete Reception Data
 export const deleteRecord = async (req, res) => {
   try {
-    const deletedRecord = await RECEPTION.findOneAndDelete({ _id: req.params.id });
-
-    if (!deletedRecord) {
-      return res.status(404).send("Record not found");
-    }
-
-    res.redirect("/admin-view-reception"); // Redirect to a specific page after successful delete
+    await RECEPTION.deleteOne({ _id: req.params.id });
+    res.render("success-delete/reception");
   } catch (error) {
     console.log(error);
-    res.status(500).send("Internal Server Error");
   }
 };
 

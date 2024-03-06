@@ -150,27 +150,18 @@ export const updateStorage = (req, res)=>{
       })
 }
 
-// Delete a user with specified user id in the request
-export const deleteStorage = (req, res)=>{
-  const id = req.params.id;
 
-  LS1.findByIdAndDelete(id)
-      .then(data => {
-          if(!data){
-              res.status(404).send({ message : `Cannot Delete with id ${id}. Maybe id is wrong`})
-          }else{
-              res.send({
-                  message : "User was deleted successfully!"
-              })
-          }
-      })
-      .catch(err =>{
-          res.status(500).send({
-              message: "Could not delete User with id=" + id
-          });
-      });
-}
+// Delete LS1 data
+export const deleteStorage = async (req, res) => {
+  try {
+    await LS1.deleteOne({ _id: req.params.id });
+    res.render("success-delete/storage");
+  } catch (error) {
+    console.log(error);
+  }
+};
 
+// View the details of a single record
 export const ls1View = async (req, res) => {
     try {
       const storage = await LS1.findOne({ _id: req.params.id });

@@ -41,7 +41,8 @@ router.get('/all-reception', getAllReception)
 router.get('/view/:id', view);
 router.get('/reception_edit/:id', edit);
 router.patch('/edit/:id', updateAdminReception);
-router.delete('/edit/:id', deleteRecord);
+router.delete('/delete-reception/:id', ensureAuthenticated, superAdminOnly, deleteRecord);
+router.get('/delete-reception/:id', ensureAuthenticated, superAdminOnly, deleteRecord);
 // router.delete('/edit/:id', deleteReception);
 // router.get('/api/admin/reception', getReception);
 export default router;
