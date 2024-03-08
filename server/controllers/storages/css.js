@@ -1,27 +1,39 @@
-import LS1_2ND from '../models/ls1-2.js';
-import RECEPTION from '../models/reception.js';
+import CSS from '../../models/css.js';
+import RECEPTION from '../../models/reception.js';
 import dotenv from 'dotenv';
+import Position from '../../models/position/css.js';
+import { getCurrentPosition, updatePosition } from '../positions/css.js';
 dotenv.config();
 
-// LS2 Storage
+// Create Cross-sectional Survey-CSS
 let currentRow = 'A';
 let currentColumn = 1;
 
+// Create storage function
 export const createStorage = async (req, res) => {
   try {
+     // Check if the sampleId already exists in the database
+     const existingStorage = await CSS.findOne({ sampleId: req.body.sampleId });
+     if (existingStorage) {
+       return res.status(400).json({ message: 'SampleId already exists' });
+     }
+     
+    // Retrieve the current position from the database
+    const currentPosition = await getCurrentPosition();
+
     // Append 'A' to the sampleId
     const sampleIdWithA = req.body.sampleId + 'A';
     const sampleIdWithB = req.body.sampleId + 'B';
 
-    const newStorage = new LS1_2ND({
+    const newStorage = new CSS({
       sampleId: req.body.sampleId,
       visitName: req.body.visitName,
       sampleType: req.body.sampleType,
       roomNumber: req.body.roomNumber,
       boxNumber: req.body.boxNumber,
-      row: currentRow,
-      column: currentColumn,
-      compartment: req.body.compartment,  
+      row: currentPosition.currentRow,
+      column: currentPosition.currentColumn,
+      compartment: req.body.compartment,
       rage: req.body.rage,
       urinePalletA: sampleIdWithA,
       urinePalletB: sampleIdWithB,
@@ -34,61 +46,62 @@ export const createStorage = async (req, res) => {
     const savedStorage = await newStorage.save();
 
     // Move to the next row and column
-    if (currentColumn === 9) {
-      currentRow = String.fromCharCode(currentRow.charCodeAt(0) + 1); // Move to the next row
-      currentColumn = 1; // Reset column to 1
+    if (currentPosition.currentColumn === 9) {
+      currentPosition.currentRow = String.fromCharCode(currentPosition.currentRow.charCodeAt(0) + 1); // Move to the next row
+      currentPosition.currentColumn = 1; // Reset column to 1
     } else {
-      currentColumn++; // Move to the next column
+      currentPosition.currentColumn++; // Move to the next column
     }
 
-    // Send the row and column information in the response
-    // res.status(201).json({ message: "Storage created successfully", savedStorage, markedBox: { row: currentRow, column: currentColumn } });
-    res.status(201).render('storage-success/ls12');
+    // Update the current row and column values in the database
+    await updatePosition(currentPosition.currentRow, currentPosition.currentColumn);
+
+    res.status(201).render('storage-success/css');
     console.log(savedStorage);
   } catch (error) {
     return res.status(500).json({ message: error });
   }
-}
+};
 
-// Get LS1_2ND
+
+// Get Cross-sectional Survey-CSS
 export const getStorage = async (req, res) => {
-    try {
-  
-      const page = parseInt(req.query.page) || 1; // Get the requested page number from the query parameter
-      const limit = 3; // Number of entries per page
-      const skip = (page - 1) * limit;
-  
-      // Fetch all storage data
-      // const allStorage = await RECEPTION.find();
-      const allStorage = await LS1_2ND.find().skip(skip).limit(limit);
-      const totalEntries = await LS1_2ND.countDocuments();
-  
-      const totalPages = Math.ceil(totalEntries / limit);
-      // const allStorage = await LS1_2ND.find();
-  
-      // Fetch the most recent storage data
-      const latestStorage = await LS1_2ND.findOne().sort({ _id: -1 });
-  
-     res.render('all-ls1-2', { 
-      allStorage, 
-      latestStorage, 
-      currentPage: page, 
-      totalPages: totalPages,
-  })
-    } catch (error) {
-      return res.status(500).json({
-        message: error,
-      });
-    }
-  };
-
-
-// Get ALL LS1-2 without pagination
-export const getAll_ls12 = async (req, res) => {
   try {
-    const allStorage = await LS1_2ND.find();
 
-   res.render('see_more/ls12', { 
+    const page = parseInt(req.query.page) || 1; // Get the requested page number from the query parameter
+    const limit = 4; // Number of entries per page
+    const skip = (page - 1) * limit;
+
+    // Fetch all storage data
+    // const allStorage = await RECEPTION.find();
+    const allStorage = await CSS.find().skip(skip).limit(limit);
+    const totalEntries = await CSS.countDocuments();
+
+    const totalPages = Math.ceil(totalEntries / limit);
+    // const allStorage = await CSS.find();
+
+    // Fetch the most recent storage data
+    const latestStorage = await CSS.findOne().sort({ _id: -1 });
+
+   res.render('allCss', { 
+    allStorage, 
+    latestStorage, 
+    currentPage: page, 
+    totalPages: totalPages,
+})
+  } catch (error) {
+    return res.status(500).json({
+      message: error,
+    });
+  }
+};
+
+// Get Cross-sectional Survey-CSS without pagination
+export const getAllCss = async (req, res) => {
+  try {
+    const allStorage = await CSS.find();
+
+   res.render('see_more/css', { 
     allStorage
 })
   } catch (error) {
@@ -105,7 +118,7 @@ export const findStorage = (req, res)=>{
   if(req.query.id){
       const id = req.query.id;
 
-      LS2.findById(id)
+      CSS.findById(id)
           .then(data =>{
               if(!data){
                   res.status(404).send({ message : "Not found user with id "+ id})
@@ -118,7 +131,7 @@ export const findStorage = (req, res)=>{
           })
 
   }else{
-      LS2.find()
+      CSS.find()
           .then(user => {
               res.send(user)
           })
@@ -137,7 +150,7 @@ export const updateStorage = (req, res)=>{
   }
 
   const id = req.params.id;
-  LS2.findByIdAndUpdate(id, req.body, { useFindAndModify: false})
+  CSS.findByIdAndUpdate(id, req.body, { useFindAndModify: false})
       .then(data => {
           if(!data){
               res.status(404).send({ message : `Cannot Update user with ${id}. Maybe user not found!`})
@@ -150,17 +163,27 @@ export const updateStorage = (req, res)=>{
       })
 }
 
-// View the details of a single storage record
-export const ls1_2_View = async (req, res) => {
+// Delete css data
+export const deleteStorage = async (req, res) => {
+  try {
+    await CSS.deleteOne({ _id: req.params.id });
+    res.render("success-delete/storage");
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// View Cross-sectional Survey-CSS
+export const cssView = async (req, res) => {
     try {
-      const storage = await LS1_2ND.findOne({ _id: req.params.id });
+      const storage = await CSS.findOne({ _id: req.params.id });
   
       const locals = {
         title: "KHRC",
          description: "Kambia Health Research Center KHRC System",
       };
   
-      res.render("view-ls1-2", {
+      res.render("view-css", {
         locals,
         storage,
       });
@@ -169,10 +192,10 @@ export const ls1_2_View = async (req, res) => {
     }
   };
 
-  export const ls1_2Table = async (req, res) => {
+  export const cssTable = async (req, res) => {
     try {
       // Find all documents in the CSS collection
-      const storage = await LS1_2ND.find();
+      const storage = await CSS.find();
   
       // Extract sampleIds from the storage documents
       const sampleIds = storage.map(item => item.sampleId);
@@ -182,7 +205,7 @@ export const ls1_2_View = async (req, res) => {
         description: "Kambia Health Research Center KHRC System",
       };
   
-      res.render("table-ls1-2", {
+      res.render("table-css", {
         locals,
         storage,
         sampleIds,
@@ -194,11 +217,42 @@ export const ls1_2_View = async (req, res) => {
       });
     }
   };
+  
+/**
+ * Get /
+ * Search Reception Data
+ */
+export const searchCss = async (req, res) => {
+  const locals = {
+    title: "KHRC",
+    description: "Kambia Health Research Center KHRC System",
+  };
 
-  // View the edit form
-export const edit = async (req, res) => {
   try {
-    const storage = await LS1_2ND.findOne({ _id: req.params.id });
+    const searchTerm = req.body.searchTerm;
+    const searchNoSpecialChar = searchTerm.replace(/[^a-zA-Z0-9 ]/g, "");
+
+    const receptions = await CSS.find({
+      $or: [
+        { studyName: { $regex: new RegExp(searchNoSpecialChar, "i") } },
+        { sampleId: { $regex: new RegExp(searchNoSpecialChar, "i") } },
+        { visitName: { $regex: new RegExp(searchNoSpecialChar, "i") } },
+      ],
+    });
+
+    res.render("viewReception", {
+      receptions,
+      locals,
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+// View Edit Cross-sectional Survey-CSS GET REQUEST
+export const edit_css = async (req, res) => {
+  try {
+    const storage = await CSS.findOne({ _id: req.params.id });
 
     // Fetch all sampleId values from the database
     const sampleIds = await RECEPTION.distinct('sampleId');
@@ -210,7 +264,7 @@ export const edit = async (req, res) => {
       description: "Kambia Health Research Center KHRC System",
     };
 
-    res.render("edit-storage/ls12", {
+    res.render("edit-storage/css", {
       locals,
       storage,
       sampleIds,
@@ -236,7 +290,7 @@ export const updateStorage1 = async (req, res) => {
     const { id } = req.params;
 
     // Find the CSS record by ID and update its fields
-    const updatedStorage = await LS1_2ND.findByIdAndUpdate(id, req.body, { new: true });
+    const updatedStorage = await CSS.findByIdAndUpdate(id, req.body, { new: true });
 
     // Check if the CSS record exists
     if (!updatedStorage) {
@@ -252,15 +306,5 @@ export const updateStorage1 = async (req, res) => {
   } catch (error) {
     console.error('Error updating CSS record:', error);
     res.status(500).json({ message: 'Internal server error' });
-  }
-};
-
-// Delete css data
-export const deleteStorage = async (req, res) => {
-  try {
-    await LS1_2ND.deleteOne({ _id: req.params.id });
-    res.render("success-delete/storage");
-  } catch (error) {
-    console.log(error);
   }
 };

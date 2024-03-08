@@ -10,7 +10,11 @@ dotenv.config();
 // Create RECEPTION
 export const createStorage = async (req, res) => {
   try {
-
+     // Check if the sampleId already exists in the database
+     const existingStorage = await RECEPTION.findOne({ sampleId: req.body.sampleId });
+     if (existingStorage) {
+       return res.status(400).json({ message: 'SampleId already exists' });
+     }
      // Append 'A' to the sampleId
     //  const sampleIdWithA = req.body.sampleId + 'A';
     //  const sampleIdWithB = req.body.sampleId + 'B';

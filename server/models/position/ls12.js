@@ -7,6 +7,6 @@ const positionSchema = new mongoose.Schema({
 });
 
 // Create a model based on the schema
-const Position = mongoose.model('Position', positionSchema);
+const ls12Position = mongoose.model('ls1_2ND-Position', positionSchema);
 
-export default Position;
+export default ls12Position;

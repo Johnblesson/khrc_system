@@ -1,26 +1,38 @@
-import LS1 from '../models/ls1.js';
-import RECEPTION from '../models/reception.js';
+import LS2 from '../../models/ls2.js';
+import RECEPTION from '../../models/reception.js';
+import Position from '../../models/position/css.js';
 import dotenv from 'dotenv';
+import { getCurrentPosition, updatePosition } from '../positions/ls2.js';
 dotenv.config();
 
-// LS1 Storage
+// LS2 Storage
 let currentRow = 'A';
 let currentColumn = 1;
 
+// Create storage function
 export const createStorage = async (req, res) => {
   try {
+     // Check if the sampleId already exists in the database
+     const existingStorage = await LS2.findOne({ sampleId: req.body.sampleId });
+     if (existingStorage) {
+       return res.status(400).json({ message: 'SampleId already exists' });
+     }
+
+    // Retrieve the current position from the database
+    const currentPosition = await getCurrentPosition();
+
     // Append 'A' to the sampleId
     const sampleIdWithA = req.body.sampleId + 'A';
     const sampleIdWithB = req.body.sampleId + 'B';
 
-    const newStorage = new LS1({
+    const newStorage = new LS2({
       sampleId: req.body.sampleId,
       visitName: req.body.visitName,
       sampleType: req.body.sampleType,
       roomNumber: req.body.roomNumber,
       boxNumber: req.body.boxNumber,
-      row: currentRow,
-      column: currentColumn,
+      row: currentPosition.currentRow,
+      column: currentPosition.currentColumn,
       compartment: req.body.compartment,  
       rage: req.body.rage,
       urinePalletA: sampleIdWithA,
@@ -33,24 +45,27 @@ export const createStorage = async (req, res) => {
 
     const savedStorage = await newStorage.save();
 
-    // Move to the next row and column
-    if (currentColumn === 9) {
-      currentRow = String.fromCharCode(currentRow.charCodeAt(0) + 1); // Move to the next row
-      currentColumn = 1; // Reset column to 1
-    } else {
-      currentColumn++; // Move to the next column
-    }
+   // Move to the next row and column
+   if (currentPosition.currentColumn === 9) {
+    currentPosition.currentRow = String.fromCharCode(currentPosition.currentRow.charCodeAt(0) + 1); // Move to the next row
+    currentPosition.currentColumn = 1; // Reset column to 1
+  } else {
+    currentPosition.currentColumn++; // Move to the next column
+  }
 
-    // Send the row and column information in the response
-    // res.status(201).json({ message: "Storage created successfully", savedStorage, markedBox: { row: currentRow, column: currentColumn } });
-    res.status(201).render('storage-success/ls11');
+  // Update the current row and column values in the database
+  await updatePosition(currentPosition.currentRow, currentPosition.currentColumn);
+
+  // Send the row and column information in the response
+  // res.status(201).json({ message: "Storage created successfully", savedStorage, markedBox: { row: currentRow, column: currentColumn } });
+    res.status(201).render('storage-success/ls2');
     console.log(savedStorage);
   } catch (error) {
     return res.status(500).json({ message: error });
   }
 }
 
-// Get LS1
+// Get LS2
 export const getStorage = async (req, res) => {
     try {
   
@@ -60,16 +75,16 @@ export const getStorage = async (req, res) => {
   
       // Fetch all storage data
       // const allStorage = await RECEPTION.find();
-      const allStorage = await  LS1.find().skip(skip).limit(limit);
-      const totalEntries = await    LS1.countDocuments();
+      const allStorage = await LS2.find().skip(skip).limit(limit);
+      const totalEntries = await LS2.countDocuments();
   
       const totalPages = Math.ceil(totalEntries / limit);
-      // const allStorage = await   LS1.find();
+      // const allStorage = await LS2.find();
   
       // Fetch the most recent storage data
-      const latestStorage = await   LS1.findOne().sort({ _id: -1 });
+      const latestStorage = await LS2.findOne().sort({ _id: -1 });
   
-     res.render('all-ls1', { 
+     res.render('all-ls2', { 
       allStorage, 
       latestStorage, 
       currentPage: page, 
@@ -82,13 +97,12 @@ export const getStorage = async (req, res) => {
     }
   };
 
-
-// Get ALL LS1-1 without pagination
-export const getAll_ls11 = async (req, res) => {
+// Get ALL LS2 without pagination
+export const getAll_ls2 = async (req, res) => {
   try {
-    const allStorage = await LS1.find();
+    const allStorage = await LS2.find();
 
-   res.render('see_more/ls11', { 
+   res.render('see_more/ls2', { 
     allStorage
 })
   } catch (error) {
@@ -105,7 +119,7 @@ export const findStorage = (req, res)=>{
   if(req.query.id){
       const id = req.query.id;
 
-      LS1.findById(id)
+      LS2.findById(id)
           .then(data =>{
               if(!data){
                   res.status(404).send({ message : "Not found user with id "+ id})
@@ -118,7 +132,7 @@ export const findStorage = (req, res)=>{
           })
 
   }else{
-      LS1.find()
+      LS2.find()
           .then(user => {
               res.send(user)
           })
@@ -137,7 +151,7 @@ export const updateStorage = (req, res)=>{
   }
 
   const id = req.params.id;
-  LS1.findByIdAndUpdate(id, req.body, { useFindAndModify: false})
+  LS2.findByIdAndUpdate(id, req.body, { useFindAndModify: false})
       .then(data => {
           if(!data){
               res.status(404).send({ message : `Cannot Update user with ${id}. Maybe user not found!`})
@@ -150,28 +164,27 @@ export const updateStorage = (req, res)=>{
       })
 }
 
-
-// Delete LS1 data
+// Delete css data
 export const deleteStorage = async (req, res) => {
   try {
-    await LS1.deleteOne({ _id: req.params.id });
+    await LS2.deleteOne({ _id: req.params.id });
     res.render("success-delete/storage");
   } catch (error) {
     console.log(error);
   }
 };
 
-// View the details of a single record
-export const ls1View = async (req, res) => {
+// View a single LS2
+export const ls2View = async (req, res) => {
     try {
-      const storage = await LS1.findOne({ _id: req.params.id });
+      const storage = await LS2.findOne({ _id: req.params.id });
   
       const locals = {
         title: "KHRC",
          description: "Kambia Health Research Center KHRC System",
       };
   
-      res.render("view-ls1", {
+      res.render("view-ls2", {
         locals,
         storage,
       });
@@ -180,10 +193,10 @@ export const ls1View = async (req, res) => {
     }
   };
 
-  export const ls1_1Table = async (req, res) => {
+  export const ls2Table = async (req, res) => {
     try {
       // Find all documents in the CSS collection
-      const storage = await LS1.find();
+      const storage = await LS2.find();
   
       // Extract sampleIds from the storage documents
       const sampleIds = storage.map(item => item.sampleId);
@@ -193,7 +206,7 @@ export const ls1View = async (req, res) => {
         description: "Kambia Health Research Center KHRC System",
       };
   
-      res.render("table-ls1-1", {
+      res.render("table-ls2", {
         locals,
         storage,
         sampleIds,
@@ -209,7 +222,7 @@ export const ls1View = async (req, res) => {
     // View the edit form
 export const edit = async (req, res) => {
   try {
-    const storage = await LS1.findOne({ _id: req.params.id });
+    const storage = await LS2.findOne({ _id: req.params.id });
 
     // Fetch all sampleId values from the database
     const sampleIds = await RECEPTION.distinct('sampleId');
@@ -221,7 +234,7 @@ export const edit = async (req, res) => {
       description: "Kambia Health Research Center KHRC System",
     };
 
-    res.render("edit-storage/ls11", {
+    res.render("edit-storage/ls2", {
       locals,
       storage,
       sampleIds,
@@ -247,7 +260,7 @@ export const updateStorage1 = async (req, res) => {
     const { id } = req.params;
 
     // Find the CSS record by ID and update its fields
-    const updatedStorage = await LS1.findByIdAndUpdate(id, req.body, { new: true });
+    const updatedStorage = await LS2.findByIdAndUpdate(id, req.body, { new: true });
 
     // Check if the CSS record exists
     if (!updatedStorage) {

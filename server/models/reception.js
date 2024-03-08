@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 
 const receptionSchema = new Schema({
   studyName: String,
-  sampleId: { type: String, required: true, unique: true },
+  sampleId: { type: String, required: true },
   visitName: String,
   visitDate: Date,
   sampleType: String,

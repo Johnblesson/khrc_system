@@ -12,10 +12,10 @@ import {
     getAll_ls2,
     edit,
     updateStorage1,
-    } from "../controllers/ls2.js";
+    } from "../../controllers/storages/ls2.js";
 
-    import { ensureAuthenticated } from "../middleware/isAuth.js";
-    import { superAdminOnly } from "../middleware/sudo.js";
+    import { ensureAuthenticated } from "../../middleware/isAuth.js";
+    import { superAdminOnly } from "../../middleware/sudo.js";
 
 router.post('/ls2-storage', ensureAuthenticated, createStorage);
 router.get('/ls2-table', ensureAuthenticated, ls2Table);

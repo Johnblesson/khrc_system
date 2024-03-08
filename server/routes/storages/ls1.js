@@ -12,10 +12,10 @@ import {
     getAll_ls11,
     edit,
     updateStorage1,
-    } from "../controllers/ls1.js";
+    } from "../../controllers/storages/ls1.js";
 
-    import { ensureAuthenticated } from "../middleware/isAuth.js";
-    import { superAdminOnly } from "../middleware/sudo.js";
+    import { ensureAuthenticated } from "../../middleware/isAuth.js";
+    import { superAdminOnly } from "../../middleware/sudo.js";
 
 router.post('/ls1-storage', ensureAuthenticated, createStorage);
 router.get('/ls1-1-table', ensureAuthenticated, ls1_1Table);

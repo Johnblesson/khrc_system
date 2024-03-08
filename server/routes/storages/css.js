@@ -12,10 +12,10 @@ import {
     getAllCss,
     edit_css,
     updateStorage1,
-    } from "../controllers/css.js";
+    } from "../../controllers/storages/css.js";
 
-    import { ensureAuthenticated } from "../middleware/isAuth.js"; 
-    import { superAdminOnly } from "../middleware/sudo.js";
+    import { ensureAuthenticated } from "../../middleware/isAuth.js"; 
+    import { superAdminOnly } from "../../middleware/sudo.js";
 
 router.post('/storage', ensureAuthenticated, createStorage);
 router.get('/css-table', ensureAuthenticated, cssTable);
