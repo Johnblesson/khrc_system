@@ -5,7 +5,6 @@ import {
     createStorage, 
     getStorage,
     findStorage,
-    updateStorage,
     deleteStorage,
     cssView,
     cssTable,
@@ -21,7 +20,6 @@ router.post('/storage', ensureAuthenticated, createStorage);
 router.get('/css-table', ensureAuthenticated, cssTable);
 router.get('/view-css', ensureAuthenticated, getStorage);
 router.get('/view-css/:id',ensureAuthenticated, cssView);
-// router.put('/storage/:id', ensureAuthenticated, updateStorage);
 router.patch('/edit_css/:id', superAdminOnly, updateStorage1);
 router.delete('/delete-css/:id', ensureAuthenticated, superAdminOnly, deleteStorage);
 router.get('/delete-css/:id', ensureAuthenticated, deleteStorage);

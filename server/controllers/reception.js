@@ -183,7 +183,7 @@ const getTimeOfDay = () => {
     const { receptions } = await getReception(req, res);
 
     const page = parseInt(req.query.page) || 1; // Get the requested page number from the query parameter
-    const limit = 2; // Number of entries per page
+    const limit = 5; // Number of entries per page
     const skip = (page - 1) * limit;
 
     // Fetch all storage data

@@ -22,25 +22,26 @@ import {
     import { getAllUsers, getUserById } from "../controllers/auth.js";
     import { ensureAuthenticated } from "../middleware/isAuth.js";
     import { superAdminOnly } from "../middleware/sudo.js";
+    import { checkIpAccess } from "../middleware/checkip.js";
 
-router.get('/home', ensureAuthenticated, homeRoute);
-router.get('/admin-home', ensureAuthenticated, adminHomeRoute );
-router.get('/viewReception', ensureAuthenticated, viewReception);
-router.get('/admin-view-reception', ensureAuthenticated, adminViewReception);
-router.post('/reception', createStorage);
-router.get('/api/reception', getReception);
-router.post('/api/admin/reception', createAdminReception);
+router.get('/home', ensureAuthenticated, checkIpAccess, homeRoute);
+router.get('/admin-home', ensureAuthenticated, checkIpAccess, adminHomeRoute );
+router.get('/viewReception', ensureAuthenticated, checkIpAccess, viewReception);
+router.get('/admin-view-reception', ensureAuthenticated, checkIpAccess, adminViewReception);
+router.post('/reception', ensureAuthenticated, checkIpAccess, createStorage);
+router.get('/api/reception', ensureAuthenticated, checkIpAccess, getReception);
+router.post('/api/admin/reception', ensureAuthenticated, checkIpAccess, createAdminReception);
 
-router.get('/users', ensureAuthenticated, getAllUsers)
-router.get('/api/users/:id', getUserById)
-router.get('/all-reception', getAllReception)
+router.get('/users', ensureAuthenticated, checkIpAccess, getAllUsers)
+router.get('/api/users/:id', ensureAuthenticated, checkIpAccess, getUserById)
+router.get('/all-reception', ensureAuthenticated, checkIpAccess, getAllReception)
 
 // router.post('/search', searchReceptions);
 
 // Admin View
 router.get('/view/:id', view);
 router.get('/reception_edit/:id', edit);
-router.patch('/edit/:id', updateAdminReception);
+router.patch('/edit/:id', superAdminOnly, updateAdminReception);
 router.delete('/delete-reception/:id', ensureAuthenticated, superAdminOnly, deleteRecord);
 router.get('/delete-reception/:id', ensureAuthenticated, superAdminOnly, deleteRecord);
 // router.delete('/edit/:id', deleteReception);

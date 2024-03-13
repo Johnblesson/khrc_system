@@ -160,6 +160,61 @@ export const getUserById = async (req, res) => {
   }
 };
 
+// View Edit Cross-sectional Survey-CSS GET REQUEST
+export const edit_user = async (req, res) => {
+  try {
+    const users = await User.findOne({ _id: req.params.id });
+
+    const user = req.isAuthenticated() ? req.user : null;
+
+    const locals = {
+      title: "KHRC",
+      description: "Kambia Health Research Center KHRC System",
+    };
+
+    res.render("editRegistration", {
+      locals,
+      users,
+      user,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// Update user
+export const updateUser = async (req, res) => {
+  try {
+    // Extract the User ID from the request parameters
+    const { id } = req.params;
+
+    // Find the User record by ID and update its fields
+    const updatedUser = await User.findByIdAndUpdate(id, req.body, { new: true });
+
+    // Check if the User record exists
+    if (!updatedUser) {
+      return res.status(404).json({ message: 'User record not found' });
+    }
+
+    // Respond with the updated User record
+    // res.status(200).json(updatedStorage);
+    res.render('update-success/users');
+  } catch (error) {
+    console.error('Error updating User record:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+// Delete user data
+export const deleteUser = async (req, res) => {
+  try {
+    await User.deleteOne({ _id: req.params.id });
+    res.render("success-delete/users");
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 
 // Logout Controller
 export const logOut = (req, res) => {
