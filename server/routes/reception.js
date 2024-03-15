@@ -23,6 +23,7 @@ import {
     import { ensureAuthenticated } from "../middleware/isAuth.js";
     import { superAdminOnly } from "../middleware/sudo.js";
     import { checkIpAccess } from "../middleware/checkip.js";
+    import { isAdmin } from "../middleware/isAdmin.js";
 
 router.get('/home', ensureAuthenticated, checkIpAccess, homeRoute);
 router.get('/admin-home', ensureAuthenticated, checkIpAccess, adminHomeRoute );
@@ -39,11 +40,11 @@ router.get('/all-reception', ensureAuthenticated, checkIpAccess, getAllReception
 // router.post('/search', searchReceptions);
 
 // Admin View
-router.get('/view/:id', view);
-router.get('/reception_edit/:id', edit);
-router.patch('/edit/:id', superAdminOnly, updateAdminReception);
-router.delete('/delete-reception/:id', ensureAuthenticated, superAdminOnly, deleteRecord);
-router.get('/delete-reception/:id', ensureAuthenticated, superAdminOnly, deleteRecord);
+router.get('/view/:id', ensureAuthenticated, checkIpAccess, view);
+router.get('/reception_edit/:id', ensureAuthenticated, isAdmin, checkIpAccess, edit);
+router.patch('/edit/:id', ensureAuthenticated, checkIpAccess, isAdmin, updateAdminReception);
+router.delete('/delete-reception/:id', ensureAuthenticated, checkIpAccess, isAdmin, deleteRecord);
+router.get('/delete-reception/:id', ensureAuthenticated, checkIpAccess, isAdmin, deleteRecord);
 // router.delete('/edit/:id', deleteReception);
 // router.get('/api/admin/reception', getReception);
 
