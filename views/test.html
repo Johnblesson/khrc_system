@@ -1,124 +1,42 @@
-<!-- storageTable.ejs -->
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      display: flex;
-      flex-direction: column; /* Change to column direction */
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-    }
-
-    h1 {
-      margin-bottom: 20px; /* Add margin for spacing */
-    }
-
-    table {
-      border-collapse: collapse;
-      width: 80%;
-    }
-
-    th, td {
-      border: 1px solid #dddddd;
-      text-align: center;
-      padding: 16px;
-      font-size: 14px;
-    }
-
-    th {
-      background-color: #f2f2f2;
-    }
-
-    /* Style for the first column (row labels) */
-    th:first-child, td:first-child {
-      background-color: #e0e0e0;
-      font-weight: bold;
-    }
-
-    /* Style for the first row (column labels) */
-    th:not(:first-child) {
-      background-color: #e0e0e0;
-      font-weight: bold;
-    }
-
-    /* Add CSS for the storage-cell class */
-    .storage-cell {
-      position: relative;
-      overflow: hidden;
-    }
-
-    /* Animation for the storage-cell class */
-    .storage-cell.new-storage {
-      animation: moveRight 1s ease-in-out;
-    }
-
-    @keyframes moveRight {
-      0% {
-        transform: translateX(-100%);
-      }
-      100% {
-        transform: translateX(0);
-      }
-    }
-
-     /* Add CSS for the yellow-bg class */
-     .yellow-bg {
-      background-color: yellow;
-    }
-
-    /* Add CSS for the green-bg class */
-    .green-bg {
-      background-color: green;
-    }
-  </style>
-  <title>Table</title>
-</head>
-<body>
-
-  <h1>CSS STORAGE POSITION</h1>
-
-  <table>
-    <thead>
-      <tr>
-        <th></th>
-        <% for (let i = 1; i <= 9; i++) { %>
-          <th>
-            <%= i %><br> <!-- Display the column number -->
-            
-          </th>
-        <% } %>
-      </tr>
-    </thead>
-    <tbody>
-      <% const rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']; %>
-      <% for (const row of rows) { %>
-        <!-- EJS logic to render each row based on your storage data -->
-        <tr>
-          <th><%= row %></th>
-          <% for (let i = 1; i <= 9; i++) { %>
-            <td class="storage-cell">
-              <%= row + i %><br> <!-- Display the cell content -->
-              <%= sampleIds %><br> <!-- Display the sampleId -->
-            </td>
-          <% } %>
-        </tr>
-      <% } %>
-    </tbody>
-  </table>
-
-
-  <div class="pagination">
-    <% for (let i = 1; i <= totalPages; i++) { %>
-      <a href="?page=<%= i %>" class="<%= i === currentPage ? 'active' : '' %>">
-        <%= i %>
-      </a>
-    <% } %>
+<section id="sign">
+  <div class="container pt-4 my-5">
+    <br>
+    <p style="font-size:30px;" class="text-center" id="subHead1"><b>Change Your Password</b></p>
+    <div class="add-another-reception">
+      <a href="#" onclick="goBack()">Go Back</a>
   </div>
+    <hr>
+    <div class="form-container">
+      <form id="changePasswordForm" action="/change-password/<%= users._id %>?_method=PATCH" method="post">
+
+          <div class="form-group row">
+              <label for="username" class="col-sm-2 col-form-label">Username</label>
+              <div class="col-sm-10 position-relative">
+                <input type="text" class="form-control" name="username" value="<%= users.username %>" readonly>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="email" class="col-sm-2 col-form-label">Email</label>
+              <div class="col-sm-10 position-relative">
+                <input type="text" class="form-control" name="email" value="<%= users.email %>" readonly>
+              </div>
+            </div>
+        <div class="form-group row">
+          <label for="oldPassword" class="col-sm-2 col-form-label">Old Password:</label>
+          <div class="col-sm-10 position-relative">
+            <input type="password" class="form-control" name="oldPassword" id="password" placeholder="Old Password">
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="newPassword" class="col-sm-2 col-form-label">New Password:</label>
+          <div class="col-sm-10 input-group">
+            <input type="password" class="form-control" id="password" name="newPassword" placeholder="New Password">
+          </div>
+        </div>
+
+        <button type="submit" class="btn text-light btn-large btn-block" style="background-color: #b40c57;" id="change-password-btn">Change Password</button>
+      </form>
+    </div>
+  </div>
+  </section>

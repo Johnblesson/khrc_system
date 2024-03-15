@@ -117,6 +117,54 @@ export const getLoginPage = (req, res) => {
   res.render('login');
 };
 
+// Change Password Controller
+export const changePassword = async (req, res) => {
+  try {
+    const { userId, username, email, oldPassword, newPassword } = req.body;
+
+    let user;
+
+    // Check if userId is provided
+    if (userId) {
+      // Find the user by userId
+      user = await User.findById(userId);
+    } else {
+      // If userId is not provided, check by username or email
+      user = await User.findOne({ $or: [{ username }, { email }] });
+    }
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Check if the old password matches the user's current password
+    const passwordMatch = await bcrypt.compare(oldPassword, user.password);
+
+    if (!passwordMatch) {
+      return res.status(400).json({ error: 'Incorrect old password' });
+    }
+
+    // Validate the new password format
+    if (!/^(?=.*[a-z])(?=.*[A-Z]).{6,}$/.test(newPassword)) {
+      return res.status(400).json({
+        error: 'Password must be at least 6 characters long and contain both uppercase and lowercase letters.',
+      });
+    }
+
+    // Hash the new password
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    // Update the user's password
+    user.password = hashedPassword;
+    await user.save();
+
+    // res.status(200).json({ message: 'Password changed successfully' });
+    res.render('update-success/password');
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('An error occurred while changing password.');
+  }
+};
 
 
 // Get All Users Controller
@@ -160,7 +208,7 @@ export const getUserById = async (req, res) => {
   }
 };
 
-// View Edit Cross-sectional Survey-CSS GET REQUEST
+// View Edit user GET REQUEST
 export const edit_user = async (req, res) => {
   try {
     const users = await User.findOne({ _id: req.params.id });
@@ -215,6 +263,27 @@ export const deleteUser = async (req, res) => {
   }
 };
 
+// View Edit user GET REQUEST
+export const viewChangehPwdPage = async (req, res) => {
+  try {
+    const users = await User.findOne({ _id: req.params.id });
+
+    const user = req.isAuthenticated() ? req.user : null;
+
+    const locals = {
+      title: "KHRC",
+      description: "Kambia Health Research Center KHRC System",
+    };
+
+    res.render("change-password", {
+      locals,
+      users,
+      user,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 // Logout Controller
 export const logOut = (req, res) => {

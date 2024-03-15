@@ -2,7 +2,7 @@ import { Router } from "express";
 import express from "express";
 const app = express();
 const router = Router();
-import { getAllUsers, getUserById, signUp, logIn, getLoginPage, edit_user, updateUser, deleteUser } from "../controllers/auth.js";
+import { getAllUsers, getUserById, signUp, logIn, getLoginPage, edit_user, updateUser, deleteUser, changePassword, viewChangehPwdPage } from "../controllers/auth.js";
 import { renderCssForm, renderLs1Form, renderLs12Form, renderLs2Form } from "../controllers/storageRender.js";
 // import { homeRoute, update } from "../services/render.js";
 import { isAdmin } from "../middleware/isAdmin.js";
@@ -18,6 +18,10 @@ router.get('/', checkIpAccess, getLoginPage);
 router.get('/register', superAdminOnly, checkIpAccess, (req, res) => {
     res.render('sign up'); 
 })
+
+// Define your route for changing password
+router.patch('/change-password/:id', ensureAuthenticated, checkIpAccess, changePassword);
+router.get('/change-password/:id', ensureAuthenticated, checkIpAccess, viewChangehPwdPage);
 
 // Routes for the user views
 router.get('/index-admin', ensureAuthenticated, isAdmin, checkIpAccess, (req, res) => {
