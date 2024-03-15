@@ -46,4 +46,5 @@ router.delete('/delete-reception/:id', ensureAuthenticated, superAdminOnly, dele
 router.get('/delete-reception/:id', ensureAuthenticated, superAdminOnly, deleteRecord);
 // router.delete('/edit/:id', deleteReception);
 // router.get('/api/admin/reception', getReception);
+
 export default router;
