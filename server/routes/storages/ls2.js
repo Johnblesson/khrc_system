@@ -26,7 +26,7 @@ router.get('/view-ls2/:id', ensureAuthenticated, checkIpAccess, isAdmin, ls2View
 router.get('/see-more-ls2', ensureAuthenticated, checkIpAccess, isAdmin, getAll_ls2); // This is the route that will be used to get all the records from the database
 // router.put('/ls2-storage/:id', ensureAuthenticated, checkIpAccess, isAdmin, updateStorage);
 router.delete('/delete-ls2/:id', ensureAuthenticated, checkIpAccess, isAdmin, superAdminOnly, deleteStorage);
-router.get('/delete-ls2/:id', ensureAuthenticated, checkIpAccess, isAdmin, superAdminOnly, deleteStorage);
+router.get('/delete-ls2/:id', ensureAuthenticated, checkIpAccess, isAdmin, deleteStorage);
 router.get('/edit_ls2/:id', ensureAuthenticated, checkIpAccess, isAdmin, superAdminOnly, edit);
 router.patch('/edit_ls2/:id', ensureAuthenticated, checkIpAccess, isAdmin, superAdminOnly, updateStorage1);
 

@@ -113,8 +113,12 @@ export const messageView = async (req, res) => {
     }
   };
   
-
-
-
-
-  
+  // Delete message data
+export const deleteMessage = async (req, res) => {
+  try {
+    await Contact.deleteOne({ _id: req.params.id });
+    res.render("success-delete/messages");
+  } catch (error) {
+    console.log(error);
+  }
+};

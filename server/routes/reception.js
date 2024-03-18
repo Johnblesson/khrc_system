@@ -43,7 +43,7 @@ router.get('/all-reception', ensureAuthenticated, checkIpAccess, getAllReception
 router.get('/view/:id', ensureAuthenticated, checkIpAccess, view);
 router.get('/reception_edit/:id', ensureAuthenticated, isAdmin, checkIpAccess, edit);
 router.patch('/edit/:id', ensureAuthenticated, checkIpAccess, isAdmin, updateAdminReception);
-router.delete('/delete-reception/:id', ensureAuthenticated, checkIpAccess, isAdmin, deleteRecord);
+router.delete('/delete-reception/:id', ensureAuthenticated, checkIpAccess, isAdmin, superAdminOnly, deleteRecord);
 router.get('/delete-reception/:id', ensureAuthenticated, checkIpAccess, isAdmin, deleteRecord);
 // router.delete('/edit/:id', deleteReception);
 // router.get('/api/admin/reception', getReception);

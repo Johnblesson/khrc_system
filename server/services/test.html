@@ -1,0 +1,67 @@
+<style>
+    .storage-info {
+      text-align: center;
+      margin-top: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .hover:hover {
+      background-color: #c6195e;
+      content: attr(Non-functional);
+      color: #ffffff;
+    }
+  </style>
+  
+  <div class="container mx-auto">
+    <table class="min-w-full divide-y divide-gray-200">
+      <thead class="bg-gray-50">
+        <tr>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Phone</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Message</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="bg-white divide-y divide-gray-200" id="tbody">
+        <% if (allStorage && allStorage.length > 0) { %>
+          <% allStorage.forEach(storage => { %>
+            <tr>
+              <td class="hover px-6 py-4 whitespace-nowrap"><%= storage.name %></td>
+              <td class="hover px-6 py-4 whitespace-nowrap"><%= storage.email %></td>
+              <td class="hover px-6 py-4 whitespace-nowrap"><%= storage.phone %></td>
+              <td class="hover px-6 py-4 whitespace-nowrap">
+                <% if (storage.msg && storage.msg.length > 20) { %>
+                    <%= storage.msg.substring(0, 20) + "..." %>
+                <% } else { %>
+                    <%= storage.msg %>
+                <% } %>
+            </td>
+            
+      
+              <td class="hover px-6 py-4 whitespace-nowrap">
+                <!-- Add icons with links to your delete, view, and update routes -->
+                <a href="/view-message/<%= storage._id %>"><i class="fas fa-eye text-blue-500 cursor-pointer mx-2"></i></a>
+              </td>
+            </tr>
+          <% }) %>
+        <% } else { %>
+          <tr>
+            <td colspan="5" class="px-6 py-4 whitespace-nowrap">No message data available</td>
+          </tr>
+        <% } %>
+      </tbody>
+    </table>
+      <!-- Assuming you have a variable 'currentPage' and 'totalPages' from the server-side -->
+  <div class="container mx-auto">
+    <div class="pagination">
+      <% for (let i = 1; i <= totalPages; i++) { %>
+          <a href="?page=<%= i %>" class="<%= i === currentPage ? 'active' : '' %>">
+              <%= i %>
+          </a>
+      <% } %>
+  </div>
+  </div>
+  </div>
+  

@@ -25,7 +25,7 @@ router.get('/view-ls1-2', ensureAuthenticated, checkIpAccess, isAdmin, getStorag
 router.get('/all-ls12', ensureAuthenticated, checkIpAccess, isAdmin, getAll_ls12); // This is the route that will be used to get all the records from the database
 router.get('/view-ls1-2/:id', ensureAuthenticated, checkIpAccess, isAdmin, ls1_2_View);
 // router.put('/ls1-2-storage/:id', ensureAuthenticated, updateStorage);
-router.delete('/delete-ls12/:id', ensureAuthenticated, checkIpAccess, isAdmin, deleteStorage);
+router.delete('/delete-ls12/:id', ensureAuthenticated, checkIpAccess, isAdmin, superAdminOnly, deleteStorage);
 router.get('/delete-ls12/:id', ensureAuthenticated, checkIpAccess, isAdmin, deleteStorage);
 router.get('/edit_ls12/:id', ensureAuthenticated, checkIpAccess, isAdmin, superAdminOnly, edit);
 router.patch('/edit_ls12/:id', ensureAuthenticated, checkIpAccess, isAdmin, superAdminOnly, updateStorage1);

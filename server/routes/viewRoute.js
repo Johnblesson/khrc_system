@@ -29,6 +29,7 @@ router.get('/index-admin', ensureAuthenticated, isAdmin, checkIpAccess, (req, re
   res.render('index-admin', { user });
 });
 
+
 // Routes for the storage views
 router.get('/css-storage', ensureAuthenticated, isAdmin, checkIpAccess, renderCssForm)
 router.get('/ls1-storage', ensureAuthenticated, isAdmin, checkIpAccess, renderLs1Form)
