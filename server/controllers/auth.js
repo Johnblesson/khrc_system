@@ -264,7 +264,7 @@ export const deleteUser = async (req, res) => {
 };
 
 // View Edit user GET REQUEST
-export const viewChangehPwdPage = async (req, res) => {
+export const viewChangePwdPage = async (req, res) => {
   try {
     const users = await User.findOne({ _id: req.params.id });
 
