@@ -33,6 +33,9 @@ import passport from '../passport/passport-config.js';
         password: hashedPassword,
         role: req.body.role,
         status: req.body.status,
+        profilePhoto: req.body.profilePhoto,
+        createdAt: new Date(), // Assuming createdAt and updatedAt are Date objects
+        updatedAt: new Date()
       });
   
       // Check for duplicate usernames
@@ -279,6 +282,25 @@ export const viewChangePwdPage = async (req, res) => {
       locals,
       users,
       user,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// View user's profile GET REQUEST
+export const profile = async (req, res) => {
+  try {
+    const users = await User.findOne({ _id: req.params.id });
+
+    const locals = {
+      title: "KHRC",
+       description: "Kambia Health Research Center KHRC System",
+    };
+
+    res.render("profile", {
+      locals,
+      users,
     });
   } catch (error) {
     console.log(error);

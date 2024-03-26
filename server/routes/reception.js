@@ -19,7 +19,7 @@ import {
     updateAdminReception,
     } from "../controllers/reception.js";
 
-    import { getAllUsers, getUserById } from "../controllers/auth.js";
+    import { getAllUsers, getUserById } from "../controllers/auth.js"; 
     import { ensureAuthenticated } from "../middleware/isAuth.js";
     import { superAdminOnly } from "../middleware/sudo.js";
     import { checkIpAccess } from "../middleware/checkip.js";

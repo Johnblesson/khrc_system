@@ -30,6 +30,8 @@ export const createStorage = async (req, res) => {
       visitName: req.body.visitName,
       sampleType: req.body.sampleType,
       roomNumber: req.body.roomNumber,
+      freezerNumber: req.body.freezerNumber,
+      tray: req.body.tray,
       boxNumber: req.body.boxNumber,
       row: currentPosition.currentRow,
       column: currentPosition.currentColumn,

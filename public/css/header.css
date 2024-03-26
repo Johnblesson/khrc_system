@@ -76,3 +76,37 @@ li:hover .dropdown {
   #userIcon {
     margin-right: 5px; /* Adjust the margin as needed */
   }
+
+  
+/* Styling for the dropdown */
+.setting-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    display: none;
+    background-color: #b40c57;
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 1;
+    font-size: 15px;
+}
+
+/* Show the dropdown when hovering over the Storage link */
+li:hover .setting-dropdown {
+    display: block;
+}
+
+/* Style for the dropdown items */
+.setting-dropdown a {
+    color: #fff;
+    display: block;
+    padding: 8px 10px;
+    text-decoration: none;
+}
+
+/* Hover effect for the dropdown items */
+.setting-dropdown a:hover {
+    background-color: #6d6666;
+    border-radius: 5px;
+}
+

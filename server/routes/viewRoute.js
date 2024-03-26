@@ -1,8 +1,8 @@
 import { Router } from "express";
-import express from "express";
-const app = express();
+// import express from "express";
+// const app = express();
 const router = Router();
-import { getAllUsers, getUserById, signUp, logIn, getLoginPage, edit_user, updateUser, deleteUser, changePassword, viewChangePwdPage } from "../controllers/auth.js";
+import { getAllUsers, getUserById, signUp, logIn, getLoginPage, edit_user, updateUser, deleteUser, changePassword, viewChangePwdPage, profile } from "../controllers/auth.js";
 import { renderCssForm, renderLs1Form, renderLs12Form, renderLs2Form } from "../controllers/storageRender.js";
 // import { homeRoute, update } from "../services/render.js";
 import { isAdmin } from "../middleware/isAdmin.js";
@@ -10,14 +10,19 @@ import { isUser } from "../middleware/isUser.js";
 import { ensureAuthenticated } from "../middleware/isAuth.js";
 import { checkIpAccess } from "../middleware/checkip.js";
 import { superAdminOnly } from "../middleware/sudo.js";
+import upload from "../upload/upload.js";
 
 // Routes for the user views
 router.post('/register', superAdminOnly, checkIpAccess, signUp);
-router.post('/login', logIn);
+router.post('/login', checkIpAccess, logIn);
 router.get('/', checkIpAccess, getLoginPage);
 router.get('/register', superAdminOnly, checkIpAccess, (req, res) => {
     res.render('sign up'); 
 })
+
+// Routes for the user views #Read
+router.get('/profile/:id', ensureAuthenticated, checkIpAccess, profile);
+router.post('/profile/:id', upload.single("picture"), signUp);
 
 // Define your route for changing password
 router.patch('/change-password/:id', ensureAuthenticated, checkIpAccess, changePassword);

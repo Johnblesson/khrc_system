@@ -25,6 +25,14 @@ const userSchema = new mongoose.Schema({
         type: String,
         enum: ['active', 'inactive'], // You can adjust the enum values as needed
     },
+    profilePhoto: {
+        type: String,
+        default: 'default.jpg',
+    },
+    createdAt: { type: Date, default: Date.now },
+    updatedAt: { type: Date, default: Date.now }
+}, {
+    timestamps: true,
 });
 
 const User = mongoose.model('users', userSchema);

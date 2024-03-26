@@ -45,56 +45,59 @@
       }
     });
     </script>
-
-  <!-- NavBar -->
-  <nav id="navbar" class="navbar navbar-expand-lg navbar-dark fixed-top">
-    <a class="navbar-brand mb-1 nav-heading" href="/admin-home" style="font-size: 28px;">
-      
-      <!-- <img src="./medicalLogo.png" /> -->
-      <!-- <i class="fa fa-stethoscope" style="font-size:30px;color:white"></i> -->
-      <img src="./images/khrc_logo.png" alt="logo" width="130px">
-    </a>
-    <strong><p style="text-align: center;"><p><%= greeting %> <%= user ? user.username : '' %> (Admin)</p></strong>
-    <ul>
-      <!-- <li><a href="/admin-home">Home</a></li> -->
-      <li><a href="reception-admin-form"> Reception </a></li>
-      
-      <li>
-        <a href="#">Storage</a>
-        <div class="dropdown">
-          <a href="css-storage">CSS</a>
-          <a href="ls1-storage">LS1/1</a>
-          <a href="ls1-2-storage">LS1/2</a>
-          <a href="ls2-storage">LS2</a> 
-        </div>
-      </li>
-      <!-- <li><a href="About"> About </a></li> -->
-      <li><a href="admin-contact">Message Us</a></li>
+    <!-- NavBar -->
+ <!-- NavBar -->
+ <nav id="navbar" class="navbar navbar-expand-lg navbar-dark fixed-top">
+  <a class="navbar-brand mb-1 nav-heading" href="/admin-home" style="font-size: 28px;">
+    
+    <!-- <img src="./medicalLogo.png" /> -->
+    <!-- <i class="fa fa-stethoscope" style="font-size:30px;color:white"></i> -->
+    <img src="./images/khrc_logo.png" alt="logo" width="130px">
+  </a>
+  <strong><p style="text-align: center;"><p><%= greeting %> <%= user ? user.username : '' %> (Admin)</p></strong>
+  <ul>
+    <!-- <li><a href="/admin-home">Home</a></li> -->
+    <li><a href="reception-admin-form"> Reception </a></li>
+    
     <li>
-      <i class="fa-solid fa-user" id="userIcon"></i>
+      <a href="#">Storage</a>
       <div class="dropdown">
-        <a href="#"><%= user ? user.username : '' %></a>
-        <a href="/change-password/<%= user._id %>">Change password</a>
+        <a href="css-storage">CSS</a>
+        <a href="ls1-storage">LS1/1</a>
+        <a href="ls1-2-storage">LS1/2</a>
+        <a href="ls2-storage">LS2</a> 
       </div>
     </li>
-    
-      <div>
-        <form action="/message" method="get">
-          <button type="submit">
-        <i class="fa-solid fa-message"></i>
-      </button>
-      </form>
+    <!-- <li><a href="About"> About </a></li> -->
+    <li><a href="admin-contact">Message Us</a></li>
+    <li>
+      <i class="fa-solid fa-user" id="userIcon"></i>
+      <div class="setting-dropdown">
+          <a href="/profile/<%= user._id %>"><%= user ? user.username : '' %></a>
+          <a href="/change-password/<%= user._id %>"><i class="fa-solid fa-gear"></i> Settings</a>
+          <a href="/profile/<%= user._id %>"><i class="fa-solid fa-user"></i> Profile</a>
+          <hr>
+          <a href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
       </div>
-      <div class="logout-container">
-        <form action="/logout" method="get">
-           <button type="submit" class="logout-button">
-           <i class="fas fa-sign-out-alt"></i> Logout
-       </button>
-     </form>
- </div>
-      <!-- <li><a href="logout" style="color: white; text-decoration: none;">Logout</a></li> -->
-    </ul>
-  </nav>
+  </li>
+  
+    <div>
+      <form action="/message" method="get">
+        <button type="submit">
+      <i class="fa-solid fa-message"></i>
+    </button>
+    </form>
+    </div>
+    <div class="logout-container">
+      <form action="/logout" method="get">
+         <button type="submit" class="logout-button">
+         <i class="fas fa-sign-out-alt"></i> Logout
+     </button>
+   </form>
+</div>
+    <!-- <li><a href="logout" style="color: white; text-decoration: none;">Logout</a></li> -->
+  </ul>
+</nav> 
 
 <!-- include style -->
 <%- include('include/_indexCss') %>
@@ -141,7 +144,7 @@
   </div>
   <a href="ls2-storage" class="button ls2"><i class="fa-solid fa-database"></i>  LS2 STORAGE</a>
   <a href="admin-view-reception" class="button"><i class="fa-solid fa-eye"></i>  VIEW ALL RECEPTIONS</a>
-  <a href="users" class="button"><i class="fa-solid fa-user"></i>  VIEW ALL USERS</a>
+  <a href="users" class="button"><i class="fa-solid fa-users"></i> VIEW ALL USERS</a>
   <button id="exportToExcelBtn" class="button" style="display: none;">Export to Excel</button>
   <!-- Hide export button by default -->
 </div>
