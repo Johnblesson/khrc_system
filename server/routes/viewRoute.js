@@ -43,7 +43,7 @@ router.get('/ls2-storage', ensureAuthenticated, isAdmin, checkIpAccess, renderLs
 
 // Routes for the user views #Update #Delete
 router.get('/registration-edit/:id', ensureAuthenticated, isAdmin, checkIpAccess, superAdminOnly, edit_user)
-router.patch('/registration-edit/:id', superAdminOnly, ensureAuthenticated, checkIpAccess, updateUser);
+router.patch('/registration-edit/:id', ensureAuthenticated, superAdminOnly, checkIpAccess, updateUser);
 router.delete('/delete-user/:id', ensureAuthenticated, superAdminOnly, checkIpAccess, deleteUser);
 router.get('/delete-user/:id', ensureAuthenticated, superAdminOnly, checkIpAccess, deleteUser);
 

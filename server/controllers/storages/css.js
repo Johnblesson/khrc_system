@@ -67,7 +67,7 @@ export const createStorage = async (req, res) => {
         // Calculate compartment, rage, and tray based on current position
         const { compartment, rage, tray } = calculateCompartmentRageTray(currentPosition);
 
-        // Append 'A' to the sampleId
+        // Append 'A' & 'B' to the sampleId for the urinePallet 
         const sampleIdWithA = req.body.sampleId + 'A';
         const sampleIdWithB = req.body.sampleId + 'B';
 
@@ -111,7 +111,7 @@ export const createStorage = async (req, res) => {
 
         const savedStorage = await newStorage.save();
 
-         // Move to the next row and column
+        // Move to the next row and column
         if (currentPosition.currentColumn === 9) {
           currentPosition.currentRow = String.fromCharCode(currentPosition.currentRow.charCodeAt(0) + 1); // Move to the next row
           currentPosition.currentColumn = 1; // Reset column to 1
