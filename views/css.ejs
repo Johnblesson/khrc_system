@@ -15,10 +15,10 @@
       <i class="fas fa-database icon"></i> CSS STORAGE
   </button>
   <button class="storage-button">
-    <a href="view-css"><i class="fas fa-eye icon"></i> VIEW CSS STORAGE </a>
+    <a href="view-css" style="text-decoration: none;"><i class="fas fa-eye icon"></i> VIEW CSS STORAGE </a>
 </button>
 <button class="storage-button">
-    <a href="css-table"><i class="fas fa-eye icon"></i> STORAGE POSITION </a>
+    <a href="css-table" style="text-decoration: none;"><i class="fas fa-eye icon"></i> STORAGE POSITION </a>
 </button>
 </div>
 </div>
@@ -62,7 +62,6 @@
           <label for="roomNumber" class="col-sm-2 col-form-label">Room Number:</label>
             <div class="col-sm-4 position-relative">
                 <select id="roomNumber" class="form-control" name="roomNumber">
-                    <option value="No room number selected">Select a room</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
                 </select>
@@ -78,35 +77,35 @@
 
         <label for="boxNumber" class="col-sm-2 col-form-label">Box Number:</label>
         <div class="col-sm-4 position-relative">
-            <input type="text" name="boxNumber" class="form-control" id="boxNumber">
+            <input type="text" name="boxNumber" class="form-control" id="boxNumber" placeholder="Box Number (auto)" readonly>
         </div>
     </div>
 
     <div class="form-group row">
         <label for="row" class="col-sm-2 col-form-label">Row:</label>
         <div class="col-sm-4 position-relative">
-            <input type="text" name="row" class="form-control" id="row" placeholder="Row" readonly>
+            <input type="text" name="row" class="form-control" id="row" placeholder="Row (auto)" readonly>
         </div>
       <label for="column" class="col-sm-2 col-form-label">Column:</label>
       <div class="col-sm-4 position-relative">
-          <input type="text" name="column" class="form-control" id="column" placeholder="Column" readonly>
+          <input type="text" name="column" class="form-control" id="column" placeholder="Column (auto)" readonly>
       </div>
         </div>
 
         <div class="form-group row">
         <label for="compartment" class="col-sm-2 col-form-label">Compartment:</label>
             <div class="col-sm-4 position-relative">
-                <input type="text" name="compartment" class="form-control" id="Input" placeholder="Compartment">
+                <input type="text" name="compartment" class="form-control" id="Input" placeholder="Compartment (auto)" readonly>
             </div>
         <label for="rage" class="col-sm-2 col-form-label">Rage:</label>
             <div class="col-sm-4 position-relative">
-                <input type="text" name="rage" class="form-control" id="rage" placeholder="Rage">
+                <input type="text" name="rage" class="form-control" id="rage" placeholder="Rage (auto)" readonly>
             </div>
         </div>
         <div class="form-group row">
             <label for="tray" class="col-sm-2 col-form-label">Tray:</label>
             <div class="col-sm-4 position-relative">
-                <input type="text" name="tray" class="form-control" id="tray">
+                <input type="text" name="tray" class="form-control" id="tray" placeholder="Tray (auto)" readonly>
             </div>
             <label for="dnaExtration" class="col-sm-2 col-form-label">DNA Extration:</label>
             <div class="col-sm-4 position-relative">

@@ -33,7 +33,15 @@
     href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap"
     rel="stylesheet">
 </head>
-
+<style>
+  a {
+    text-decoration: none;
+    /* pointer-events: none; */
+  }
+  a:hover{
+    color: #ffffff;
+  }
+</style>
 <body>
 
   <!-- NavBar -->
@@ -64,10 +72,14 @@
           <i class="fa-solid fa-user" id="userIcon"></i>
           <div class="setting-dropdown">
               <a href="#"><%= user ? user.username : '' %></a>
-              <a href="/change-password/<%= user._id %>"><i class="fa-solid fa-gear"></i> Settings</a>
-              <a href="/profile/<%= user._id %>"><i class="fa-solid fa-user"></i> Profile</a>
+              <a href="/change-password/<%= user._id %>">
+                <!-- <i class="fa-solid fa-gear"></i>  -->
+                Settings</a>
+              <a href="/profile/<%= user._id %>">
+                <!-- <i class="fa-solid fa-user"></i>  -->
+                Profile</a>
               <hr>
-              <a href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+              <!-- <a href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a> -->
           </div>
       </li>
       
@@ -112,8 +124,8 @@
 
 <div class="button-container">
   <button class="button">RECEPTION PANEL</button>
-  <a href="reception-form" class="button"><i class="fa-solid fa-database"></i>  RECEPTION</a>
-  <a href="/viewReception" class="button"><i class="fa-solid fa-eye"></i>  VIEW ALL RECEPTIONS</a>
+  <a href="reception-form" class="button" style="text-decoration: none;"><i class="fa-solid fa-database"></i>  RECEPTION</a>
+  <a href="/viewReception" class="button" style="text-decoration: none;"><i class="fa-solid fa-eye"></i>  VIEW ALL RECEPTIONS</a>
 </div>
 
 <!-- <div class="btn-group me-2">
