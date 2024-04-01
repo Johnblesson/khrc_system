@@ -1,0 +1,101 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column; /* Change to column direction */
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    position: relative; /* Add position relative */
+  }
+
+  h1 {
+    margin-bottom: 10px; /* Add margin for spacing */
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 80%;
+    margin-bottom: 20px; /* Add margin for spacing */
+    padding: 20px; /* Add padding for spacing */
+  }
+
+  th, td {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 16px;
+    font-size: 14px;
+  }
+
+  th {
+    background-color: #f2f2f2;
+  }
+
+  /* Style for the first column (row labels) */
+  th:first-child, td:first-child {
+    background-color: #e0e0e0;
+    font-weight: bold;
+  }
+
+  /* Style for the first row (column labels) */
+  th:not(:first-child) {
+    background-color: #e0e0e0;
+    font-weight: bold;
+  }
+
+  /* Add CSS for the storage-cell class */
+  .storage-cell {
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Animation for the storage-cell class */
+  .storage-cell.new-storage {
+    animation: moveRight 1s ease-in-out;
+  }
+
+  @keyframes moveRight {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+
+  /* Add CSS for the yellow-bg class */
+  .yellow-bg {
+    background-color: yellow;
+  }
+
+  /* Add CSS for the green-bg class */
+  .green-bg {
+    background-color: green;
+  }
+
+  /* Add CSS for the sample-id class */
+  .sample-id {
+    background-color: lightblue; /* Set the background color for sample IDs */
+  }
+
+  /* Add CSS for the box-container class */
+  .box-container {
+    position: absolute;
+    top: 10px; /* Adjust top position */
+    right: 10px; /* Adjust right position */
+    display: flex;
+  }
+
+  /* Add CSS for the box class */
+  .box {
+    width: 20px;
+    height: 20px;
+    border: 1px solid black;
+    margin-left: 5px;
+    background-color: white;
+  }
+
+  /* Add CSS for the box-tick class */
+  .box-tick {
+    background-color: green;
+  }

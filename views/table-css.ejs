@@ -1,91 +1,9 @@
-<!-- storageTable.ejs -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      display: flex;
-      flex-direction: column; /* Change to column direction */
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-    }
-
-    h1 {
-      margin-bottom: 10px; /* Add margin for spacing */
-    }
-
-    table {
-      border-collapse: collapse;
-      width: 80%;
-      margin-bottom: 20px; /* Add margin for spacing */
-      padding: 20px; /* Add padding for spacing */
-    }
-
-    th, td {
-      border: 1px solid #dddddd;
-      text-align: center;
-      padding: 16px;
-      font-size: 14px;
-    }
-
-    th {
-      background-color: #f2f2f2;
-    }
-
-    /* Style for the first column (row labels) */
-    th:first-child, td:first-child {
-      background-color: #e0e0e0;
-      font-weight: bold;
-    }
-
-    /* Style for the first row (column labels) */
-    th:not(:first-child) {
-      background-color: #e0e0e0;
-      font-weight: bold;
-    }
-
-    /* Add CSS for the storage-cell class */
-    .storage-cell {
-      position: relative;
-      overflow: hidden;
-    }
-
-    /* Animation for the storage-cell class */
-    .storage-cell.new-storage {
-      animation: moveRight 1s ease-in-out;
-    }
-
-    @keyframes moveRight {
-      0% {
-        transform: translateX(-100%);
-      }
-      100% {
-        transform: translateX(0);
-      }
-    }
-
-     /* Add CSS for the yellow-bg class */
-     .yellow-bg {
-      background-color: yellow;
-    }
-
-    /* Add CSS for the green-bg class */
-    .green-bg {
-      background-color: green;
-    }
-
-    /* Add CSS for the sample-id class */
-    .sample-id {
-      background-color: lightblue; /* Set the background color for sample IDs */
-    }
-  </style>
+<link rel="stylesheet" href="./css/table.css">
   <title>Table</title>
 </head>
 <body>
@@ -96,6 +14,15 @@
 <div style="margin: 5px; padding: 5px;">
   <button onclick="exportToExcel()">Export to Excel</button>
   <!-- <button onclick="exportToWord()">Export to Word</button> -->
+</div>
+
+<!-- Add box container for tracking -->
+<div class="box-container">
+  <label for="">Box Completed: </label>
+  <div class="box"></div>
+  <div class="box"></div>
+  <div class="box"></div>
+  <div class="box"></div>
 </div>
 
   <table>
@@ -154,7 +81,15 @@
     const converted = htmlDocx.asBlob(html);
     saveAs(converted, 'table.docx');
   }
-</script>
 
+  // Check if I9 cell contains a sampleId, and update the small boxes accordingly
+  document.addEventListener("DOMContentLoaded", function() {
+    const cellI9 = document.querySelector("td:nth-child(9):nth-last-child(1)");
+    if (cellI9.querySelector(".sample-id").textContent.trim() !== "") {
+      const boxContainers = document.querySelectorAll(".box");
+      boxContainers[0].classList.add("box-tick");
+    }
+  });
+</script>
 </body>
 </html>
