@@ -72,7 +72,7 @@ app.use((req, res, next) => {
 //   }
 // });
 
-// // Allow ips
+// // Allow ips for superadmin
 // app.use((req, res, next) => {
 //   const allowedIPs = process.env.SUPER_ADMIN_IPS.split(',');
 //   const clientIP = req.ip;

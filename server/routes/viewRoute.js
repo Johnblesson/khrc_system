@@ -13,10 +13,10 @@ import { superAdminOnly } from "../middleware/sudo.js";
 import upload from "../upload/upload.js";
 
 // Routes for the user views
-router.post('/register', superAdminOnly, signUp);
+router.post('/register', ensureAuthenticated, isAdmin, signUp);
 router.post('/login', logIn);
 router.get('/', getLoginPage);
-router.get('/register', superAdminOnly, (req, res) => {
+router.get('/register', ensureAuthenticated, isAdmin, (req, res) => {
     res.render('sign up'); 
 })
 
