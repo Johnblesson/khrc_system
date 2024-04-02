@@ -15,14 +15,14 @@ import upload from "../upload/upload.js";
 // Routes for the user views
 router.post('/register', superAdminOnly, checkIpAccess, signUp);
 router.post('/login', checkIpAccess, logIn);
-router.get('/', checkIpAccess, getLoginPage);
+router.get('/', getLoginPage);
 router.get('/register', superAdminOnly, checkIpAccess, (req, res) => {
     res.render('sign up'); 
 })
 
 // Routes for the user views #Read
 router.get('/profile/:id', ensureAuthenticated, checkIpAccess, profile);
-router.post('/profile/:id', upload.single("picture"), signUp);
+// router.post('/profile/:id', upload.single("picture"), signUp);
 
 // Define your route for changing password
 router.patch('/change-password/:id', ensureAuthenticated, checkIpAccess, changePassword);

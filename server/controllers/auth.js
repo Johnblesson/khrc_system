@@ -33,7 +33,6 @@ import passport from '../passport/passport-config.js';
         password: hashedPassword,
         role: req.body.role,
         status: req.body.status,
-        profilePhoto: req.body.profilePhoto,
         createdAt: new Date(), // Assuming createdAt and updatedAt are Date objects
         updatedAt: new Date()
       });
