@@ -43,7 +43,7 @@ router.get('/ls1-2-storage', ensureAuthenticated, isAdmin, renderLs12Form)
 router.get('/ls2-storage', ensureAuthenticated, isAdmin, renderLs2Form)
 
 // Routes for the user views #Update #Delete
-router.get('/registration-edit/:id', ensureAuthenticated, checkSudoMiddleware, isAdmin, edit_user)
+router.get('/registration-edit/:id', ensureAuthenticated, isAdmin, edit_user)
 router.patch('/registration-edit/:id', ensureAuthenticated, checkSudoMiddleware, updateUser);
 router.delete('/delete-user/:id', ensureAuthenticated, checkSudoMiddleware, deleteUser);
 router.get('/delete-user/:id', ensureAuthenticated, checkSudoMiddleware, deleteUser);
@@ -95,6 +95,11 @@ router.get('/about', ensureAuthenticated, (req, res) => {
 // Forbidden page
 router.get('/forbidden', (req, res) => {
     res.render('forbidden');
+})
+
+// Super admin only page error
+router.get('/not-allow', (req, res) => {
+  res.render('forbiddenAdmin');
 })
 
 // Logout route

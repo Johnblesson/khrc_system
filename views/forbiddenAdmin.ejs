@@ -1,0 +1,62 @@
+<!-- User Header -->
+<%- include('include/_404-header') %>
+<!-- /User Header -->
+
+<!-- include style -->
+<%- include('include/_indexCss') %>
+<!-- /include style -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f7f7f7;
+            padding: 20px;
+        }
+
+        .error-code {
+            font-size: 100px;
+            color: #333;
+            padding: 150px 0 1px 0;
+        }
+
+        .error-message {
+            font-size: 24px;
+            color: #666;
+        }
+
+        .back-link {
+            margin-top: 20px;
+            font-size: 16px;
+        }
+
+        /* Media query for smaller screens */
+@media screen and (max-width: 768px) {
+    .error-code {
+        font-size: 60px;
+    }
+
+    .error-message {
+        font-size: 18px;
+    }
+
+    .back-link {
+        font-size: 14px;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="error-code">403</div>
+    <div class="error-message">Forbidden, you do not have the required permission to access this route. Contact the super admin.</div>
+    <p class="back-link"><a href="/">Go Back to Login</a></p>
+
+    <!-- include progressBar -->
+<%- include('include/_progressBar') %>
+<!-- /include progressBar -->
+
+<!-- include footer -->
+<%- include('include/_footer') %>
+<!-- /include footer -->
+
+</body>
+</html>

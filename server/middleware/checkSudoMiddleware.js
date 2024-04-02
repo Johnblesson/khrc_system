@@ -6,6 +6,6 @@ export const checkSudoMiddleware = (req, res, next) => {
     if (user && user.sudo === true) {
         next(); // Allow access
     } else {
-        res.status(403).send("Forbidden");
+        res.redirect('/not-allow');
     }
 };
