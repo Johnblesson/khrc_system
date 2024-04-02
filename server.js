@@ -61,6 +61,28 @@ app.use((req, res, next) => {
   next();
 });
 
+// Allow ips
+app.use((req, res, next) => {
+  const allowedIPs = process.env.ALLOWED_IPS.split(',');
+  const clientIP = req.ip;
+  if (allowedIPs.includes(clientIP)) {
+      next();
+  } else {
+      res.status(403).send('Forbidden');
+  }
+});
+
+// Allow ips
+app.use((req, res, next) => {
+  const allowedIPs = process.env.SUPER_ADMIN_IPS.split(',');
+  const clientIP = req.ip;
+  if (allowedIPs.includes(clientIP)) {
+      next();
+  } else {
+      res.status(403).send('Forbidden');
+  }
+});
+
 // Add the router
 // app.use(checkStatusMiddleware);
 app.use(views)
