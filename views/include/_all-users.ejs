@@ -20,15 +20,15 @@
     }
 
     .status-green-bg {
-      background-color: rgb(118, 243, 118);;
+      background-color: rgb(7, 252, 85);;
     }
 
-    .sudo-pink-bg {
-      background-color: pink;
+    .sudo-blue-bg {
+      background-color: rgb(7, 7, 252);
     }
 
-    .sudo-green-bg {
-      background-color: rgb(249, 233, 7);
+    .sudo-grey-bg {
+      background-color: rgb(94, 92, 92);
     }
   
     /* Center the button */
@@ -70,7 +70,7 @@
           <td class="hover px-6 py-4 whitespace-nowrap <%= user.role === 'admin' ? 'role-pink-bg' : (user.role === 'user' ? 'role-green-bg' : '') %>">
             <%= user.role %>
           </td>
-          <td class="hover px-6 py-4 whitespace-nowrap <%= user.sudo === 'true' ? 'sudo-pink-bg' : (user.role === 'false' ? 'sudo-green-bg' : '') %>">
+          <td class="hover px-6 py-4 whitespace-nowrap <%= user.sudo === 'true' ? 'sudo-blue-bg' : (user.role === 'false' ? 'sudo-grey-bg' : '') %>">
             <%= user.sudo %>
           </td>
           <td class="hover px-6 py-4 whitespace-nowrap <%= user.status === 'active' ? 'status-green-bg' : (user.status === 'inactive' ? 'status-red-bg' : '') %>">
