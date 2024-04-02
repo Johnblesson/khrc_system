@@ -9,7 +9,7 @@ import { isAdmin } from "../middleware/isAdmin.js";
 import { isUser } from "../middleware/isUser.js";
 import { ensureAuthenticated } from "../middleware/isAuth.js";
 // import { checkIpAccess } from "../middleware/checkip.js";
-import { superAdminOnly } from "../middleware/sudo.js";
+// import { superAdminOnly } from "../middleware/sudo.js";
 import upload from "../upload/upload.js";
 
 // Routes for the user views
@@ -42,10 +42,10 @@ router.get('/ls1-2-storage', ensureAuthenticated, isAdmin, renderLs12Form)
 router.get('/ls2-storage', ensureAuthenticated, isAdmin, renderLs2Form)
 
 // Routes for the user views #Update #Delete
-router.get('/registration-edit/:id', ensureAuthenticated, isAdmin, superAdminOnly, edit_user)
-router.patch('/registration-edit/:id', ensureAuthenticated, superAdminOnly, updateUser);
-router.delete('/delete-user/:id', ensureAuthenticated, superAdminOnly, deleteUser);
-router.get('/delete-user/:id', ensureAuthenticated, superAdminOnly, deleteUser);
+router.get('/registration-edit/:id', ensureAuthenticated, isAdmin, edit_user)
+router.patch('/registration-edit/:id', ensureAuthenticated, updateUser);
+router.delete('/delete-user/:id', ensureAuthenticated, deleteUser);
+router.get('/delete-user/:id', ensureAuthenticated, deleteUser);
 
 // Reception views
 router.get('/reception-form', ensureAuthenticated, isUser, (req, res) => { 
