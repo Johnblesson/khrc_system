@@ -8,15 +8,16 @@ import { renderCssForm, renderLs1Form, renderLs12Form, renderLs2Form } from "../
 import { isAdmin } from "../middleware/isAdmin.js";
 import { isUser } from "../middleware/isUser.js";
 import { ensureAuthenticated } from "../middleware/isAuth.js";
+import { checkSudoMiddleware } from "../middleware/checkSudoMiddleware.js";
 // import { checkIpAccess } from "../middleware/checkip.js";
 // import { superAdminOnly } from "../middleware/sudo.js";
 import upload from "../upload/upload.js";
 
 // Routes for the user views
-router.post('/register', ensureAuthenticated, isAdmin, signUp);
+router.post('/register', ensureAuthenticated, signUp);
 router.post('/login', logIn);
 router.get('/', getLoginPage);
-router.get('/register', ensureAuthenticated, isAdmin, (req, res) => {
+router.get('/register', ensureAuthenticated, (req, res) => {
     res.render('sign up'); 
 })
 

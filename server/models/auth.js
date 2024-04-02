@@ -25,6 +25,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         enum: ['active', 'inactive'], // You can adjust the enum values as needed
     },
+    sudo: {
+        type: Boolean,
+        default: false, // Set sudo to false by default
+    },
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now }
 }, {

@@ -16,7 +16,7 @@ import {
     import { ensureAuthenticated } from "../../middleware/isAuth.js"; 
     // import { superAdminOnly } from "../../middleware/sudo.js";
     import { isAdmin } from "../../middleware/isAdmin.js";
-    import { checkIpAccess } from "../../middleware/checkip.js";
+    // import { checkIpAccess } from "../../middleware/checkip.js";
 
 router.post('/storage', ensureAuthenticated, isAdmin, createStorage);
 router.get('/css-table', ensureAuthenticated, cssTable);
