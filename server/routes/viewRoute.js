@@ -14,10 +14,10 @@ import { checkSudoMiddleware } from "../middleware/checkSudoMiddleware.js";
 import upload from "../upload/upload.js";
 
 // Routes for the user views
-router.post('/register', ensureAuthenticated, signUp);
+router.post('/register', ensureAuthenticated, isAdmin, checkSudoMiddleware, signUp);
 router.post('/login', logIn);
 router.get('/', getLoginPage);
-router.get('/register', ensureAuthenticated, (req, res) => {
+router.get('/register', ensureAuthenticated, isAdmin, checkSudoMiddleware, (req, res) => {
     res.render('sign up'); 
 })
 
