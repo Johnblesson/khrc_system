@@ -15,11 +15,11 @@ import { checkIpAccess } from "../middleware/checkip.js";
 import { superAdminOnly } from "../middleware/sudo.js";
 
 router.post('/contact', ensureAuthenticated, createMessage);
-router.get('/message', ensureAuthenticated, checkIpAccess, isAdmin, messagesRoute);
-router.get('/get-all-contact', ensureAuthenticated, checkIpAccess, isAdmin, getAllContactForms);
-router.get('/view-message/:id', ensureAuthenticated, checkIpAccess, isAdmin, messageView)
+router.get('/message', ensureAuthenticated, isAdmin, messagesRoute);
+router.get('/get-all-contact', ensureAuthenticated, isAdmin, getAllContactForms);
+router.get('/view-message/:id', ensureAuthenticated, isAdmin, messageView)
 
-router.delete('/delete-message/:id',  ensureAuthenticated, checkIpAccess, isAdmin, superAdminOnly, deleteMessage);
-router.get('/delete-message/:id',  ensureAuthenticated, checkIpAccess, isAdmin, deleteMessage);
+router.delete('/delete-message/:id',  ensureAuthenticated, isAdmin, superAdminOnly, deleteMessage);
+router.get('/delete-message/:id',  ensureAuthenticated, isAdmin, deleteMessage);
 
 export default router;
