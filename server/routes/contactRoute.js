@@ -11,7 +11,7 @@ import {
   
 import { ensureAuthenticated } from "../middleware/isAuth.js"; 
 import { isAdmin } from "../middleware/isAdmin.js";
-import { checkSudoMiddleware } from "../../middleware/checkSudoMiddleware.js";
+import { checkSudoMiddleware } from "../middleware/checkSudoMiddleware.js";
 // import { checkIpAccess } from "../middleware/checkip.js";   
 // import { superAdminOnly } from "../middleware/sudo.js";
 
