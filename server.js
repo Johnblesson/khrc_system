@@ -49,17 +49,17 @@ app.use(passport.session());
 // Middleware to parse "_method" query parameter
 app.use(methodOverride('_method'));
 
-// // Disable X-Powered-By header
-// app.disable('x-powered-by');
+// Disable X-Powered-By header
+app.disable('x-powered-by');
 
-// // Disable ETag header
-// app.set('etag', false);
+// Disable ETag header
+app.set('etag', false);
 
-// // Disable Server signature
-// app.use((req, res, next) => {
-//   res.removeHeader('Server');
-//   next();
-// });
+// Disable Server signature
+app.use((req, res, next) => {
+  res.removeHeader('Server');
+  next();
+});
 
 // Add the router
 app.use(views)
