@@ -50,7 +50,7 @@ app.use(passport.session());
 app.use(methodOverride('_method'));
 
 // Disable X-Powered-By header
-app.disable('x-powered-by');
+// app.disable('x-powered-by');
 
 // Disable ETag header
 app.set('etag', false);
