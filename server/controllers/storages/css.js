@@ -88,6 +88,7 @@ export const createStorage = async (req, res) => {
             // Increment boxNumber for the current box
             boxNumber = 1;
         }
+      
 
         const newStorage = new CSS({
             sampleId: req.body.sampleId,
