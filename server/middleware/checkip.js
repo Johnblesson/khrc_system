@@ -27,7 +27,7 @@ export const checkIpAccess = (req, res, next) => {
     if (allowedIps.includes(clientIp)) {
         next();
     } else {
-        res.status(403).send('Forbidden');
+        res.redirect('/forbidden');
     }
 };
 
