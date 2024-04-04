@@ -9,7 +9,7 @@ import { isAdmin } from "../middleware/isAdmin.js";
 import { isUser } from "../middleware/isUser.js";
 import { ensureAuthenticated } from "../middleware/isAuth.js";
 import { checkSudoMiddleware } from "../middleware/checkSudoMiddleware.js";
-import { checkForIpAddress } from "../middleware/checkIp.js";
+import { checkForIpAddress } from "../middleware/checkForIp.js";
 // import upload from "../upload/upload.js";
 
 // Routes for the user views
