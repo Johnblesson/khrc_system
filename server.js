@@ -15,11 +15,11 @@ import ls2_Storage from './server/routes/storages/ls1-2.js';
 import export_storage from './server/routes/xlsx.js';
 import reception from './server/routes/reception.js';
 import contact from './server/routes/contactRoute.js';
-import { allowSpecificIPs } from './server/middleware/allowIPs.js';
 import cors from 'cors';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 
+// Configure environment variables
 const app = express();
 dotenv.config();
 connectDB();
@@ -27,12 +27,9 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
-// Use the middleware to allow access only to specific IPs
-app.use(allowSpecificIPs());
-
+// Set the view engine to ejs
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-
 const templatePath = path.join(__dirname, './views');
 app.set('view engine', 'ejs');
 app.set('views', templatePath);
