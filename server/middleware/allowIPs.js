@@ -13,7 +13,7 @@ export const allowSpecificIPs = (allowedIPs) => {
         if (firstIp && allowedIPs.includes(firstIp)) {
             next();
         } else {
-            res.status(403).send('Forbidden');
+            res.redirect('/forbidden');
         }
     };
 };
