@@ -28,11 +28,8 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
-// Define an array of allowed IP addresses
-const allowedIPs = process.env.ALLOWED_IPS.split(',');
-
 // Use the middleware to allow access only to specific IPs
-app.use(allowSpecificIPs(allowedIPs));
+app.use(allowSpecificIPs());
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -56,7 +53,7 @@ app.use(passport.session());
 
 // Middleware to parse "_method" query parameter
 app.use(methodOverride('_method'));
-app.use(productionMiddleware);
+// app.use(productionMiddleware);
 
 // // Disable X-Powered-By header
 // app.disable('x-powered-by');
