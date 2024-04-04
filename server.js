@@ -15,7 +15,6 @@ import ls2_Storage from './server/routes/storages/ls1-2.js';
 import export_storage from './server/routes/xlsx.js';
 import reception from './server/routes/reception.js';
 import contact from './server/routes/contactRoute.js';
-import { productionMiddleware } from './server/middleware/productionMiddleawre.js';
 import { allowSpecificIPs } from './server/middleware/allowIPs.js';
 import cors from 'cors';
 import { fileURLToPath } from 'url';
@@ -53,7 +52,6 @@ app.use(passport.session());
 
 // Middleware to parse "_method" query parameter
 app.use(methodOverride('_method'));
-// app.use(productionMiddleware);
 
 // // Disable X-Powered-By header
 // app.disable('x-powered-by');
