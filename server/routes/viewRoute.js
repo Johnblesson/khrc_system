@@ -9,16 +9,8 @@ import { isAdmin } from "../middleware/isAdmin.js";
 import { isUser } from "../middleware/isUser.js";
 import { ensureAuthenticated } from "../middleware/isAuth.js";
 import { checkSudoMiddleware } from "../middleware/checkSudoMiddleware.js";
-import { checkForIpAddress } from "../middleware/sudo.js";
+// import { checkForIpAddress } from "../middleware/sudo.js";
 // import upload from "../upload/upload.js";
-
-// Define your route handlers
-const getLoginPageTest = (req, res) => {
-  // Your route handler logic for the home route
-  res.send('Welcome to the login page');
-};
-
-router.get('/test', checkForIpAddress, getLoginPageTest);
 
 // Routes for the user views
 router.post('/register', ensureAuthenticated, isAdmin, checkSudoMiddleware, signUp);
