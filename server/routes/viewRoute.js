@@ -9,14 +9,13 @@ import { isAdmin } from "../middleware/isAdmin.js";
 import { isUser } from "../middleware/isUser.js";
 import { ensureAuthenticated } from "../middleware/isAuth.js";
 import { checkSudoMiddleware } from "../middleware/checkSudoMiddleware.js";
-import { checkIpAccess } from "../middleware/checkip.js";
-import { superAdminOnly } from "../middleware/sudo.js";
+import { checkForIpAddress } from "../middleware/checkIp.js";
 // import upload from "../upload/upload.js";
 
 // Routes for the user views
 router.post('/register', ensureAuthenticated, isAdmin, checkSudoMiddleware, signUp);
 router.post('/login', logIn);
-router.get('/', superAdminOnly, getLoginPage);
+router.get('/', checkForIpAddress, getLoginPage);
 router.get('/register', ensureAuthenticated, isAdmin, checkSudoMiddleware, (req, res) => {
     res.render('sign up'); 
 })
