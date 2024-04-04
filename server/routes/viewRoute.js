@@ -57,7 +57,7 @@ router.get('/reception-form', ensureAuthenticated, isUser, (req, res) => {
   res.render('reception', { user });
 })
 
-router.get('/reception-admin-form', ensureAuthenticated, isAdmin, (req, res) => { 
+router.get('/reception-admin-form', ensureAuthenticated, checkIpAccess, isAdmin, (req, res) => { 
     // The user information should be available in req.user if authenticated
   const user = req.isAuthenticated() ? req.user : null;
 
