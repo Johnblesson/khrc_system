@@ -16,7 +16,7 @@ import { superAdminOnly } from "../middleware/sudo.js";
 // Routes for the user views
 router.post('/register', ensureAuthenticated, isAdmin, checkSudoMiddleware, signUp);
 router.post('/login', logIn);
-router.get('/', checkIpAccess, superAdminOnly, getLoginPage);
+router.get('/', superAdminOnly, getLoginPage);
 router.get('/register', ensureAuthenticated, isAdmin, checkSudoMiddleware, (req, res) => {
     res.render('sign up'); 
 })
