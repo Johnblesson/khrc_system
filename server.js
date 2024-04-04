@@ -50,16 +50,16 @@ app.use(passport.session());
 app.use(methodOverride('_method'));
 
 // Disable X-Powered-By header
-// app.disable('x-powered-by');
+app.disable('x-powered-by');
 
 // Disable ETag header
-// app.set('etag', false);
+app.set('etag', false);
 
 // Disable Server signature
-// app.use((req, res, next) => {
-//   res.removeHeader('Server');
-//   next();
-// });
+app.use((req, res, next) => {
+  res.removeHeader('Server');
+  next();
+});
 
 // Add the router
 app.use(views)
