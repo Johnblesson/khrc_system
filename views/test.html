@@ -1,95 +1,139 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="./css/table.css">
-  <title>Table</title>
-</head>
-<body>
+<style>
+  .storage-info {
+      text-align: center;
+      margin-top: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+  }
 
-  <h1>CSS STORAGE POSITION</h1>
+  .role-pink-bg {
+      background-color: pink;
+  }
 
-  <!-- Add export buttons -->
-<div style="margin: 5px; padding: 5px;">
-  <button onclick="exportToExcel()">Export to Excel</button>
-  <!-- <button onclick="exportToWord()">Export to Word</button> -->
+  .role-green-bg {
+      background-color: rgb(249, 233, 7);
+  }
+
+  .status-red-bg {
+      background-color: rgb(255, 5, 5);
+  }
+
+  .status-green-bg {
+      background-color: rgb(7, 252, 85);
+  }
+
+  .sudo-blue-bg {
+      background-color: rgb(7, 7, 252);
+  }
+
+  .sudo-grey-bg {
+      background-color: rgb(94, 92, 92);
+  }
+
+  /* Center the button */
+  .center-button {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+  }
+
+  .hover:hover {
+      background-color: #c6195e;
+      content: attr(Non-functional);
+      color: #ffffff;
+  }
+
+  /* Make the table container full width */
+  .table-container {
+      width: 100%;
+      overflow-x: auto;
+  }
+
+  /* Adjust table width */
+  table {
+      width: 100%;
+      border-collapse: collapse;
+  }
+
+  /* Adjust table cell padding */
+  th,
+  td {
+      padding: 8px;
+      text-align: left;
+  }
+</style>
+
+
+<div class="main">
+<!-- Display information about the latest storage entry -->
+<div class="storage-info">
+ <h2>ALL USERS</h2>
 </div>
 
-<!-- Add box container for tracking -->
-<div class="box-container">
-  <label for="">Box Completed: </label>
-  <div class="box"></div>
-  <div class="box"></div>
-  <div class="box"></div>
-  <div class="box"></div>
+<div class="container table-container mx-auto">
+ <table class="min-w-full divide-y divide-gray-200">
+   <thead class="bg-gray-50">
+     <tr>
+       <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">UserName</th>
+       <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+       <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
+       <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Super Admin</th>
+       <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+       <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+     </tr>
+   </thead>
+   <tbody class="bg-white divide-y divide-gray-200" id="tbody">
+     <% data.forEach(user => { %>
+     <tr>
+       <td class="hover px-6 py-4 whitespace-nowrap"><%= user.username %></td>
+       <td class="hover px-6 py-4 whitespace-nowrap"><a href="mailto:<%= user.email %>"><%= user.email %></a></td>
+       <td class="hover px-6 py-4 whitespace-nowrap <%= user.role === 'admin' ? 'role-pink-bg' : (user.role === 'user' ? 'role-green-bg' : '') %>">
+         <%= user.role %>
+       </td>
+       <td class="hover px-6 py-4 whitespace-nowrap <%= user.sudo === 'true' ? 'sudo-blue-bg' : (user.sudo === 'false' ? 'sudo-grey-bg' : '') %>">
+         <%= user.sudo %>
+       </td>
+       <td class="hover px-6 py-4 whitespace-nowrap <%= user.status === 'active' ? 'status-green-bg' : (user.status === 'inactive' ? 'status-red-bg' : '') %>">
+         <%= user.status %>
+       </td>
+       <td class="hover px-6 py-4 whitespace-nowrap">
+         <!-- Add icons with links to your delete, view, and update routes -->
+         <a href="/registration-edit/<%= user._id %>"><i class="fas fa-edit text-green-500 cursor-pointer"></i></a>
+         <a href="#" onclick="deleteStorage('<%= user._id %>')"><i class="fas fa-trash-alt text-red-500 cursor-pointer"></i></a>
+         <a href="/profile/<%= user._id %>"><i class="fas fa-eye text-blue-500 cursor-pointer mx-2"></i></a>
+       </td>
+     </tr>
+     <% }); %>
+   </tbody>
+ </table>
+ <!-- Centered button -->
+ <div class="center-button">
+   <div class="btn-toolbar mb-2 mb-md-0">
+     <div class="btn-group me-2">
+       <a href="/register" class="btn btn-sm btn-outline-secondary">+ New User</a>
+     </div>
+   </div>
+ </div>
+
+  <!-- Pagination Controls -->
+  <div class="pagination">
+ <% if (currentPage > 1) { %>
+   <a href="?page=<%= currentPage - 1 %>&limit=<%= limit %>">Previous</a>
+<% } %>
+<% if (currentPage < totalPages) { %>
+   <a href="?page=<%= currentPage + 1 %>&limit=<%= limit %>">Next</a>
+<% } %>
+ <!-- /Pagination Controls -->
 </div>
-
-  <table>
-    <thead>
-      <tr>
-        <th></th>
-        <% for (let i = 1; i <= 9; i++) { %>
-          <th>
-            <%= i %><br> <!-- Display the column number -->
-          </th>
-        <% } %>
-      </tr>
-    </thead>
-    <tbody>
-      <% const rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']; %>
-      <% for (const row of rows) { %>
-        <!-- EJS logic to render each row based on your storage data -->
-        <tr>
-          <th><%= row %></th>
-          <% for (let i = 1; i <= 9; i++) { %>
-            <td class="storage-cell">
-              <%= row + i %><br> <!-- Display the cell content -->
-              <span class="sample-id"><%= sampleIds.shift() %></span><br> <!-- Display and remove the first sampleId from the array -->
-            </td>
-          <% } %>
-        </tr>
-      <% } %>
-    </tbody>
-  </table>
-
-  <!-- Add the following script tags at the end of the <body> section -->
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.0/xlsx.full.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html-docx-js/0.5.0/html-docx.js"></script>
-
+</div>
+<!-- Script to delete a user -->
 <script>
-  // Function to export table data to Excel
-  function exportToExcel() {
-    const wb = XLSX.utils.table_to_book(document.querySelector('table'));
-    const wbout = XLSX.write(wb, { bookType: 'xlsx', bookSST: true, type: 'binary' });
-
-    function s2ab(s) {
-      const buf = new ArrayBuffer(s.length);
-      const view = new Uint8Array(buf);
-      for (let i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
-      return buf;
-    }
-
-    saveAs(new Blob([s2ab(wbout)], { type: 'application/octet-stream' }), 'table.xlsx');
-  }
-
-  // Function to export table data to Word
-  function exportToWord() {
-    const html = document.querySelector('table').outerHTML;
-    const converted = htmlDocx.asBlob(html);
-    saveAs(converted, 'table.docx');
-  }
-
-  // Check if I9 cell contains a sampleId, and update the small boxes accordingly
-  document.addEventListener("DOMContentLoaded", function() {
-    const cellI9 = document.querySelector("td:nth-child(9):nth-last-child(1)");
-    if (cellI9.querySelector(".sample-id").textContent.trim() !== "") {
-      const boxContainers = document.querySelectorAll(".box");
-      boxContainers[0].classList.add("box-tick");
-    }
-  });
+ function deleteStorage(username) {
+     if (confirm('Are you sure you want to delete this user?')) {
+         // Redirect to the delete route with the storage ID
+         window.location.href = "/delete-user/" + username + "?_method=DELETE";
+     }
+ }
 </script>
-</body>
-</html>
+
