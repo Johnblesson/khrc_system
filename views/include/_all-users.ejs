@@ -1,28 +1,18 @@
 <style>
-  .table-container {
-  max-height: 80vh; /* Set max height for table container */
-  overflow-y: auto; /* Enable vertical scrolling */
+  .table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+.container {
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
-.table-body {
-  display: absolute;     
-}
+/* Add other styles as needed */
 
-.table-head {
-  position: sticky; /* Make table header sticky */
-  top: 0; /* Stick to the top */
-  z-index: 1; /* Ensure the header is above table body */
-  background-color: white; /* Match background color of table body */
-}
-
-.main {
-    display: flex; 
-    flex-direction: column; 
-    align-items: center; 
-    justify-content: center; 
-    height: 100vh;
-}
-    .storage-info {
+     .storage-info {
       text-align: center;
       margin-top: 20px;
       padding: 10px;
@@ -74,8 +64,11 @@
     <h2>ALL USERS</h2>
   </div>
   
-  <div class="container table-container mx-auto">
-    <table class="min-w-full divide-y divide-gray-200">
+  <!-- <div class="container table-container mx-auto">
+    <table class="min-w-full divide-y divide-gray-200"> -->
+      <div class="container table-container mx-auto">
+        <div class="table-wrapper">
+          <table class="min-w-full divide-y divide-gray-200">
       <thead class="bg-gray-50 table-head">
         <tr>
           <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">UserName</th>
@@ -112,14 +105,22 @@
     </table>
   
     <!-- Centered button -->
-    <div class="center-button">
+    <!-- <div class="center-button">
       <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group me-2">
           <a href="/register" class="btn btn-sm btn-outline-secondary">+ New User</a>
         </div>
       </div>
     </div>
+  </div> -->
+  <div class="center-button">
+    <div class="btn-toolbar mb-2 mb-md-0">
+      <div class="btn-group me-2">
+        <a href="/register" class="btn btn-sm btn-outline-secondary">+ New User</a>
+      </div>
+    </div>
   </div>
+</div>
 </div>
  <!-- Script to delete a user -->
   <script>
