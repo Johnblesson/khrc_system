@@ -1,17 +1,4 @@
 <style>
-  .table-wrapper {
-  width: 100%;
-  overflow-x: auto;
-}
-.container {
-  margin-top: 20px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-/* Add other styles as needed */
-
      .storage-info {
       text-align: center;
       margin-top: 20px;
@@ -64,11 +51,9 @@
     <h2>ALL USERS</h2>
   </div>
   
-  <!-- <div class="container table-container mx-auto">
-    <table class="min-w-full divide-y divide-gray-200"> -->
-      <div class="container table-container mx-auto">
-        <div class="table-wrapper">
-          <table class="min-w-full divide-y divide-gray-200">
+  <div class="container table-container mx-auto">
+    <div class="table-wrapper">
+    <table class="min-w-full divide-y divide-gray-200">
       <thead class="bg-gray-50 table-head">
         <tr>
           <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">UserName</th>
@@ -103,7 +88,6 @@
         <% }); %>
       </tbody>
     </table>
-  
     <!-- Centered button -->
     <!-- <div class="center-button">
       <div class="btn-toolbar mb-2 mb-md-0">
@@ -111,14 +95,15 @@
           <a href="/register" class="btn btn-sm btn-outline-secondary">+ New User</a>
         </div>
       </div>
-    </div>
-  </div> -->
+    </div> -->
+     <!-- Centered button -->
   <div class="center-button">
     <div class="btn-toolbar mb-2 mb-md-0">
       <div class="btn-group me-2">
         <a href="/register" class="btn btn-sm btn-outline-secondary">+ New User</a>
       </div>
     </div>
+  </div>
   </div>
 </div>
 </div>
