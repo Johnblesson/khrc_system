@@ -169,61 +169,46 @@ export const changePassword = async (req, res) => {
 };
 
 
-// // Get All Users Controller
-// export const getAllUsers = async (req, res) => {
-
-//   const locals = {
-//     title: "KHRC",
-//     description: "Kambia Health Research Center KHRC System",
-//   };
-
-//   try {
-//     // Fetch all users from the database
-//     const users = await User.find({}, '-password'); // Exclude password field from the response
-
-//     res.render('all-users', { 
-//       data: users, 
-//       locals,
-//     });
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).send('An error occurred while fetching users.');
-//   }
-// };
-
 // Get All Users Controller
 export const getAllUsers = async (req, res) => {
+
   const locals = {
     title: "KHRC",
     description: "Kambia Health Research Center KHRC System",
   };
 
   try {
-    // Pagination parameters
-    const page = parseInt(req.query.page) || 1; // Default to page 1 if not provided
-    const limit = parseInt(req.query.limit) || 10; // Default to 10 items per page
-
-    // Calculate skip
+    const page = parseInt(req.query.page) || 1; // Get the requested page number from the query parameter
+    const limit = 3; // Number of entries per page
     const skip = (page - 1) * limit;
 
-    // Fetch users with pagination
-    const users = await User.find({}, '-password')
-      .skip(skip)
-      .limit(limit);
+    // Fetch all storage data
+    // const allStorage = await User.find().skip(skip).limit(limit);
+    const totalEntries = await User.countDocuments();
 
+    const totalPages = Math.ceil(totalEntries / limit);
+
+    // Fetch all users from the database
+    // const users = await User.find({}, '-password'); // Exclude password field from the response
+    const users = await User.aggregate([
+      // Stage 1: Exclude password field from the response
+      { $project: { password: 0 } },
+      // Stage 2: Skip and limit
+      { $skip: skip },
+      { $limit: limit }
+  ]);
+  
     res.render('all-users', { 
       data: users, 
       locals,
-      currentPage: page,
-      totalPages: Math.ceil(await User.countDocuments() / limit),
+      currentPage: page, 
+      totalPages: totalPages,
     });
   } catch (error) {
     console.error(error);
     res.status(500).send('An error occurred while fetching users.');
   }
 };
-
-
 
 // Get One User by ID Controller
 export const getUserById = async (req, res) => {
