@@ -98,12 +98,12 @@
 
      <!-- Pagination Controls -->
      <div class="pagination">
-      <% for (let i = 1; i <= totalPages; i++) { %>
-        <a href="?page=<%= i %>" class="<%= i === currentPage ? 'active' : '' %>">
-          <%= i %>
-        </a>
-      <% } %>
-    </div>
+    <% if (currentPage > 1) { %>
+      <a href="?page=<%= currentPage - 1 %>&limit=<%= limit %>">Previous</a>
+  <% } %>
+  <% if (currentPage < totalPages) { %>
+      <a href="?page=<%= currentPage + 1 %>&limit=<%= limit %>">Next</a>
+  <% } %>
     <!-- /Pagination Controls -->
 </div>
 </div>
