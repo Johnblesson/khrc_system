@@ -181,7 +181,22 @@ export const getAllUsers = async (req, res) => {
     // Fetch all users from the database
     const users = await User.find({}, '-password'); // Exclude password field from the response
 
-    res.render('all-users', { data: users, locals });
+    const page = parseInt(req.query.page) || 1; // Get the requested page number from the query parameter
+    const limit = 5; // Number of entries per page
+    const skip = (page - 1) * limit;
+
+    // Fetch all users data
+    // const allStorage = await User.find().skip(skip).limit(limit);
+    const totalEntries = await User.countDocuments();
+
+    const totalPages = Math.ceil(totalEntries / limit);
+
+    res.render('all-users', { 
+      data: users, 
+      locals,
+      currentPage: page, 
+      totalPages: totalPages,
+    });
   } catch (error) {
     console.error(error);
     res.status(500).send('An error occurred while fetching users.');
