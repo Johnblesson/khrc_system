@@ -7,7 +7,8 @@ import {
   getUserById, 
   signUp, 
   logIn, 
-  getLoginPage, 
+  getLoginPage,
+  getSignupPage,
   edit_user, 
   updateUser, 
   deleteUser, 
@@ -35,9 +36,11 @@ import { checkForIpAddress } from "../middleware/sudo.js";
 router.post('/register', ensureAuthenticated, isAdmin, checkSudoMiddleware, signUp);
 router.post('/login', logIn);
 router.get('/', getLoginPage);
-router.get('/register', ensureAuthenticated, isAdmin, checkSudoMiddleware, (req, res) => {
-    res.render('sign up'); 
-})
+// router.get('/register', ensureAuthenticated, isAdmin, checkSudoMiddleware, (req, res) => {
+//     res.render('sign up'); 
+// })
+
+router.get('/register', ensureAuthenticated, isAdmin, checkSudoMiddleware, getSignupPage)
 
 // Routes for the user views #Read
 router.get('/profile/:id', ensureAuthenticated, profile);

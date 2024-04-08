@@ -119,6 +119,19 @@ export const getLoginPage = (req, res) => {
   res.render('login');
 };
 
+// Get Signup Page Controller
+export const getSignupPage = (req, res) => {
+  const ip =
+    req.headers['cf-conneting-ip'] ||
+    req.headers['x-real-ip'] ||
+    req.headers['x-forwarded-for'] ||
+    req.socket.remoteAddress || '';
+
+  const timestamp = new Date().toISOString();
+  console.log('ip address:', ip, '/register', timestamp);
+  res.render('sign up');
+};
+
 // Change Password Controller
 export const changePassword = async (req, res) => {
   try {
