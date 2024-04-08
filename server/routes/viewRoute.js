@@ -34,7 +34,7 @@ import { checkForIpAddress } from "../middleware/sudo.js";
 // Routes for the user views
 router.post('/register', ensureAuthenticated, isAdmin, checkSudoMiddleware, signUp);
 router.post('/login', logIn);
-router.get('/', checkForIpAddress, getLoginPage);
+router.get('/', getLoginPage);
 router.get('/register', ensureAuthenticated, isAdmin, checkSudoMiddleware, (req, res) => {
     res.render('sign up'); 
 })
