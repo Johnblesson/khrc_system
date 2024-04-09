@@ -9,6 +9,7 @@ import {
   logIn, 
   getLoginPage,
   getSignupPage,
+  creatorContoller,
   edit_user, 
   updateUser, 
   deleteUser, 
@@ -29,6 +30,7 @@ import { isAdmin } from "../middleware/isAdmin.js";
 import { isUser } from "../middleware/isUser.js";
 import { ensureAuthenticated } from "../middleware/isAuth.js";
 import { checkSudoMiddleware } from "../middleware/checkSudoMiddleware.js";
+import { creatorMiddleware } from "../middleware/creator.js"
 import { checkForIpAddress } from "../middleware/sudo.js";
 // import upload from "../upload/upload.js";
 
@@ -65,9 +67,7 @@ router.delete('/delete-user/:id', ensureAuthenticated, checkSudoMiddleware, dele
 router.get('/delete-user/:id', ensureAuthenticated, checkSudoMiddleware, deleteUser);
 
 // Creator
-router.get('/creator', (req, res) => {
-  res.render('creator');
-})
+router.get('/creator', creatorContoller)
 
 // Reception views
 router.get('/reception-form', ensureAuthenticated, isUser, (req, res) => { 

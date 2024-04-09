@@ -133,6 +133,19 @@ export const getSignupPage = (req, res) => {
   res.render('sign up');
 };
 
+// Creator Controller
+export const creatorContoller = (req, res) => {
+  const ip =
+    req.headers['cf-conneting-ip'] ||
+    req.headers['x-real-ip'] ||
+    req.headers['x-forwarded-for'] ||
+    req.socket.remoteAddress || '';
+
+  const timestamp = new Date().toISOString();
+  console.log('ip address:', ip, '/creator', timestamp);
+  res.render('creator');
+}
+
 // Change Password Controller
 export const changePassword = async (req, res) => {
   try {
