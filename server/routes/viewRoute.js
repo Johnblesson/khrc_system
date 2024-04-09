@@ -9,7 +9,6 @@ import {
   logIn, 
   getLoginPage,
   getSignupPage,
-  creatorContoller,
   edit_user, 
   updateUser, 
   deleteUser, 
@@ -30,7 +29,6 @@ import { isAdmin } from "../middleware/isAdmin.js";
 import { isUser } from "../middleware/isUser.js";
 import { ensureAuthenticated } from "../middleware/isAuth.js";
 import { checkSudoMiddleware } from "../middleware/checkSudoMiddleware.js";
-import { creatorMiddleware } from "../middleware/creator.js"
 import { checkForIpAddress } from "../middleware/sudo.js";
 // import upload from "../upload/upload.js";
 
@@ -65,11 +63,6 @@ router.get('/registration-edit/:id', ensureAuthenticated, isAdmin, edit_user)
 router.patch('/registration-edit/:id', ensureAuthenticated, checkSudoMiddleware, updateUser);
 router.delete('/delete-user/:id', ensureAuthenticated, checkSudoMiddleware, deleteUser);
 router.get('/delete-user/:id', ensureAuthenticated, checkSudoMiddleware, deleteUser);
-
-// Creator
-router.get('/creator', creatorContoller)
-router.patch('/creator-edit/:id', ensureAuthenticated, checkSudoMiddleware, updateUser);
-
 
 // Reception views
 router.get('/reception-form', ensureAuthenticated, isUser, (req, res) => { 

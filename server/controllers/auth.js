@@ -269,28 +269,6 @@ export const edit_user = async (req, res) => {
   }
 };
 
-// Creator Controller # Creator's Update Page
-export const creatorContoller = async(req, res) => {
-  try {
-    const users = await User.findOne({ _id: req.params.id });
-
-    const user = req.isAuthenticated() ? req.user : null;
-
-    const locals = {
-      title: "KHRC",
-      description: "Kambia Health Research Center KHRC System",
-    };
-
-    res.render("creator", {
-      locals,
-      users,
-      user,
-    });
-  } catch (error) {
-    console.log(error);
-  }
-}
-
 // Update user data #Sudo Admin
 export const updateUser = async (req, res) => {
   try {
