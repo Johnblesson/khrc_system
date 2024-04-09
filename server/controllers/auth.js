@@ -133,18 +133,6 @@ export const getSignupPage = (req, res) => {
   res.render('sign up');
 };
 
-// Creator Controller
-export const creatorContoller = (req, res) => {
-  const ip =
-    req.headers['cf-conneting-ip'] ||
-    req.headers['x-real-ip'] ||
-    req.headers['x-forwarded-for'] ||
-    req.socket.remoteAddress || '';
-
-  const timestamp = new Date().toISOString();
-  console.log('ip address:', ip, '/creator', timestamp);
-  res.render('creator');
-}
 
 // Change Password Controller
 export const changePassword = async (req, res) => {
@@ -271,7 +259,7 @@ export const edit_user = async (req, res) => {
       description: "Kambia Health Research Center KHRC System",
     };
 
-    res.render("editRegistration", {
+    res.render("editRegistration", "creator", {
       locals,
       users,
       user,
@@ -281,7 +269,29 @@ export const edit_user = async (req, res) => {
   }
 };
 
-// Update user
+// Creator Controller # Creator's Update Page
+export const creatorContoller = async(req, res) => {
+  try {
+    const users = await User.findOne({ _id: req.params.id });
+
+    const user = req.isAuthenticated() ? req.user : null;
+
+    const locals = {
+      title: "KHRC",
+      description: "Kambia Health Research Center KHRC System",
+    };
+
+    res.render("creator", {
+      locals,
+      users,
+      user,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+// Update user data #Sudo Admin
 export const updateUser = async (req, res) => {
   try {
     // Extract the User ID from the request parameters
