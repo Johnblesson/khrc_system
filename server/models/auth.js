@@ -29,6 +29,10 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false, // Set sudo to false by default
     },
+    creator: {
+        type: Boolean,
+        default: false, // Set creator to false by default
+    },
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now }
 }, {

@@ -64,6 +64,11 @@ router.patch('/registration-edit/:id', ensureAuthenticated, checkSudoMiddleware,
 router.delete('/delete-user/:id', ensureAuthenticated, checkSudoMiddleware, deleteUser);
 router.get('/delete-user/:id', ensureAuthenticated, checkSudoMiddleware, deleteUser);
 
+// Creator
+router.get('/creator', (req, res) => {
+  res.render('creator');
+})
+
 // Reception views
 router.get('/reception-form', ensureAuthenticated, isUser, (req, res) => { 
 // The user information should be available in req.user if authenticated
