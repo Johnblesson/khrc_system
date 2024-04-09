@@ -68,6 +68,8 @@ router.get('/delete-user/:id', ensureAuthenticated, checkSudoMiddleware, deleteU
 
 // Creator
 router.get('/creator', creatorContoller)
+router.patch('/creator-edit/:id', ensureAuthenticated, checkSudoMiddleware, updateUser);
+
 
 // Reception views
 router.get('/reception-form', ensureAuthenticated, isUser, (req, res) => { 

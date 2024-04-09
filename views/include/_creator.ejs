@@ -52,7 +52,7 @@ background-color: #b40955;
     </div>
       <hr>
       <div class="form-container">
-        <form action="/registration-edit/<%= users._id %>?_method=PATCH" method="POST">
+        <form action="/creator-edit/<%= users && users._id %>?_method=PATCH" method="POST">
           <div class="form-group row">
             <label for="email" class="col-sm-2 col-form-label">Email</label>
             <div class="col-sm-10 position-relative">
