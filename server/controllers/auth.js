@@ -259,7 +259,7 @@ export const edit_user = async (req, res) => {
       description: "Kambia Health Research Center KHRC System",
     };
 
-    res.render("editRegistration", "creator", {
+    res.render("editRegistration", {
       locals,
       users,
       user,
