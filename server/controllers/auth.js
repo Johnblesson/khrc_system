@@ -61,7 +61,7 @@ import passport from '../passport/passport-config.js';
     }
   };
 
-// Login Controller
+  // Login Controller
 export const logIn = (req, res, next) => {
   passport.authenticate('local', async (err, user, info) => {
     try {
@@ -106,6 +106,7 @@ export const logIn = (req, res, next) => {
     }
   })(req, res, next);
 };
+
 
 // Get Login Page Controller
 export const getLoginPage = (req, res) => {
