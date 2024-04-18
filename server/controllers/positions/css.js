@@ -1,63 +1,26 @@
-// import cssPosition from '../../models/position/css.js';
-
-// // Function to update the current row and column values in the database
-// export const updatePosition = async (row, column) => {
-//     try {
-//       await cssPosition.findOneAndUpdate({}, { currentRow: row, currentColumn: column }, { upsert: true });
-//     } catch (error) {
-//       console.error('Error updating position:', error);
-//     }
-//   };
-  
-//   // Function to retrieve the current row and column values from the database
-//   export const getCurrentPosition = async () => {
-//     try {
-//       const position = await cssPosition.findOne({});
-//       if (position) {
-//         return { currentRow: position.currentRow, currentColumn: position.currentColumn };
-//       } else {
-//         return { currentRow: 'A', currentColumn: 1 };
-//       }
-//     } catch (error) {
-//       console.error('Error getting current position:', error);
-//       return { currentRow: 'A', currentColumn: 1 };
-//     }
-//   };
-
 import cssPosition from '../../models/position/css.js';
 
 // Function to update the current row and column values in the database
 export const updatePosition = async (row, column) => {
-  try {
-    await cssPosition.findOneAndUpdate({}, { currentRow: row, currentColumn: column }, { upsert: true });
-  } catch (error) {
-    console.error('Error updating position:', error);
-  }
-};
-
-// Function to retrieve the current row and column values from the database
-export const getCurrentPosition = async () => {
-  try {
-    const position = await cssPosition.findOne({});
-    if (position) {
-      let { currentRow, currentColumn } = position;
-
-      // Check if it's time to move to the next box
-      if (currentRow === 'I' && currentColumn === 9) {
-        // Move to the next box (You can define your logic here)
-        // For example, moving to the next row
-        currentRow = 'A';
-        currentColumn = 1;
-        // Update the new position in the database
-        await updatePosition(currentRow, currentColumn);
+    try {
+      await cssPosition.findOneAndUpdate({}, { currentRow: row, currentColumn: column }, { upsert: true });
+    } catch (error) {
+      console.error('Error updating position:', error);
+    }
+  };
+  
+  // Function to retrieve the current row and column values from the database
+  export const getCurrentPosition = async () => {
+    try {
+      const position = await cssPosition.findOne({});
+      if (position) {
+        return { currentRow: position.currentRow, currentColumn: position.currentColumn };
+      } else {
+        return { currentRow: 'A', currentColumn: 1 };
       }
-
-      return { currentRow, currentColumn };
-    } else {
+    } catch (error) {
+      console.error('Error getting current position:', error);
       return { currentRow: 'A', currentColumn: 1 };
     }
-  } catch (error) {
-    console.error('Error getting current position:', error);
-    return { currentRow: 'A', currentColumn: 1 };
-  }
-};
+  };
+
