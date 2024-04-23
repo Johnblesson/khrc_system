@@ -6,7 +6,8 @@ import {
     getAllContactForms,
     messagesRoute,
     messageView,
-    deleteMessage
+    deleteMessage,
+    getNewMessageCount
     } from "../controllers/contactController.js";
   
 import { ensureAuthenticated } from "../middleware/isAuth.js"; 
@@ -19,6 +20,7 @@ router.post('/contact', ensureAuthenticated, createMessage);
 router.get('/message', ensureAuthenticated, isAdmin, messagesRoute);
 router.get('/get-all-contact', ensureAuthenticated, isAdmin, getAllContactForms);
 router.get('/view-message/:id', ensureAuthenticated, isAdmin, messageView)
+// router.get('/new-message-count', getNewMessageCount);
 
 router.delete('/delete-message/:id',  ensureAuthenticated, isAdmin, checkSudoMiddleware, deleteMessage);
 router.get('/delete-message/:id',  ensureAuthenticated, isAdmin, deleteMessage);

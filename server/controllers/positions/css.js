@@ -23,4 +23,3 @@ export const updatePosition = async (row, column) => {
       return { currentRow: 'A', currentColumn: 1 };
     }
   };
-

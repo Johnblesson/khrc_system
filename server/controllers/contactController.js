@@ -36,6 +36,17 @@ export const createMessage = async (req, res) => {
     }
 }
 
+
+// Route to get the number of new messages
+export const getNewMessageCount = async (req, res) => {
+  try {
+      const newMessageCount = await Contact.countDocuments({ isNew: true });
+      res.json({ newMessageCount });
+  } catch (err) {
+      res.status(500).json({ message: err.message });
+  }
+};
+
 // Get one contact form by ID
 export const messagesRoute = async (req, res) => {
 
