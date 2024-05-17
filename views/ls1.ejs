@@ -34,6 +34,7 @@
           <div class="col-sm-4 position-relative">
             <select name="sampleId" class="form-control" id="sampleIDInput">
               <% sampleIds.forEach(sampleId => { %>
+              <option value="" disabled selected hidden>Select Sample ID</option>
                 <option value="<%= sampleId %>"><%= sampleId %></option>
               <% }); %>
             </select>
@@ -42,6 +43,7 @@
             <label for="visitNameInput" class="col-sm-2 col-form-label">Visit Name:</label>
               <div class="col-sm-4 position-relative">
                   <select id="sampleType" class="form-control" name="visitName" required>
+                    <option value="" disabled selected hidden>Select Visit Name</option>
                       <option value="m0">M0</option>
                       <option value="m6">M6</option>
                       <option value="m12">M12</option>
@@ -55,6 +57,7 @@
             <label for="sampleType" class="col-sm-2 col-form-label">Sample Type:</label>
             <div class="col-sm-4 position-relative">
                 <select id="sampleType" class="form-control" name="sampleType">
+                    <option value="" disabled selected hidden>Select Sample Type</option>
                     <option value="Urine">Urine</option>
                     <option value="Scvs">SCVS</option>
                 </select>
@@ -63,7 +66,7 @@
             <label for="roomNumber" class="col-sm-2 col-form-label">Room Number:</label>
             <div class="col-sm-4 position-relative">
                 <select id="roomNumber" class="form-control" name="roomNumber">
-                    <option value="No room number selected">Select a room</option>
+                   <option value="" disabled selected hidden>Select Room Number</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
                 </select>
@@ -79,7 +82,7 @@
     
             <label for="boxNumber" class="col-sm-2 col-form-label">Box Number:</label>
             <div class="col-sm-4 position-relative">
-                <input type="text" name="boxNumber" class="form-control" id="boxNumber" readonly>
+                <input type="text" name="boxNumber" class="form-control" id="boxNumber" placeholder="Box Number (auto)"  readonly>
             </div>
         </div>
   

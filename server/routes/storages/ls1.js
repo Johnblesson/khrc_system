@@ -18,7 +18,7 @@ import {
     // import { superAdminOnly } from "../../middleware/sudo.js";
     import { isAdmin } from "../../middleware/isAdmin.js";
     // import { checkIpAccess } from "../../middleware/checkip.js";
-    import { checkSudoMiddleware } from "../../middleware/checkSudoMiddleware.js";
+    // import { checkSudoMiddleware } from "../../middleware/checkSudoMiddleware.js";
 
 
 router.post('/ls1-storage', ensureAuthenticated, isAdmin, createStorage);
@@ -27,7 +27,7 @@ router.get('/view-ls1', ensureAuthenticated, isAdmin, getStorage);
 router.get('/view-ls1/:id', ensureAuthenticated, isAdmin, ls1View);
 router.get('/all-ls11', ensureAuthenticated, isAdmin, getAll_ls11);
 // router.put('/ls1-storage/:id', ensureAuthenticated, isAdmin, updateStorage);
-router.delete('/delete-ls11/:id', ensureAuthenticated, isAdmin, checkSudoMiddleware, deleteStorage);
+router.delete('/delete-ls11/:id', ensureAuthenticated, isAdmin, deleteStorage);
 router.get('/delete-ls11/:id', ensureAuthenticated, isAdmin, deleteStorage);
 router.get('/edit_ls11/:id', ensureAuthenticated, isAdmin, edit);
 router.patch('/edit_ls11/:id', ensureAuthenticated, isAdmin, updateStorage1);

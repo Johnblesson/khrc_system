@@ -32,7 +32,8 @@
             <div class="col-sm-4 position-relative">
               <select name="sampleId" class="form-control" id="sampleIDInput">
                 <% sampleIds.forEach(sampleId => { %>
-                  <option value="<%= sampleId %>"><%= sampleId %></option>
+                <option value="" disabled selected hidden>Select Sample ID</option>
+                <option value="<%= sampleId %>"><%= sampleId %></option>
                 <% }); %>
               </select>
             </div>
@@ -74,7 +75,7 @@
     
             <label for="boxNumber" class="col-sm-2 col-form-label">Box Number:</label>
             <div class="col-sm-4 position-relative">
-                <input type="text" name="boxNumber" class="form-control" id="boxNumber" readonly>
+                <input type="text" name="boxNumber" class="form-control" id="boxNumber" placeholder="Box Number (auto)"  readonly>
             </div>
         </div>
   
