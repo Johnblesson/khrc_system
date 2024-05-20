@@ -214,10 +214,10 @@
                 </select>
             </div>
 
-            <label for="visitDateInput" class="col-sm-2 col-form-label">Visit Date:</label>
+            <!-- <label for="visitDateInput" class="col-sm-2 col-form-label">Visit Date:</label>
             <div class="col-sm-4 position-relative">
-                <input type="date" name="visitDate" class="form-control" id="visitDateInput" value="<%= storage.visitDate %>">
-            </div>
+                <input type="date" name="visitDate" class="form-control" id="visitDateInput" value="">
+            </div> -->
         </div>
 
         <div class="form-group row">
@@ -246,7 +246,7 @@
             <label for="rejectionReason" class="col-sm-2 col-form-label">Reason for Rejection:</label>
             <div class="col-sm-4 position-relative">
                 <select id="rejectionReason" class="form-control" name="rejectionReason" value="<%= storage.rejectionReason %>">
-                    <option value="Null">Null</option>
+                    <option value="" disabled selected hidden>Select Reason for Rejection</option>
                     <option value="insufficientSample">Insufficient Sample</option>
                     <option value="urineLessThan5ML">Urine Sample Less Than 5ML</option>
                     <option value="leakage">Leakage</option>
@@ -264,10 +264,10 @@
                 <input type="text" name="ageAtVisit" class="form-control" id="ageAtVisitInput" placeholder="Age at Visit" value="<%= storage.ageAtVisit %>">
             </div>
 
-            <label for="dateSampleCollectionInput" class="col-sm-2 col-form-label">Date of Sample Collection:</label>
+            <!-- <label for="dateSampleCollectionInput" class="col-sm-2 col-form-label">Date of Sample Collection:</label>
             <div class="col-sm-4 position-relative">
                 <input type="date" name="dateSampleCollection" class="form-control" id="dateSampleCollectionInput">
-            </div>
+            </div> -->
         </div>
 
         <div class="form-group row">
@@ -276,10 +276,10 @@
                 <input type="time" name="timeOfSampleCollection" class="form-control" id="timeOfSampleCollectionInput" placeholder="Time of Sample Collection" value="<%= storage.timeOfSampleCollection %>">
             </div>
 
-            <label for="dateOfSampleReceiptInput" class="col-sm-2 col-form-label">Date of Sample Receipt:</label>
+            <!-- <label for="dateOfSampleReceiptInput" class="col-sm-2 col-form-label">Date of Sample Receipt:</label>
             <div class="col-sm-4 position-relative">
-                <input type="date" name="dateOfSampleReceipt" class="form-control" id="dateOfSampleReceiptInput" value="<%= storage.dateOfSampleReceipt %>">
-            </div>
+                <input type="date" name="dateOfSampleReceipt" class="form-control" id="dateOfSampleReceiptInput" value="">
+            </div> -->
         </div>
 
         <div class="form-group row">
