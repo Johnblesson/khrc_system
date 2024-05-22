@@ -5,265 +5,107 @@ import dotenv from 'dotenv';
 import { getCurrentPosition, updatePosition } from '../positions/ls12.js';
 dotenv.config();
 
-// Function to calculate compartment, rage, and tray based on current position
-// const calculateCompartmentRageTray = (currentPosition) => {
-//   const compartmentsPerFreezer = 4;
-//   const ragesPerCompartment = 5;
-//   const traysPerRage = 4;
-//   const boxesPerTray = 4;
-
-//   const totalCompartments = compartmentsPerFreezer;
-//   const totalRages = compartmentsPerFreezer * ragesPerCompartment;
-//   const totalTrays = totalRages * traysPerRage;
-//   const totalBoxes = totalTrays * boxesPerTray;
-
-//   const currentPositionIndex = (currentPosition.currentRow.charCodeAt(0) - 'A'.charCodeAt(0)) * 9 + currentPosition.currentColumn - 1;
-
-//   const compartment = Math.floor(currentPositionIndex / totalBoxes) + 1;
-//   const remainingPositions = currentPositionIndex % totalBoxes;
-//   const rage = Math.floor(remainingPositions / (traysPerRage * boxesPerTray)) + 1;
-//   const remainingPositionsInRage = remainingPositions % (traysPerRage * boxesPerTray);
-//   const tray = Math.floor(remainingPositionsInRage / boxesPerTray) + 1;
-
-//   return { compartment, rage, tray };
-// };
-
-// // Function to increment compartment count
-// const incrementCompartmentCount = async () => {
-//   // Implement logic here to handle compartment count incrementation
-// };
-
-// // Function to check if the current box is full
-// const isCurrentBoxFull = async (currentPosition) => {
-//   return currentPosition.currentRow === 'I' && currentPosition.currentColumn === 9;
-// };
-
-// // Create storage function
-// export const createStorage = async (req, res) => {
-//   try {
-//       // Check if the sampleId already exists in the database
-//       const existingStorage = await LS1_2ND.findOne({ sampleId: req.body.sampleId });
-//       if (existingStorage) {
-//           return res.status(400).json({ message: 'SampleId already exists' });
-//       }
-
-//       // Retrieve the current position from the database
-//       let currentPosition = await getCurrentPosition();
-
-//       // Update the current row and column values in the database
-//       await updatePosition(currentPosition.currentRow, currentPosition.currentColumn);
-
-//       // Calculate compartment, rage, and tray based on current position
-//       const { compartment, rage, tray } = calculateCompartmentRageTray(currentPosition);
-
-//       // Check if the current box is full
-//       const isBoxFull = await isCurrentBoxFull(currentPosition);
-
-//       // Increment boxNumber for the current box
-//       let boxNumber = 1;
-
-//       if (isBoxFull) {
-//           // If box is full, increment boxNumber
-//           boxNumber++;
-//           if (boxNumber > 4) {
-//               // If all boxes in tray are filled, increment compartment count
-//               await incrementCompartmentCount();
-//           }
-//       }
-
-//        // Append 'A' to the sampleId
-//        const sampleIdWithA = req.body.sampleId + 'A';
-//        const sampleIdWithB = req.body.sampleId + 'B';
-
-//       // Create new LS1_2ND storage entry
-//       const newStorage = new LS1_2ND({
-//           sampleId: req.body.sampleId,
-//           visitName: req.body.visitName,
-//           sampleType: req.body.sampleType,
-//           roomNumber: req.body.roomNumber,
-//           freezerNumber: req.body.freezerNumber,
-//           tray,
-//           boxNumber,
-//           row: currentPosition.currentRow,
-//           column: currentPosition.currentColumn,
-//           compartment,
-//           rage,
-//           urinePalletA: sampleIdWithA,
-//           urinePalletB: sampleIdWithB,
-//           dnaExtration: req.body.dnaExtration,
-//           comments: req.body.comments,
-//           dateOfEntry: req.body.dateOfEntry,
-//           entryDoneBy: req.body.entryDoneBy,
-//       });
-
-//       // Save new storage entry
-//       const savedStorage = await newStorage.save();
-
-//       // Redirect to success page after storing data
-//       res.status(201).render('storage-success/ls12');
-//       console.log(savedStorage);
-//   } catch (error) {
-//       console.error(error);
-//       return res.status(500).json({ message: error.message });
-//   }
-// };
-
-
-// Function to calculate compartment, rage, and tray based on current position
-const calculateCompartmentRageTray = (currentPosition) => {
-  const compartmentsPerFreezer = 4;
-  const ragesPerCompartment = 5;
-  const traysPerRage = 4;
-  const boxesPerTray = 4;
-
-  const totalCompartments = compartmentsPerFreezer;
-  const totalRages = compartmentsPerFreezer * ragesPerCompartment;
-  const totalTrays = totalRages * traysPerRage;
-  const totalBoxes = totalTrays * boxesPerTray;
-
-  const currentPositionIndex = (currentPosition.currentRow.charCodeAt(0) - 'A'.charCodeAt(0)) * 9 + currentPosition.currentColumn - 1;
-
-  const compartment = Math.floor(currentPositionIndex / totalBoxes) + 1;
-  const remainingPositions = currentPositionIndex % totalBoxes;
-  const rage = Math.floor(remainingPositions / (traysPerRage * boxesPerTray)) + 1;
-  const remainingPositionsInRage = remainingPositions % (traysPerRage * boxesPerTray);
-  const tray = Math.floor(remainingPositionsInRage / boxesPerTray) + 1;
-
-  return { compartment, rage, tray };
-};
-
-// Global variables to track the current rage number, compartment completion, and consecutive requests
-let currentRageNumber = 1;
-let compartmentCompleted = false;
-let consecutiveRequests = 0;
-
-// Function to handle incrementing the rage count and checking compartment completion
-const incrementRageCount = async () => {
-    currentRageNumber++;
-    if (currentRageNumber > 5) {
-        currentRageNumber = 1;
-        compartmentCompleted = true;
-    }
-};
-
-// Function to check if the current tray is full
-const isCurrentTrayFull = async () => {
-    return boxNumber === 4;
-};
-
-// Function to handle incrementing the compartment count
-const incrementCompartmentCount = async () => {
-    compartmentCompleted = false;
-    // Implement logic here to handle compartment count incrementation
-    // Increment compartment count if all rages in the compartment are filled
-};
-
-// Function to check if the current box is full
-const isCurrentBoxFull = async (currentPosition) => {
-    return currentPosition.currentRow === 'I' && currentPosition.currentColumn === 9;
+// Function to calculate compartment, rack, and tray based on current position
+const calculateCompartmentRageTray = (slots) => {
+  let boxCount = parseInt((slots - 1) / 81) + 1;
+  let boxNumber = (boxCount % 4) === 0 ? 4 : boxCount % 4;
+  
+  let trayCount = parseInt((boxCount - 1) / 4) + 1;
+  let tray = (trayCount % 4) === 0 ? 4 : trayCount % 4;
+  
+  let rackCount = parseInt((trayCount - 1) / 4) + 1;
+  let rack = (rackCount % 4) === 0 ? 4 : rackCount % 4;
+  
+  let compartmentCount = parseInt((rackCount - 1) / 5) + 1;
+  let compartment = (compartmentCount % 5) === 0 ? 5 : compartmentCount % 5;
+  return { compartment, rack, tray, boxNumber };
 };
 
 // Create storage function
 export const createStorage = async (req, res) => {
+  try {
+     // Check if the sampleId already exists in the database
+     const existingStorage = await LS1_2ND.findOne({ sampleId: req.body.sampleId });
+     if (existingStorage) {
+       return res.status(400).json({ message: 'SampleId already exists' });
+     }
+
+    // Retrieve the current position from the database
+    const currentPosition = await getCurrentPosition();
+
+    let slotNumber;
+
     try {
-        // Check if the sampleId already exists in the database
-        const existingStorage = await LS1_2ND.findOne({ sampleId: req.body.sampleId });
-        if (existingStorage) {
-            return res.status(400).json({ message: 'SampleId already exists' });
+      const count = await LS1_2ND.countDocuments({});
+      console.log('Total count:', count);
+      if(count > 0) {
+        try {
+          const lastDocument = await LS1_2ND.findOne().sort({ createdAt: -1 }).limit(1);
+          slotNumber = lastDocument.slotNumber;
+        } catch (err) {
+          console.error(err);
         }
-
-        // Retrieve the current position from the database
-        let currentPosition = await getCurrentPosition();
-
-        // Update the current row and column values in the database
-        await updatePosition(currentPosition.currentRow, currentPosition.currentColumn);
-
-        // Calculate compartment, rage, and tray based on current position
-        const { compartment, rage, tray } = calculateCompartmentRageTray(currentPosition);
-
-        // Append 'A' & 'B' to the sampleId for the urinePallet 
-        const sampleIdWithA = req.body.sampleId + 'A';
-        const sampleIdWithB = req.body.sampleId + 'B';
-
-        // Check if the current box is full
-        const isBoxFull = await isCurrentBoxFull(currentPosition);
-
-        // Increment boxNumber for the current box
-        let boxNumber = 1;
-
-        if (isBoxFull) {
-            // If box is full, increment boxNumber
-            boxNumber++;
-            if (boxNumber > 4) {
-                // If all boxes in tray are filled, increment tray count
-                await incrementTrayCount();
-                if (await isCurrentTrayFull()) {
-                    // If current tray is full, reset boxNumber and increment compartment count
-                    boxNumber = 1;
-                    await incrementCompartmentCount();
-                }
-            }
-        }
-
-        // Create new LS1_2ND storage entry
-        const newStorage = new LS1_2ND({
-            sampleId: req.body.sampleId,
-            visitName: req.body.visitName,
-            sampleType: req.body.sampleType,
-            roomNumber: req.body.roomNumber,
-            freezerNumber: req.body.freezerNumber,
-            tray: currentRageNumber, // Changed to currentRageNumber
-            boxNumber,
-            row: currentPosition.currentRow,
-            column: currentPosition.currentColumn,
-            compartment,
-            rage,
-            urinePalletA: sampleIdWithA,
-            urinePalletB: sampleIdWithB,
-            dnaExtration: req.body.dnaExtration,
-            comments: req.body.comments,
-            dateOfEntry: req.body.dateOfEntry,
-            entryDoneBy: req.body.entryDoneBy,
-        });
-
-        // Save new storage entry
-        const savedStorage = await newStorage.save();
-
-        // Move to the next row and column
-        if (currentPosition.currentColumn === 9) {
-            currentPosition.currentRow = String.fromCharCode(currentPosition.currentRow.charCodeAt(0) + 1); // Move to the next row
-            currentPosition.currentColumn = 1; // Reset column to 1
-        } else {
-            currentPosition.currentColumn++; // Move to the next column
-        }
-
-        // Update the current row and column values in the database
-        await updatePosition(currentPosition.currentRow, currentPosition.currentColumn);
-
-        // Increment consecutive requests count
-        consecutiveRequests++;
-
-        // Check if compartment is completed
-        if (compartmentCompleted) {
-            await incrementCompartmentCount();
-        }
-
-        // Check if 81 consecutive requests have been made
-        if (consecutiveRequests === 81) {
-            // Reset consecutiveRequests count
-            consecutiveRequests = 0;
-            // Increment tray count
-            await incrementRageCount();
-        }
-
-        // Redirect to success page after storing data
-        res.status(201).render('storage-success/ls12');
-        console.log(savedStorage);
-    } catch (error) {
-        console.error(error);
-        return res.status(500).json({ message: error.message });
+      } else {
+        slotNumber = 0;
+      }
+    } catch (err) {
+      console.error(err);
     }
-};
+
+    slotNumber++;
+    // Calculate compartment, rack, and tray based on current position
+    const { compartment, rack, tray, boxNumber } = calculateCompartmentRageTray(slotNumber);
+
+    // Append 'A' to the sampleId
+    const sampleIdWithA = req.body.sampleId + 'A';
+    const sampleIdWithB = req.body.sampleId + 'B';
+
+    const newStorage = new LS1_2ND({
+      sampleId: req.body.sampleId,
+      visitName: req.body.visitName,
+      sampleType: req.body.sampleType,
+      roomNumber: req.body.roomNumber,
+      freezerNumber: req.body.freezerNumber,
+      boxNumber,
+      row: currentPosition.currentRow,
+      column: currentPosition.currentColumn,
+      compartment,  
+      rack,
+      tray,
+      urinePalletA: sampleIdWithA,
+      urinePalletB: sampleIdWithB,
+      dnaExtration: req.body.dnaExtration,
+      comments: req.body.comments,
+      dateOfEntry: req.body.dateOfEntry,
+      entryDoneBy: req.body.entryDoneBy,
+      slotNumber
+    });
+
+    const savedStorage = await newStorage.save();
+
+    // Move to the next row and column
+    if (currentPosition.currentColumn === 9) {
+        if(currentPosition.currentRow === 'I') {
+            currentPosition.currentRow = 'A';
+        } else {
+            currentPosition.currentRow = String.fromCharCode(currentPosition.currentRow.charCodeAt(0) + 1); // Move to the next row
+        }
+        currentPosition.currentColumn = 1; // Reset column to 1
+    } else {
+        currentPosition.currentColumn++; // Move to the next column
+    }
+
+    // Update the current row and column values in the database
+    await updatePosition(currentPosition.currentRow, currentPosition.currentColumn);
+
+    // Send the row and column information in the response
+    // res.status(201).json({ message: "Storage created successfully", savedStorage, markedBox: { row: currentRow, column: currentColumn } });
+    res.status(201).render('storage-success/ls12');
+    console.log(savedStorage);
+  } catch (error) {
+    return res.status(500).json({ message: error });
+  }
+}
 
 // Get LS1_2ND
 export const getStorage = async (req, res) => {
@@ -386,7 +228,7 @@ export const ls1_2_View = async (req, res) => {
 
   export const ls1_2Table = async (req, res) => {
     try {
-      // Find all documents in the CSS collection
+      // Find all documents in the LS1_2ND collection
       const storage = await LS1_2ND.find();
   
       // Extract sampleIds from the storage documents

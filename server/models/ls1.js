@@ -12,7 +12,7 @@ const sampleReceiptSchema = new Schema({
   row: String,
   column: String,
   compartment: String,
-  rage: String,
+  rack: String,
   tray: String,
   urinePalletA: String,
   urinePalletB: String,
@@ -20,6 +20,7 @@ const sampleReceiptSchema = new Schema({
   comments: String,
   dateOfEntry: Date,
   entryDoneBy: String,
+  slotNumber : Number
 }, {
   timestamps: true,
 });
