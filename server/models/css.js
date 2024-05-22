@@ -82,7 +82,7 @@ const sampleReceiptSchema = new Schema({
     urinePalletA: { type: String, required: true },
     urinePalletB: { type: String, required: true },
     dnaExtration: { type: String, required: true },
-    comments: { type: String, required: true },
+    comments: { type: String, default: 'No comments' },
     dateOfEntry: { type: Date, default: Date.now },
     entryDoneBy: { type: String, required: true },
     slotNumber: {
