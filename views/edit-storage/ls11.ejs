@@ -231,7 +231,7 @@ font-weight: bold; /* Highlight the active page */
     
     <label for="row" class="col-sm-2 col-form-label">Row:</label>
         <div class="col-sm-4 position-relative">
-            <input type="text" name="row" class="form-control" id="row" placeholder="Row" value="<%= storage && storage.row ? storage.row : '' %>">
+            <input type="text" name="row" class="form-control" id="row" value="<%= storage && storage.row ? storage.row : '' %>">
         </div>
    
 </div>
@@ -239,19 +239,19 @@ font-weight: bold; /* Highlight the active page */
       <div class="form-group row">
         <label for="column" class="col-sm-2 col-form-label">Column:</label>
         <div class="col-sm-4 position-relative">
-            <input type="text" name="column" class="form-control" id="column" placeholder="Column" value="<%= storage && storage.column ? storage.column : '' %>">
+            <input type="text" name="column" class="form-control" id="column" value="<%= storage && storage.column ? storage.column : '' %>">
         </div>
   
             <label for="compartment" class="col-sm-2 col-form-label">Compartment:</label>
               <div class="col-sm-4 position-relative">
-                  <input type="text" name="compartment" class="form-control" id="Input" placeholder="Compartment" value="<%= storage.compartment %>" required>
+                  <input type="text" name="compartment" class="form-control" id="Input" value="<%= storage.compartment %>" required>
               </div>
           </div>
   
           <div class="form-group row">
-              <label for="rage" class="col-sm-2 col-form-label">Rage:</label>
+              <label for="rack" class="col-sm-2 col-form-label">Rack:</label>
               <div class="col-sm-4 position-relative">
-                  <input type="text" name="rage" class="form-control" id="rage" placeholder="Rage" value="<%= storage && storage.rage ? storage.rage : '' %>">
+                  <input type="text" name="rack" class="form-control" id="rack" value="<%= storage && storage.rack ? storage.rack : '' %>">
               </div>
             
             <label for="urinePalletA" class="col-sm-2 col-form-label">Urine Pallet A:</label>
@@ -268,7 +268,7 @@ font-weight: bold; /* Highlight the active page */
               </div>
               <label for="dnaExtration" class="col-sm-2 col-form-label">DNA Extration:</label>
               <div class="col-sm-4 position-relative">
-                  <input type="text" name="dnaExtration" class="form-control" id="dnaExtration" placeholder="DNA Extration" value="<%= storage.dnaExtration %>" required>
+                  <input type="text" name="dnaExtration" class="form-control" id="dnaExtration" value="<%= storage.dnaExtration %>" required>
               </div>
           </div>
   
