@@ -207,12 +207,40 @@ export const updateStorage = (req, res)=>{
 }
 
 // Delete css data
+// export const deleteStorage = async (req, res) => {
+//   try {
+//     await LS2.deleteOne({ _id: req.params.id });
+//     res.render("success-delete/storage");
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
 export const deleteStorage = async (req, res) => {
   try {
-    await LS2.deleteOne({ _id: req.params.id });
-    res.render("success-delete/storage");
+      const deletedStorage = await LS2.findOneAndDelete({ _id: req.params.id });
+      if (deletedStorage) {
+          // Get the current position
+          const currentPosition = await getCurrentPosition();
+
+          // Decrement the current column value
+          const newColumn = currentPosition.currentColumn - 1;
+
+          // If the current column becomes 0, decrement the current row and set the column to the maximum value
+          if (newColumn === 0) {
+              const newRowCharCode = currentPosition.currentRow.charCodeAt(0) - 1;
+              const newRow = String.fromCharCode(newRowCharCode);
+              await updatePosition(newRow, MAX_COLUMN_VALUE); // Set MAX_COLUMN_VALUE to the maximum column value
+          } else {
+              await updatePosition(currentPosition.currentRow, newColumn);
+          }
+
+          res.render("success-delete/storage");
+      } else {
+          res.status(404).send("Storage not found");
+      }
   } catch (error) {
-    console.log(error);
+      console.error(error);
+      res.status(500).send("Internal Server Error");
   }
 };
 

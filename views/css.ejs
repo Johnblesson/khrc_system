@@ -153,6 +153,39 @@
 </div>
 
 <script>
+    // JavaScript code to dynamically reorder options based on user input
+    var sampleIdSelect = document.getElementById('sampleIDInput');
+
+    // Event listener to reorder options as the user types
+    document.getElementById('sampleIdInput').addEventListener('input', function() {
+        var inputValue = this.value.toLowerCase();
+        var options = Array.from(sampleIdSelect.options);
+
+        // Reorder options based on the similarity to the input value
+        options.sort(function(a, b) {
+            var aText = a.text.toLowerCase();
+            var bText = b.text.toLowerCase();
+
+            if (aText.startsWith(inputValue) && !bText.startsWith(inputValue)) {
+                return -1;
+            } else if (!aText.startsWith(inputValue) && bText.startsWith(inputValue)) {
+                return 1;
+            } else {
+                return 0;
+            }
+        });
+
+        // Remove all options from select element
+        sampleIdSelect.innerHTML = '';
+
+        // Add reordered options back to select element
+        options.forEach(function(option) {
+            sampleIdSelect.add(option);
+        });
+    });
+</script>
+
+<script>
   function toggleForm() {
       var form = document.getElementById("storageForm");
       form.style.display = (form.style.display === "none" || form.style.display === "") ? "block" : "none";
@@ -167,6 +200,7 @@
   // Set the default values on page load
   document.getElementById("dateOfEntryInput").value = getCurrentDateTime();
 </script>
+
 
 <!-- include footer -->
 <%- include('include/_footer') %>
